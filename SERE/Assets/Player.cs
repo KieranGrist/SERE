@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float Speed;
+  public  float gap;
+    public float BulletGap = 0.05f;
     public float Sensertivity;
     public GameObject Bullet;
     public float BulletMass, BulletInitialSpeed;
@@ -17,9 +19,10 @@ public class Player : MonoBehaviour
     {
         var go = Instantiate(Bullet, transform.position, transform.rotation);
         go.transform.position += transform.forward * 1.1f;
+        go.transform.position += new Vector3(0, 1, 0);
         go.AddComponent<Rigidbody>();
         var rb = go.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 10000);
+        rb.AddForce(transform.forward * InitialSpeed);
         rb.mass = Mass;
     }
     // Update is called once per frame
@@ -34,13 +37,19 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
             transform.position -= transform.right * Time.deltaTime * Speed;
 
-        transform.eulerAngles += new Vector3(Sensertivity * Input.GetAxis("Mouse X"), Sensertivity * Input.GetAxis("Mouse Y"), 0);
+        transform.eulerAngles += new Vector3(Sensertivity * Input.GetAxis("Mouse Y"), -Sensertivity * Input.GetAxis("Mouse X"), 0);
 
 
         if (Input.GetKey(KeyCode.UpArrow))
             transform.eulerAngles += new Vector3(Sensertivity , 0, 0);
-        if (Input.GetMouseButton(0)|| Input.GetKey(KeyCode.Space))
+
+        gap += Time.deltaTime;
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)) && gap >= BulletGap)
+        {
             Fire(BulletMass, BulletInitialSpeed);
+            gap = 0;
+        }
+
 
 
     }
