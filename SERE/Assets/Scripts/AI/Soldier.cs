@@ -6,7 +6,13 @@ public class Soldier : Agent
 {
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, 100);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, CombatDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, VisionDistance);
+
+
     }
     // Start is called before the first frame update
     new void Start()
@@ -24,11 +30,22 @@ public class Soldier : Agent
             PlayersLastKnownLocation = FindObjectOfType<Target>().transform.position;
         AINavAgent.SetDestination(PlayersLastKnownLocation);
 
-
+        if (Health < 0)
+        {
+            transform.position = new Vector3(0, 0, 0);
+            enabled = false;
+        }
 
         float ClosestDistance = float.MaxValue;
        GameObject target = null;
-        foreach (var item in Physics.OverlapSphere(transform.position, 100, LayerMask.GetMask("Player")))
+
+
+       if (Physics.CheckSphere(transform.position, VisionDistance))
+        AINavAgent.speed = 8;
+       else
+                    AINavAgent.speed = 5;
+        
+        foreach (var item in Physics.OverlapSphere(transform.position, CombatDistance, LayerMask.GetMask("Player")))
         {
             if (item.gameObject != gameObject)
                 if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)

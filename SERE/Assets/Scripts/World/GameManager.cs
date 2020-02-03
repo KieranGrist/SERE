@@ -11,16 +11,13 @@ public class GameManager : MonoBehaviour
     bool RestartLevel;
     [Header("Player Spawn Management")]
   public  Target player;
-    public Color PlayerGizmoColour;
     public float PlayerSpawnArea;
     public Vector3 PlayerSpawnLocation;
 
     [Header("AI Spawn Management")]
     public List<Agent> AIToManage; 
-    public Color AIGizmoColour;
     public float MiniumDistanceToPlayer;
     public float AISpawnArea;
-    public int AIAmmount;
     public Vector3 AISpawnLocation;
 
    
@@ -28,28 +25,24 @@ public class GameManager : MonoBehaviour
 
     [Header("Extraction Spawn Management")]
     public GameObject ExtractionGameObject;
-    public Color ExtractionGizmoColour;
     public float ExtractionPointSpawnArea;
     public float TimeNeededForExtraction;
     public Vector3 ExtractionLocation;
     float TimeOnExtractionPoint;
 
-    [Header("New Game Management")]
-    public List<GameObject> SpawnInObjects;
-
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = PlayerGizmoColour;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, PlayerSpawnArea);
-        Gizmos.DrawWireCube(PlayerSpawnLocation, new Vector3(10, 10, 10));
+        Gizmos.DrawWireCube(PlayerSpawnLocation, new Vector3(50, 50, 50));
 
-        Gizmos.color = AIGizmoColour;
-        Gizmos.DrawWireCube(AISpawnLocation, new Vector3(10, 10, 10));
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(AISpawnLocation, new Vector3(50, 50, 50));
         Gizmos.DrawWireSphere(transform.position, AISpawnArea);
 
-        Gizmos.color = ExtractionGizmoColour;
-        Gizmos.DrawWireCube(ExtractionLocation, new Vector3(10, 10, 10));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(ExtractionLocation, new Vector3(50, 50, 50));
         Gizmos.DrawWireSphere(transform.position, ExtractionPointSpawnArea);
     }
 
@@ -57,12 +50,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GM = this;
         RestartLevel = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ExtractionLocation = ExtractionGameObject.transform.position;
     Time.timeScale = TimeScale;
         GM = this;
         if (RestartLevel)
@@ -100,16 +95,17 @@ public class GameManager : MonoBehaviour
 
     void SpawnExtractionPoint()
     {
+        ExtractionLocation = new Vector3();
         //Generate a vector from the map to spawn the extraction location
         ExtractionLocation = GenerateRandomPoint(transform.position, ExtractionPointSpawnArea);
 
 
         //Spawn the extraction point prefab at location
-        GameObject go = Instantiate(ExtractionGameObject, ExtractionLocation, transform.rotation);
-        SpawnInObjects.Add(go);
+        ExtractionGameObject.transform.position = ExtractionLocation;
     }
     void SpawnPlayer()
     {
+        PlayerSpawnLocation = new Vector3(); 
         //Generate a vector for the player to be created at
         PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea);
 
@@ -118,22 +114,22 @@ public class GameManager : MonoBehaviour
     }
     void SpawnAI()
     {
+AISpawnLocation  = new Vector3();
         //Generate a vector for the ai to be created at
         AISpawnLocation = GenerateRandomPoint(transform.position, AISpawnArea);
 
         //Create and Spawn AI
    foreach(var item in AIToManage)
         {
+            item.transform.position = new Vector3();
+            item.enabled = true;
+            item.Health = 100;
             item.transform.position = AISpawnLocation;
         }
 
     }
     public void NewGame()
     {
-        foreach(var item in SpawnInObjects)
-        {
-            Destroy(item);
-        }
         RestartLevel = true;
     }
 }

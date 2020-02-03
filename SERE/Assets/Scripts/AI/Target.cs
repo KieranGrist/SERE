@@ -11,7 +11,11 @@ public class Target : Entity
         Target_agent = GetComponent<NavMeshAgent>();
   
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 100);
+    }
     // Update is called once per frame
     new void Update()
     {
@@ -39,6 +43,10 @@ public class Target : Entity
             }
         }
         Vector2 velocitySum = Vector2.zero;
-
+        if (Health <= 0)
+        {
+            Health = 100;
+            GameManager.GM.NewGame();
+        }
     }
 }

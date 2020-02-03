@@ -10,6 +10,8 @@ public abstract class Agent : Entity
     public Vector3 SearchLocation;
     public float SearchDistance;
     public float MaxSearchTime;
+    public float VisionDistance = 500;
+    public float CombatDistance = 100;
     float CurrentSearchTime;
     [Header("Brain Information")]
     public Vector3 PlayersLastKnownLocation;

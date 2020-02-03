@@ -43,10 +43,8 @@ public class Entity : MonoBehaviour
         {
             Health = 0;
         }
-        if (Health <= 0)
-        { 
-            Health = 100;
-        }
+  
+  
     }
     public void Respawn(Vector3 RespawnPosition)
     {

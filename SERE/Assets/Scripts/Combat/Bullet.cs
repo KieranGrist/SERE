@@ -5,9 +5,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Rigidbody b_Rigidbody;
+    public float MaxTime = 200;
+    public float LifeTime;
     // Start is called before the first frame update
     void Start()
     {
+        MaxTime = 200;
         b_Rigidbody = GetComponent<Rigidbody>();
         tag = "Bullet";
     }
@@ -18,17 +21,20 @@ public class Bullet : MonoBehaviour
             var Hit = collision.gameObject.GetComponent<Entity>();
             if (Hit)
             {
-                Hit.Health -= 20;
+                Hit.Health -= 50;
 
                 Destroy(gameObject);
             }
 
-            Destroy(gameObject);
+ 
         }
     }
     private void Update()
     {
         if (transform.position.y <= -10)
             Destroy(gameObject);
+        if (LifeTime >= MaxTime)
+            Destroy(gameObject);
+        LifeTime += Time.deltaTime;
     }
 }
