@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Soldier : Agent
 {
+    public Vector3 EndPosition;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -25,6 +26,7 @@ public class Soldier : Agent
     // Update is called once per frame
   new  void  Update()
     {
+        EndPosition = AINavAgent.pathEndPosition;
         base.Update();
         if (FindObjectOfType<Target>())
             PlayersLastKnownLocation = FindObjectOfType<Target>().transform.position;

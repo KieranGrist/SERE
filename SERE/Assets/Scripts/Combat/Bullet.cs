@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MaxTime = 200;
+        MaxTime = 30;
         b_Rigidbody = GetComponent<Rigidbody>();
         tag = "Bullet";
     }
@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
             if (Hit)
             {
                 Hit.Health -= 50;
-
+                Hit.GetComponent<Rigidbody>().velocity = new Vector3();
                 Destroy(gameObject);
             }
 

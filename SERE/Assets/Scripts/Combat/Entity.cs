@@ -52,7 +52,7 @@ public class Entity : MonoBehaviour
     }
     public void Fire(float Mass, float InitialSpeed)
     {
-
+        
         GameObject go;
         NextTracer++;
         if (NextTracer >= 2)
@@ -71,6 +71,7 @@ public class Entity : MonoBehaviour
         var rb = go.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * InitialSpeed);
         rb.mass = Mass;
+        
     }
 
 

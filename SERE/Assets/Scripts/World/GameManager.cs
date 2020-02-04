@@ -2,25 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+[System.Serializable]
+public struct DebugRand
+
+{
+    [Header("X Debug")]
+    public float Minx;
+    public float MaxX;
+    public float RandX;
+    [Header("Z Debug")]
+    public float MinZ;
+    public float MaxZ;
+    public float RandZ;
+}
+
+[System.Serializable]
 
 public class GameManager : MonoBehaviour
 {
     public float TimeScale;
-
+    public bool Reset;
     public static GameManager GM;
     bool RestartLevel;
     [Header("Player Spawn Management")]
   public  Target player;
     public float PlayerSpawnArea;
     public Vector3 PlayerSpawnLocation;
+    public GameObject PlayerSpawnLocationGO;
+    public DebugRand DebugPlayerRand;
+
 
     [Header("AI Spawn Management")]
     public List<Agent> AIToManage; 
     public float MiniumDistanceToPlayer;
     public float AISpawnArea;
+    public GameObject AISpawnLocationGO;
     public Vector3 AISpawnLocation;
+    public DebugRand DebugAIRand;
 
-   
+
 
 
     [Header("Extraction Spawn Management")]
@@ -29,21 +49,21 @@ public class GameManager : MonoBehaviour
     public float TimeNeededForExtraction;
     public Vector3 ExtractionLocation;
     float TimeOnExtractionPoint;
-
+    public DebugRand DebugExtractionRand;
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, PlayerSpawnArea);
+        Gizmos.DrawWireCube(transform.position, new Vector3(PlayerSpawnArea * 2, PlayerSpawnArea * 2, PlayerSpawnArea * 2));
         Gizmos.DrawWireCube(PlayerSpawnLocation, new Vector3(50, 50, 50));
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(AISpawnLocation, new Vector3(50, 50, 50));
-        Gizmos.DrawWireSphere(transform.position, AISpawnArea);
+        Gizmos.DrawWireCube(transform.position, new Vector3(AISpawnArea * 2, AISpawnArea * 2, AISpawnArea * 2));
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(ExtractionLocation, new Vector3(50, 50, 50));
-        Gizmos.DrawWireSphere(transform.position, ExtractionPointSpawnArea);
+        Gizmos.DrawWireCube(transform.position, new Vector3(ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2));
     }
 
 
@@ -57,17 +77,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AISpawnLocationGO.transform.position = AISpawnLocation;
+        PlayerSpawnLocationGO.transform.position = PlayerSpawnLocation;
         ExtractionLocation = ExtractionGameObject.transform.position;
     Time.timeScale = TimeScale;
         GM = this;
+        if (Reset)
+        {
+            NewGame();
+            Reset = false;
+        }
         if (RestartLevel)
         {
-     
-   
-   
-            SpawnPlayer();
 
- 
+
+
+             SpawnPlayer();
+
+
 
             SpawnAI();
 
@@ -79,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private static Vector3 GenerateRandomPoint(Vector3 Position, float Radius)
+    private static Vector3 GenerateRandomPoint(Vector3 Position, float Radius,out DebugRand debugRand)
     {
         float MINX, MAXX, MINZ, MAXZ;
         MINX = Position.x - Radius;
@@ -89,6 +116,14 @@ public class GameManager : MonoBehaviour
         float X = Random.Range(MINX, MAXX);
         float Z = Random.Range(MINZ, MAXZ);
         float Y = Terrain.activeTerrain.SampleHeight(new Vector3(X, 0, Z));
+
+        debugRand.MaxX = MAXX;
+        debugRand.Minx = MINX;
+        debugRand.MinZ = MINZ;
+        debugRand.MaxZ = MAXZ;
+        debugRand.RandX = X;
+        debugRand.RandZ = Z;
+       
         return new Vector3(X, Y, Z);
     }
 
@@ -97,31 +132,37 @@ public class GameManager : MonoBehaviour
     {
         ExtractionLocation = new Vector3();
         //Generate a vector from the map to spawn the extraction location
-        ExtractionLocation = GenerateRandomPoint(transform.position, ExtractionPointSpawnArea);
+        ExtractionLocation = GenerateRandomPoint(transform.position, ExtractionPointSpawnArea, out DebugExtractionRand);
 
 
         //Spawn the extraction point prefab at location
         ExtractionGameObject.transform.position = ExtractionLocation;
+        
     }
     void SpawnPlayer()
     {
         PlayerSpawnLocation = new Vector3(); 
         //Generate a vector for the player to be created at
-        PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea);
+        PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);
+        player.transform.position = new Vector3();
+        player.Health = 100;
+        player.Target_agent.Warp(PlayerSpawnLocation);
 
-        //Create player
-        player.transform.position = PlayerSpawnLocation;
+
     }
     void SpawnAI()
     {
 AISpawnLocation  = new Vector3();
-        //Generate a vector for the ai to be created at
-        AISpawnLocation = GenerateRandomPoint(transform.position, AISpawnArea);
 
+        //Generate a vector for the ai to be created at
+        AISpawnLocation = GenerateRandomPoint(transform.position, AISpawnArea,out DebugAIRand);
+ 
         //Create and Spawn AI
-   foreach(var item in AIToManage)
+        foreach (var item in AIToManage)
         {
+     
             item.transform.position = new Vector3();
+            item.AINavAgent.Warp(AISpawnLocation);
             item.enabled = true;
             item.Health = 100;
             item.transform.position = AISpawnLocation;
@@ -130,6 +171,10 @@ AISpawnLocation  = new Vector3();
     }
     public void NewGame()
     {
+         foreach (var bullet in FindObjectsOfType<Bullet>())
+        {
+            Destroy(bullet.gameObject);
+        }
         RestartLevel = true;
     }
 }

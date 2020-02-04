@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Target : Entity
 {
-    NavMeshAgent Target_agent;
+   public NavMeshAgent Target_agent;
+    public Vector3 EndPosition;
     new void Start()
     {
         base.Start();
@@ -21,7 +22,7 @@ public class Target : Entity
     {
         base.Update();
         Target_agent.SetDestination(GameManager.GM.ExtractionLocation);
-
+        EndPosition =  Target_agent.pathEndPosition;
         float ClosestDistance = float.MaxValue;
         GameObject target = null;
         foreach (var item in Physics.OverlapSphere(transform.position, 100, LayerMask.GetMask("Agent")))
