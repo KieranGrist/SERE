@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Radio : MonoBehaviour
+[CreateAssetMenu(fileName = "Radio", menuName = "InventoryItems/Radio", order = 1)]
+public  class Radio : InventoryItem
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Radio")]
+    public int Frequency;
+    public float RadioTransmistionDistance;
+
+    public void HearMessage()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Transmit()
     {
-        
+
     }
 }

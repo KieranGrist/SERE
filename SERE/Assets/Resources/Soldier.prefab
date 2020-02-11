@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6341764840322995499}
   - component: {fileID: 6341764840322995500}
   - component: {fileID: 6341764840322995501}
-  - component: {fileID: 6341764840322995495}
   - component: {fileID: 4684111618263847523}
   - component: {fileID: 2222111505791755382}
   m_Layer: 9
@@ -123,19 +122,12 @@ MonoBehaviour:
   MaxSearchTime: 0
   PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
   PlayersTravelingDirection: {x: 0, y: 0, z: 0}
-  AIRadio: {fileID: 6341764840322995495}
---- !u!114 &6341764840322995495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341764840322995502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a0670cb0a4f5e48ba70de2884d5d60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  VisionDistance: 500
+  CombatDistance: 100
+  HearingDistance: 150
+  SmellPower: 3
+  AIRadio: {fileID: 11400000, guid: f6a65d80bf851e344b800b67559949ce, type: 2}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!195 &4684111618263847523
 NavMeshAgent:
   m_ObjectHideFlags: 0

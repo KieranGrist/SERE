@@ -60,10 +60,7 @@ public class Soldier : Agent
         {
             transform.LookAt(target.transform);
 
-            if (gap > BulletGap)
-            {
-                Fire(BulletMass, BulletInitialSpeed);
-            }
+            CurrentWeapon.Fire(transform);
         }
         Vector2 velocitySum = Vector2.zero;
 

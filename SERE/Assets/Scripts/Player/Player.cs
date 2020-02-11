@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    new void Start()
+    {
+        base.Start();
+        CurrentWeapon.LoadPrefabs();
+    }
     new void Update()
     {
         base.Update();
@@ -21,13 +26,13 @@ public class Player : Entity
             transform.eulerAngles += new Vector3(Sensertivity, 0, 0);
 
 
-        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)) && gap >= BulletGap)
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)))
         {
-            Fire(BulletMass, BulletInitialSpeed);
-            gap = 0;
+            CurrentWeapon.Fire(transform);
         }
 
-
+        if (Input.GetKey(KeyCode.R))
+            CurrentWeapon.Reload(inventory);
 
     }
 }

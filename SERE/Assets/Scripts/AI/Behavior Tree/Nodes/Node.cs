@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-//https://hub.packtpub.com/building-your-own-basic-behavior-tree-tutorial/
+using System.Timers;
 
 public enum NodeStatus
 {
@@ -10,12 +10,12 @@ public enum NodeStatus
     SUCCESS,
     FAILURE
 }
-
 [System.Serializable]
-public abstract class Node : ScriptableObject
+
+public abstract class Node
 {
-    public BehaviourTree Bt;
-    public Node(BehaviourTree Bt)
+    public Agent Bt;
+    public Node(Agent Bt)
     {
         this.Bt = Bt;
     }
@@ -26,3 +26,5 @@ public abstract class Node : ScriptableObject
 
     }
 }
+
+

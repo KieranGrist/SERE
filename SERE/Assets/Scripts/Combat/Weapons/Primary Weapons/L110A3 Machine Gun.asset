@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee30f9e04e7031645af473b25ae42c48, type: 3}
+  m_Name: L110A3 Machine Gun
+  m_EditorClassIdentifier: 
+  Weight: 0
+  FiringSpeed: 0
+  FiringRate: 0
+  CompatableMagazines: []
+  CurrentMagazine: {fileID: 0}

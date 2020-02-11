@@ -38,10 +38,8 @@ public class Target : Entity
         {
             transform.LookAt(target.transform);
 
-            if (gap > BulletGap)
-            {
-                Fire(BulletMass, BulletInitialSpeed);
-            }
+
+            CurrentWeapon.Fire(transform);
         }
         Vector2 velocitySum = Vector2.zero;
         if (Health <= 0)
