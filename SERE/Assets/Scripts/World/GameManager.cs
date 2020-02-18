@@ -50,7 +50,11 @@ public class GameManager : MonoBehaviour
     public Vector3 ExtractionLocation;
     float TimeOnExtractionPoint;
     public DebugRand DebugExtractionRand;
-
+    public static GameObject Clone(GameObject gameObject, Transform transform)
+    {
+        GameObject GO = Instantiate(gameObject, transform.position, transform.rotation);
+        return GO;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

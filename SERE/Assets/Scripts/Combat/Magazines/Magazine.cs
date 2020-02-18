@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Magazine", menuName = "InventoryItems/Magazine", order = 1)]
+
 [System.Serializable]   
 public class Magazine : InventoryItem
 {
@@ -13,25 +13,13 @@ public class Magazine : InventoryItem
     public   float BulletDamage;
     public   float NextTracer;
 
-    [Header("Run Time ")]
-    public float RunTimeMaxCapacity;
-    public float RunTimeBulletsInMag;
-    public float RunTimeBulletWeight;
-    public float RunTimeTracergap = 3000;
-    public float RunTimeBulletDamage;
-    public float RunTimeNextTracer;
 
-    public void Start()
+    public new void Start()
     {
-         RunTimeMaxCapacity = MaxCapacity;
-     RunTimeBulletsInMag = BulletsInMag;
-RunTimeBulletWeight = BulletWeight;
-        RunTimeTracergap = Tracergap; 
-   RunTimeBulletDamage = BulletDamage;
-        RunTimeNextTracer = NextTracer;
-}
+
+    }
     public  void CalculateWeight()
     {
-      RunTimeWeight = BulletWeight * BulletsInMag;
+      Weight = BulletWeight * BulletsInMag;
     }
 }

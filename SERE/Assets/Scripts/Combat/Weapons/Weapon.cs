@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Weapon", menuName = "InventoryItems/Weapon", order = 1)]
+
 
 [System.Serializable]
 public class Weapon : InventoryItem
@@ -11,9 +11,9 @@ public class Weapon : InventoryItem
     [Header("Weapon")]
     public float FiringSpeed =5700;
     public float FiringRate;
-    public List<Magazine> CompatableMagazines;
+    public List<Magazine> CompatableMagazines = new List<Magazine>();
     public Magazine CurrentMagazine;
-    float gap;
+    public float gap;
 
     public void Reload(Inventory inventory)
     {
@@ -21,15 +21,26 @@ public class Weapon : InventoryItem
         foreach (var item in CompatableMagazines)
         {
 
-            MagToReload =  (Magazine)inventory.SearchAndReturn(item) ;
-            if (MagToReload)
+            MagToReload = (Magazine)inventory.SearchAndReturn(item);
+            if (MagToReload != null)
                 break;
-                    }
-        if (MagToReload)
+        }
+        if (CurrentMagazine.BulletsInMag <= 0)
         {
+            CurrentMagazine = null;
+            CurrentMagazine = new EmptyMag();
+        }
+
+        if (MagToReload != null)
+        {
+         
+            if (CurrentMagazine.Name != "No Magazine")
+                inventory.AddItem(CurrentMagazine);
+
             CurrentMagazine = MagToReload;
 
         }
+    
     }
     public void LoadPrefabs()
     {
@@ -39,21 +50,23 @@ public class Weapon : InventoryItem
     }
     public void Fire(Transform transform)
     {
-        if (CurrentMagazine.RunTimeBulletsInMag > 0)
+        if (CurrentMagazine.BulletsInMag > 0 && gap > FiringRate)
         {
-            CurrentMagazine.RunTimeBulletsInMag--;
+            gap = 0;
+            CurrentMagazine.BulletsInMag--;
             GameObject go;
-            CurrentMagazine.RunTimeNextTracer++;
+            CurrentMagazine.NextTracer++;
+        
             if (CurrentMagazine.NextTracer >= CurrentMagazine.Tracergap)
             {
-                CurrentMagazine.RunTimeNextTracer = 0;
-                go = Instantiate(Tracer, transform.position, transform.rotation);
+                CurrentMagazine.NextTracer = 0;
+                go = GameManager.Clone(Tracer, transform);
             }
             else
             {
-                go = Instantiate(Bullet, transform.position, transform.rotation);
+                go = GameManager.Clone(Bullet, transform);
             }
-
+            go.GetComponent<Bullet>().Damage = CurrentMagazine.BulletDamage;
             go.transform.position += transform.forward * 6.1f;
             go.transform.position += new Vector3(0, 0, 0);
             go.AddComponent<Rigidbody>();

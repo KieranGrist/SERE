@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class InventoryItem : ScriptableObject
+[System.Serializable]
+public class InventoryItem 
 {
     [Header("Item")]
-    public readonly float Weight;
+    public string Name = "Item";
+    public  float Weight;
 
-    [Header("Run Time ")]
-    public float RunTimeWeight;
 
+    public virtual void Start()
+    {
+        
+    }
+    public virtual void UseItem()
+    {
+
+    }
 }

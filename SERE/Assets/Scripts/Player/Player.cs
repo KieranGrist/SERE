@@ -4,6 +4,38 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    public Player()
+    {
+        PrimaryWeapon = new L85A2();
+        SecondaryWeapon = new Glock17();
+        CurrentWeapon = new L85A2();
+        inventory = new Inventory();
+        inventory.AddItem(CurrentWeapon);
+        inventory.AddItem(new Glock17());
+        for (int i = 0; i < 4; i++)
+
+            inventory.AddItem(new NATO30TracerMag());
+
+
+
+        for (int i = 0; i < 4; i++)
+
+            inventory.AddItem(new NATO30StandardMag());
+
+        for (int i = 0; i < 1; i++)
+
+            inventory.AddItem(new NATO30NoTracerMag());
+
+
+        for (int i = 0; i < 4; i++)
+        {
+            inventory.AddItem(new NATO17StandardMag());
+            inventory.AddItem(new NATO17TracerMag());
+        }
+
+        inventory.CalculateWeight();
+
+    }
     new void Start()
     {
         base.Start();
@@ -12,7 +44,13 @@ public class Player : Entity
     new void Update()
     {
         base.Update();
-        if (Input.GetKey(KeyCode.W))
+
+        if (Input.GetKey(KeyCode.Alpha1))
+            CurrentWeapon = PrimaryWeapon;
+        if (Input.GetKey(KeyCode.Alpha2))
+            CurrentWeapon = SecondaryWeapon;
+
+            if (Input.GetKey(KeyCode.W))
             transform.position += transform.forward * Time.deltaTime * Speed;
         if (Input.GetKey(KeyCode.D))
             transform.position += transform.right * Time.deltaTime * Speed;

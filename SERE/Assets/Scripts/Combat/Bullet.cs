@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public Rigidbody b_Rigidbody;
     public float MaxTime = 200;
+    public float Damage;
     public float LifeTime;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class Bullet : MonoBehaviour
             var Hit = collision.gameObject.GetComponent<Entity>();
             if (Hit)
             {
-                Hit.Health -= 50;
+                Hit.Health -= Damage;
                 Hit.GetComponent<Rigidbody>().velocity = new Vector3();
                 Destroy(gameObject);
             }

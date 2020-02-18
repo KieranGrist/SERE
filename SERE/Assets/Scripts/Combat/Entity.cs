@@ -14,17 +14,24 @@ public class Entity : MonoBehaviour
     public float Sensertivity = 1;
     public float Speed = 5;
     [Header("Combat")]
+    public Weapon PrimaryWeapon;
+    public Weapon SecondaryWeapon;
+    public Weapon TerriaryWeapon;
     public Weapon CurrentWeapon;
-    Weapon PreviousWeapon;
+     Weapon PreviousPrimaryWeapon;
+     Weapon PreviousSecondaryWeapon;
+     Weapon PreviousTerriaryWeapon;
     // Start is called before the first frame update
     public virtual void Start()
     {
         Health = 100;
-        foreach (var item in FindObjectsOfType<Magazine>())
+        foreach (var item in inventory.inventoryItems)
         {
             item.Start();
         }
-        CurrentWeapon.LoadPrefabs();
+        PrimaryWeapon.LoadPrefabs();
+        SecondaryWeapon.LoadPrefabs();
+        TerriaryWeapon.LoadPrefabs();
     }
 
     // Update is called once per frame
@@ -33,12 +40,24 @@ public class Entity : MonoBehaviour
         inventory.CalculateWeight();
   
         TravelingDirection = transform.forward;
-        CurrentWeapon.UpdateGap(Time.deltaTime);
-        if (CurrentWeapon != PreviousWeapon)
-        {
-            CurrentWeapon.LoadPrefabs();
-        }
-        PreviousWeapon = CurrentWeapon;
+        PrimaryWeapon.UpdateGap(Time.deltaTime);
+        SecondaryWeapon.UpdateGap(Time.deltaTime);
+        TerriaryWeapon.UpdateGap(Time.deltaTime);
+
+        if (PrimaryWeapon != PreviousPrimaryWeapon)
+            PrimaryWeapon.LoadPrefabs();     
+        PreviousPrimaryWeapon = PrimaryWeapon;
+
+        if (SecondaryWeapon != PreviousSecondaryWeapon)
+            SecondaryWeapon.LoadPrefabs();
+        PreviousSecondaryWeapon = SecondaryWeapon;
+
+        if (TerriaryWeapon != PreviousTerriaryWeapon)
+            TerriaryWeapon.LoadPrefabs();
+        PreviousTerriaryWeapon = TerriaryWeapon;
+
+
+
         if (transform.position.y < -1)
         {
             Health = 0;

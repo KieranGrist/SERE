@@ -60,7 +60,7 @@ public class Soldier : Agent
         {
             transform.LookAt(target.transform);
 
-            CurrentWeapon.Fire(transform);
+            PrimaryWeapon.Fire(transform);
         }
         Vector2 velocitySum = Vector2.zero;
 

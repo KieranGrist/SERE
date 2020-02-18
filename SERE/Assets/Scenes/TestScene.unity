@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 548096978}
   - component: {fileID: 548096977}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,21 +413,202 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory:
     inventoryItems:
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
-    - {fileID: 11400000, guid: 433927494a3488144a4f1c6b8836c20b, type: 2}
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
     MaxiumWeight: 50
-    Weight: 0
+    Weight: 38.737682
   TravelingDirection: {x: 0, y: 0, z: 0}
   Health: 100
   Sensertivity: 1
   Speed: 5
-  CurrentWeapon: {fileID: 11400000, guid: 211acc6fe095022468581c41be8fdd9e, type: 2}
+  PrimaryWeapon:
+    Name: L85A2 Rifle
+    Weight: 4.98
+    FiringSpeed: 5700
+    FiringRate: 0.5
+    CompatableMagazines:
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 0
+      BulletDamage: 40
+      NextTracer: 0
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 3
+      BulletDamage: 40
+      NextTracer: 3
+    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 3
+      BulletDamage: 40
+      NextTracer: 3
+    - Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    CurrentMagazine:
+      Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    gap: 0
+  SecondaryWeapon:
+    Name: Glock 17 Pistol
+    Weight: 0.017681314
+    FiringSpeed: 5700
+    FiringRate: 0.5
+    CompatableMagazines:
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+      MaxCapacity: 17
+      BulletsInMag: 17
+      BulletWeight: 0.125
+      Tracergap: 3
+      BulletDamage: 20
+      NextTracer: 3
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+      MaxCapacity: 17
+      BulletsInMag: 17
+      BulletWeight: 0.125
+      Tracergap: 0
+      BulletDamage: 20
+      NextTracer: 0
+    - Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    CurrentMagazine:
+      Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    gap: 0
+  TerriaryWeapon:
+    Name: Item
+    Weight: 0
+    FiringSpeed: 5700
+    FiringRate: 0
+    CompatableMagazines: []
+    CurrentMagazine:
+      Name: Item
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 3000
+      BulletDamage: 0
+      NextTracer: 0
+    gap: 0
+  CurrentWeapon:
+    Name: L85A2 Rifle
+    Weight: 4.98
+    FiringSpeed: 5700
+    FiringRate: 0.5
+    CompatableMagazines:
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 0
+      BulletDamage: 40
+      NextTracer: 0
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 3
+      BulletDamage: 40
+      NextTracer: 3
+    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+      Weight: 1.86
+      MaxCapacity: 30
+      BulletsInMag: 30
+      BulletWeight: 0.062
+      Tracergap: 3
+      BulletDamage: 40
+      NextTracer: 3
+    - Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    CurrentMagazine:
+      Name: No Magazine
+      Weight: 0
+      MaxCapacity: 0
+      BulletsInMag: 0
+      BulletWeight: 0
+      Tracergap: 0
+      BulletDamage: 0
+      NextTracer: 0
+    gap: 0
 --- !u!54 &548096978
 Rigidbody:
   m_ObjectHideFlags: 0
