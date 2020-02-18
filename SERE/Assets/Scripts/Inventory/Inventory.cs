@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
+
 public class Inventory { 
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     public float MaxiumWeight = 50.0f;
@@ -17,7 +18,40 @@ public class Inventory {
     public void RemoveItem(InventoryItem item)
     {
         inventoryItems.Remove(item);
-    }   
+    }
+    public bool ItemInInventory(string SearchItem)
+    {
+        foreach (var item in inventoryItems)
+        {
+            if (item.Name == SearchItem)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+        public bool ItemInInventory(InventoryItem SearchItem)
+    {
+        foreach (var item in inventoryItems)
+        {
+            if (item.Name == SearchItem.Name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public InventoryItem SearchAndCopy(InventoryItem SearchItem)
+    {
+        foreach (var item in inventoryItems)
+        {
+            if (item.Name == SearchItem.Name)
+            {      
+                return item;
+            }
+        }
+        return null;
+    }
     public InventoryItem SearchAndReturn (InventoryItem SearchItem)
     {
         foreach(var item in inventoryItems)
@@ -28,7 +62,7 @@ public class Inventory {
                 return item;              
             }
         }
-        return new InventoryItem();
+        return null;
     }
     public void CalculateWeight()
     {

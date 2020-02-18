@@ -6,11 +6,11 @@ using UnityEngine;
 public class Magazine : InventoryItem
 {
     [Header("Magazine")]
-    public  float MaxCapacity;
+    public   float MaxCapacity;
     public  float BulletsInMag;
     public  float BulletWeight;
-    public  float Tracergap = 3000;
-    public   float BulletDamage;
+   public    float Tracergap = 3000;
+    public float BulletDamage;
     public   float NextTracer;
 
 

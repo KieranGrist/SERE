@@ -1,7 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum RateOfFire
+{
+    Saftey,
+    Single,
+    Burst,
+    Automatic,
+  Max
 
+   
+}
 
 [System.Serializable]
 public class Weapon : InventoryItem
@@ -9,38 +18,49 @@ public class Weapon : InventoryItem
     protected GameObject Tracer;
     protected GameObject Bullet;
     [Header("Weapon")]
-    public float FiringSpeed =5700;
+    public RateOfFire WeaponFireRate = RateOfFire.Saftey;
+    public float FiringSpeed = 5700;
     public float FiringRate;
     public List<Magazine> CompatableMagazines = new List<Magazine>();
     public Magazine CurrentMagazine;
-    public float gap;
+    float ReloadTime = .05f;
+    float ReloadGap;
+    float gap;
 
-    public void Reload(Inventory inventory)
+
+
+    public IEnumerator Reload(Inventory inventory)
     {
-        Magazine MagToReload = null;
-        foreach (var item in CompatableMagazines)
+        yield  return new WaitForSeconds(1);
+        if (ReloadGap > ReloadTime)
         {
+      
+            Magazine MagToReload = null;
+            foreach (var item in CompatableMagazines)
+            {
+                var FoundItem = inventory.SearchAndReturn(item);
+                if (FoundItem != null)
+                    MagToReload = (Magazine)FoundItem;
+                if (MagToReload != null)
+                    break;
+            }
+            if (CurrentMagazine.BulletsInMag <= 0)
+            {
+                CurrentMagazine = null;
+                CurrentMagazine = new EmptyMag();
+            }
 
-            MagToReload = (Magazine)inventory.SearchAndReturn(item);
             if (MagToReload != null)
-                break;
-        }
-        if (CurrentMagazine.BulletsInMag <= 0)
-        {
-            CurrentMagazine = null;
-            CurrentMagazine = new EmptyMag();
+            {
+
+                if (CurrentMagazine.Name != "No Magazine")
+                    inventory.AddItem(CurrentMagazine);
+
+                CurrentMagazine = MagToReload;
+
+            }
         }
 
-        if (MagToReload != null)
-        {
-         
-            if (CurrentMagazine.Name != "No Magazine")
-                inventory.AddItem(CurrentMagazine);
-
-            CurrentMagazine = MagToReload;
-
-        }
-    
     }
     public void LoadPrefabs()
     {
@@ -56,7 +76,7 @@ public class Weapon : InventoryItem
             CurrentMagazine.BulletsInMag--;
             GameObject go;
             CurrentMagazine.NextTracer++;
-        
+
             if (CurrentMagazine.NextTracer >= CurrentMagazine.Tracergap)
             {
                 CurrentMagazine.NextTracer = 0;
@@ -76,9 +96,49 @@ public class Weapon : InventoryItem
             CurrentMagazine.CalculateWeight();
         }
     }
+    public IEnumerator BurstFire(Transform transform)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(FiringRate);
+            if (CurrentMagazine.BulletsInMag > 0)
+            {
+                gap = 0;
+                CurrentMagazine.BulletsInMag--;
+                GameObject go;
+                CurrentMagazine.NextTracer++;
+
+                if (CurrentMagazine.NextTracer >= CurrentMagazine.Tracergap)
+                {
+                    CurrentMagazine.NextTracer = 0;
+                    go = GameManager.Clone(Tracer, transform);
+                }
+                else
+                {
+                    go = GameManager.Clone(Bullet, transform);
+                }
+                go.GetComponent<Bullet>().Damage = CurrentMagazine.BulletDamage;
+                go.transform.position += transform.forward * 6.1f;
+                go.transform.position += new Vector3(0, 0, 0);
+                go.AddComponent<Rigidbody>();
+                var rb = go.GetComponent<Rigidbody>();
+                rb.AddForce(transform.forward * FiringSpeed);
+                rb.mass = CurrentMagazine.BulletWeight;
+                CurrentMagazine.CalculateWeight();
+            }
+        }
+    }
     public void UpdateGap(float DeltaTime)
     {
-        gap += DeltaTime;
-    }
 
+
+        gap += DeltaTime;
+        ReloadGap += DeltaTime;
+    }
+    public virtual void SwitchFireRate()
+    {
+        WeaponFireRate++;
+        if (WeaponFireRate == RateOfFire.Max)
+            WeaponFireRate = RateOfFire.Saftey;
+    }
 }

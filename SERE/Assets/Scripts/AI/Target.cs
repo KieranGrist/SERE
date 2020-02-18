@@ -2,50 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using System.Timers;
 public class Target : Entity
 {
-   public NavMeshAgent Target_agent;
-    public Vector3 EndPosition;
-    new void Start()
+    public List<float> DPSDamageRecieved;
+    public List<float> DamageRecieved;
+    public float[] LastThreeDamage = new float [3];
+    public float TotalDamage;
+    public float DamagePerSecond;
+    public float HighestDPS;
+    public Text text;
+    
+
+    public override void DealDamage(float Damage)
+    {
+        DamagePerSecond += Damage;
+        DPSDamageRecieved.Add(Damage);
+        DamageRecieved.Add(Damage);
+        LastThreeDamage[2] = LastThreeDamage[1];
+        LastThreeDamage[1] = LastThreeDamage[0];
+        LastThreeDamage[0] = DamagePerSecond;
+
+    }
+    public override void Start()
     {
         base.Start();
-        Target_agent = GetComponent<NavMeshAgent>();
-  
+        InvokeRepeating("OnTimedEvent", 0, 1.0f);
     }
-    private void OnDrawGizmos()
+    private  void OnTimedEvent()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, 100);
+        DamagePerSecond = 0;
+        foreach (var item in DPSDamageRecieved)
+        {
+            DamagePerSecond += item;
+        }
+        if (DamagePerSecond > HighestDPS)
+            HighestDPS = DamagePerSecond;
+        DPSDamageRecieved.Clear();
     }
-    // Update is called once per frame
-    new void Update()
+    void UpdateText()
+    {
+        text.text = "Damage Per Second: " + DamagePerSecond + "\n" + LastThreeDamage[0] + "\n" + LastThreeDamage[1] + "\n" + LastThreeDamage[2]; 
+    }
+    public override void Update()
     {
         base.Update();
-        Target_agent.SetDestination(GameManager.GM.ExtractionLocation);
-        EndPosition =  Target_agent.pathEndPosition;
-        float ClosestDistance = float.MaxValue;
-        GameObject target = null;
-        foreach (var item in Physics.OverlapSphere(transform.position, 100, LayerMask.GetMask("Agent")))
-        {
-            if (item.gameObject != gameObject)
-                if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)
-                {
-                    ClosestDistance = Vector3.Distance(transform.position, item.transform.position);
-                    target = item.gameObject;
-                }
-        }
-        if (target)
-        {
-            transform.LookAt(target.transform);
 
-
-            CurrentWeapon.Fire(transform);
-        }
-        Vector2 velocitySum = Vector2.zero;
-        if (Health <= 0)
+        UpdateText();
+    
+        TotalDamage = 0;
+        foreach(var item in DamageRecieved)
         {
-            Health = 100;
-            GameManager.GM.NewGame();
+            TotalDamage += item;
         }
+
     }
 }
+

@@ -7,7 +7,8 @@ public class L85A2 : Weapon
   public L85A2()
     {
         Weight = 4.98f;
-        FiringRate = .5F;
+        FiringRate = .25F;
+        FiringSpeed = 10000;
         CompatableMagazines.Add(new NATO30TracerMag());
         CompatableMagazines.Add(new NATO30StandardMag());
         CompatableMagazines.Add(new NATO30NoTracerMag());
@@ -15,10 +16,13 @@ public class L85A2 : Weapon
         CurrentMagazine = new EmptyMag();
         Name = "L85A2 Rifle";
     }
-    // Start is called before the first frame update
-  public new void  Start()
+    public override void SwitchFireRate()
     {
-        
+        WeaponFireRate++;
+        if (WeaponFireRate == RateOfFire.Burst)
+            WeaponFireRate++;
+        if (WeaponFireRate == RateOfFire.Max)
+            WeaponFireRate = RateOfFire.Saftey;
     }
 
 }

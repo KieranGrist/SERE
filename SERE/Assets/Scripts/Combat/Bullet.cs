@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
             var Hit = collision.gameObject.GetComponent<Entity>();
             if (Hit)
             {
-                Hit.Health -= Damage;
+                Hit.DealDamage(Damage);
                 Hit.GetComponent<Rigidbody>().velocity = new Vector3();
                 Destroy(gameObject);
             }

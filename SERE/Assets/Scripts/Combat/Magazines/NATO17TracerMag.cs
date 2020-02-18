@@ -10,9 +10,9 @@ public class NATO17TracerMag : Magazine
         MaxCapacity = 17;
         BulletsInMag = 17;
         BulletWeight = 0.125f;
-        Tracergap = 3;
+        Tracergap = 0;
         BulletDamage = 20;
-        NextTracer = 3;
+        NextTracer = 0;
         Name = "9x19 mm NATO 17 Round Tracer Magazine";
         CalculateWeight();
     }

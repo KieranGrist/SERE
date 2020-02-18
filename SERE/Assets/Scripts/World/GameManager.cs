@@ -20,6 +20,13 @@ public struct DebugRand
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Team Management")]
+    public Team OneOne;
+    public Team OneTwo;
+    public Team OneThree;
+    public Team OneZero;
+    public Team DemonOne;
+    [Header("Game Management")]
     public float TimeScale;
     public bool Reset;
     public static GameManager GM;
@@ -74,6 +81,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        OneOne.ReferenceMembersInTeam();
+        OneTwo.ReferenceMembersInTeam();
+        OneThree.ReferenceMembersInTeam();
+        OneZero.ReferenceMembersInTeam();
+        DemonOne.ReferenceMembersInTeam();
+
+        OneOne.SetUpTeam();
+        OneTwo.SetUpTeam();
+        OneThree.SetUpTeam();
+        OneZero.SetUpTeam();
+        DemonOne.SetUpTeam();
+
         GM = this;
         RestartLevel = true;
     }
@@ -81,33 +100,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AISpawnLocationGO.transform.position = AISpawnLocation;
-        PlayerSpawnLocationGO.transform.position = PlayerSpawnLocation;
-        ExtractionLocation = ExtractionGameObject.transform.position;
-    Time.timeScale = TimeScale;
         GM = this;
-        if (Reset)
-        {
-            NewGame();
-            Reset = false;
-        }
-        if (RestartLevel)
-        {
 
 
+        //    AISpawnLocationGO.transform.position = AISpawnLocation;
+        //    PlayerSpawnLocationGO.transform.position = PlayerSpawnLocation;
+        //    ExtractionLocation = ExtractionGameObject.transform.position;
+        //Time.timeScale = TimeScale;
+        //    GM = this;
+        //    if (Reset)
+        //    {
+        //        NewGame();
+        //        Reset = false;
+        //    }
+        //    if (RestartLevel)
+        //    {
+        //         SpawnPlayer();
+        //        SpawnAI();   
+        //        SpawnExtractionPoint();
 
-             SpawnPlayer();
-
-
-
-            SpawnAI();
-
-   
-            SpawnExtractionPoint();
-
-            //FindObjectOfType<NavMeshSurface>().BuildNavMesh();
-            RestartLevel = false;
-        }
+        //        //FindObjectOfType<NavMeshSurface>().BuildNavMesh();
+        //        RestartLevel = false;
+        //    }
 
     }
     private static Vector3 GenerateRandomPoint(Vector3 Position, float Radius,out DebugRand debugRand)
@@ -150,7 +164,7 @@ public class GameManager : MonoBehaviour
         PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);
         player.transform.position = new Vector3();
         player.Health = 100;
-        player.Target_agent.Warp(PlayerSpawnLocation);
+  //      player.Target_agent.Warp(PlayerSpawnLocation);
 
 
     }

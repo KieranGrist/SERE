@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Side
+{
+    Friendly,
+    Enemy,
+    Civilian
+}
 public class Entity : MonoBehaviour
 {
-
+    public Side Affiliation = Side.Friendly;
     public Inventory inventory;
 
     [Header("Movement")]
@@ -16,11 +22,16 @@ public class Entity : MonoBehaviour
     [Header("Combat")]
     public Weapon PrimaryWeapon;
     public Weapon SecondaryWeapon;
-    public Weapon TerriaryWeapon;
+    public Weapon TertiaryWeapon;
     public Weapon CurrentWeapon;
      Weapon PreviousPrimaryWeapon;
      Weapon PreviousSecondaryWeapon;
      Weapon PreviousTerriaryWeapon;
+    public virtual void DealDamage(float Damage)
+    {
+        Health -= Damage;
+    }
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -31,7 +42,7 @@ public class Entity : MonoBehaviour
         }
         PrimaryWeapon.LoadPrefabs();
         SecondaryWeapon.LoadPrefabs();
-        TerriaryWeapon.LoadPrefabs();
+        TertiaryWeapon.LoadPrefabs();
     }
 
     // Update is called once per frame
@@ -42,7 +53,7 @@ public class Entity : MonoBehaviour
         TravelingDirection = transform.forward;
         PrimaryWeapon.UpdateGap(Time.deltaTime);
         SecondaryWeapon.UpdateGap(Time.deltaTime);
-        TerriaryWeapon.UpdateGap(Time.deltaTime);
+        TertiaryWeapon.UpdateGap(Time.deltaTime);
 
         if (PrimaryWeapon != PreviousPrimaryWeapon)
             PrimaryWeapon.LoadPrefabs();     
@@ -52,10 +63,21 @@ public class Entity : MonoBehaviour
             SecondaryWeapon.LoadPrefabs();
         PreviousSecondaryWeapon = SecondaryWeapon;
 
-        if (TerriaryWeapon != PreviousTerriaryWeapon)
-            TerriaryWeapon.LoadPrefabs();
-        PreviousTerriaryWeapon = TerriaryWeapon;
-
+        if (TertiaryWeapon != PreviousTerriaryWeapon)
+            TertiaryWeapon.LoadPrefabs();
+        PreviousTerriaryWeapon = TertiaryWeapon;
+        switch(Affiliation)
+        {
+            case Side.Civilian:
+                gameObject.layer = 12;
+                break;
+            case Side.Enemy:
+                gameObject.layer = 10;
+                break;
+            case Side.Friendly:
+                gameObject.layer = 11;
+                break;
+        }
 
 
         if (transform.position.y < -1)

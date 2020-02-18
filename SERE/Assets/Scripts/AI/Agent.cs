@@ -2,11 +2,113 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
-
+[System.Serializable]
+public class Team
+{
+    [Header("Team")]
+    public string TeamName;
+    public int TeamID;
+    public List<Agent> Members;
+    public Team()
+    {
+        TeamName = "1 - 1";
+        TeamID = 0;
+        Members = new List<Agent>();
+    }
+    public void SetUpTeam()
+    {
+        foreach (var item in Members)
+        {
+            item.AIRadio.Frequency = TeamID;
+        }
+    }
+    public void ReferenceMembersInTeam()
+    {
+        foreach (var item in Members)
+            item.AgentsTeam = this;
+    }
+    public Agent GetMemberInTeam(Agent me)
+    {
+        foreach(var item in Members)
+        {
+            if (item != me)
+                return item;
+        }
+        return null;
+    }
+}
 public abstract class Agent : Entity
 {
-    
+   protected readonly string[] _firstNames = new string[]
+{
+        "Kieran",
+        "Alex",
+        "Gavin",
+        "Lawrence",
+       "Alice",
+        "Sophie",
+        "Iona",
+        "Chloe",
+        "Lucia",
+        "Dale",
+        "Georgina",
+        "Nicole",
+        "Kara",
+       "Hailee",
+       "Helen",
+       "Emily",
+       "Liberty",
+       "Faye",
+       "Carrie",
+       "Elsie",
+       "Crystal",
+       "Maria",
+       "Ayala",
+       "Alanah",
+       "Amie",
+       "Jack",
+       "Ben",
+       "Adam",
+       "Tegan",
+       "Edan",
+       "Alison",
+       "Merle",
+       "Aden",
+       "Allyson",
+       "Lyndsey",
+       "Stacia",
+        "Lauren",
+        "Sarah",
+        "Matt",
+        "Paul",
+        "Maddie",
+        "Lando",
+        "Lewis",
+        "Sebastian",
+        "Carlos",
+        "Sergio",
+        "Piere",
+        "Nicco",
+        "Esteban",
+        "Robert",
+        "George",
+        "Charles",
+        "Max",
+        "Alex",
+        "Lance",
+        "Kevin",
+        "Roman",
+        "Jules",
+        "Peter",
+        "Mikey",
+        "Valtteri",
+        "Daniel"
+
+
+};
+
+    public Team AgentsTeam = new Team();
+
     public NavMeshAgent AINavAgent;
     [Header("Search")]
     [Tooltip("Center of search ")]
@@ -34,4 +136,5 @@ public abstract class Agent : Entity
 
     [Header("Radio")]
     public Radio AIRadio;
+    public bool SquadTransmitRadio;
 }
