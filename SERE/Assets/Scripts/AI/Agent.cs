@@ -8,7 +8,10 @@ public class Team
     [Header("Team")]
     public string TeamName;
     public int TeamID;
-    public List<Agent> Members;
+    public List<Agent> Members = new List<Agent>();
+
+
+
     public Team()
     {
         TeamName = "1 - 1";
@@ -109,7 +112,14 @@ public abstract class Agent : Entity
 
     public Team AgentsTeam = new Team();
 
+    [Header("Agent Stats")]
     public NavMeshAgent AINavAgent;
+    public float Mass, MaxVelocity, MaxForce;
+    public float StopDistance = 1;
+    public Vector3 velocity;
+    public Vector3 MoveToLocation;
+    bool IsMoving;
+
     [Header("Search")]
     [Tooltip("Center of search ")]
     public Vector3 SearchLocation;
@@ -117,9 +127,8 @@ public abstract class Agent : Entity
     public float SearchDistance;
     [Tooltip("How long the Agent should search the area for")]
     public float MaxSearchTime;
-
-
     float CurrentSearchTime;
+
     [Header("Brain Information")]
     public Vector3 PlayersLastKnownLocation;
     public Vector3 PlayersTravelingDirection;
@@ -132,9 +141,23 @@ public abstract class Agent : Entity
     [Tooltip("How powerfull the nose is")]
     public float SmellPower = 3;
 
-
-
     [Header("Radio")]
     public Radio AIRadio;
     public bool SquadTransmitRadio;
+
+
+
+    public void MoveTo(Vector3 TargetPosition)
+    {
+        var desiredVelocity = TargetPosition - transform.position;
+        desiredVelocity = desiredVelocity.normalized * MaxVelocity;
+
+        var steering = desiredVelocity - velocity;
+        steering = Vector3.ClampMagnitude(steering, MaxForce);
+        steering /= Mass;
+
+        velocity = Vector3.ClampMagnitude(velocity + steering, MaxVelocity);
+        transform.position += velocity * Time.deltaTime;
+        transform.forward = velocity.normalized;
+    }
 }

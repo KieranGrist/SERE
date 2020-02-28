@@ -50,7 +50,18 @@ public class Target : Entity
         base.Update();
 
         UpdateText();
-    
+switch (Affiliation)
+        {
+            case Side.Civilian:
+                GetComponent<Renderer>().material.color = Color.white;
+                break;
+            case Side.Enemy:
+                GetComponent<Renderer>().material.color = Color.red;
+                break;
+            case Side.Friendly:
+                GetComponent<Renderer>().material.color = Color.blue;
+                break;
+        }
         TotalDamage = 0;
         foreach(var item in DamageRecieved)
         {

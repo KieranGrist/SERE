@@ -1,0 +1,361 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3083963222063311874
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3876751550944017387, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_Name
+      value: Terrain Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017388, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944016912, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: Depth
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944016912, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: Offset
+      value: 1084.988
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017390, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: TreePrototypes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017390, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: TreePrototypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 114418, guid: be878d9ea17907f4a8068678a5ce7908, type: 3}
+    - target: {fileID: 3876751550944017390, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: TreePrototypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 114418, guid: 8b2d47fdc2e25ac4f9721480a68bbefa, type: 3}
+    - target: {fileID: 3876751550944017390, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: TreePrototypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 114418, guid: 956bd2acf7aae244dac8fc20cf57858d, type: 3}
+    - target: {fileID: 3876751550944017390, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: TreePrototypes.Array.data[3]
+      value: 
+      objectReference: {fileID: 114418, guid: 9b8fc966f95ea9c4194dc091fc40b478, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.size
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[0]
+      value: 
+      objectReference: {fileID: 2800000, guid: b6559fab08767a844869a6c1d9f49f1e, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 62ccf45c509ff1946ad9fa10b558a01d, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: db18f1e4d61f8cc439e35dfd023b6d3e, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: ca1b8b30820fdf14c81f582b27bdf19b, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[4]
+      value: 
+      objectReference: {fileID: 2800000, guid: 787433db72de70645a866562e097cd8b, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[5]
+      value: 
+      objectReference: {fileID: 2800000, guid: 6bce9d589cdb7b04c9f5a6ee81f8f1b3, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[6]
+      value: 
+      objectReference: {fileID: 2800000, guid: ad92efd57360446408eb98ca805556d3, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[7]
+      value: 
+      objectReference: {fileID: 2800000, guid: 922f990a2fc104c46808052d2857484f, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[8]
+      value: 
+      objectReference: {fileID: 2800000, guid: 89e512d99223f984e80f00a15314eb11, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[9]
+      value: 
+      objectReference: {fileID: 2800000, guid: 37d076fe4b28144429a166aca1c02a72, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[10]
+      value: 
+      objectReference: {fileID: 2800000, guid: fd58086e8722f7f4cba185d299ae9d75, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[11]
+      value: 
+      objectReference: {fileID: 2800000, guid: e88b3a1ea26570a46a88da80783d7e3f, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[12]
+      value: 
+      objectReference: {fileID: 2800000, guid: dde6e275af2ebe94ca8df679dc22b927, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[13]
+      value: 
+      objectReference: {fileID: 2800000, guid: fb308d78d8746474e99ec6fed271be47, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[14]
+      value: 
+      objectReference: {fileID: 2800000, guid: 6ad97d251e1ef5849a4d3d22200798eb, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[15]
+      value: 
+      objectReference: {fileID: 2800000, guid: 29e3fe75c99d8e844968809f050301bf, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[16]
+      value: 
+      objectReference: {fileID: 2800000, guid: 8ce2ad0a75811cc46b9b36bce7f0287a, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[17]
+      value: 
+      objectReference: {fileID: 2800000, guid: 9aec2d44e96e07f4d94104087a886541, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[18]
+      value: 
+      objectReference: {fileID: 2800000, guid: 6d1b799698b4a13428f342e85a6eafa9, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[19]
+      value: 
+      objectReference: {fileID: 2800000, guid: 6352122ace273d4408983006f6fa7f8b, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[20]
+      value: 
+      objectReference: {fileID: 2800000, guid: 2b4795ec84b4b624b8058045b2a0d6e7, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[21]
+      value: 
+      objectReference: {fileID: 2800000, guid: 5d905082679ef4b42b58a7f188275a9f, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[22]
+      value: 
+      objectReference: {fileID: 2800000, guid: b24c3cd816cfc59488d60ce1c90ccb97, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[23]
+      value: 
+      objectReference: {fileID: 2800000, guid: 16b15ea92740a214a8e28885b158e160, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[24]
+      value: 
+      objectReference: {fileID: 2800000, guid: cf239d877af81b843b958f6c5f758f41, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[25]
+      value: 
+      objectReference: {fileID: 2800000, guid: a649788266163034aa4b99623cae3fe8, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[26]
+      value: 
+      objectReference: {fileID: 2800000, guid: 14fa9fdbde9323e44b97ba8f6aff0555, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[27]
+      value: 
+      objectReference: {fileID: 2800000, guid: 853633ced50f73942ab3dfa915bc40a1, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[28]
+      value: 
+      objectReference: {fileID: 2800000, guid: 15acc82f435974f43809856015439b02, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[29]
+      value: 
+      objectReference: {fileID: 2800000, guid: f4fb557129691084cb3e99cf4dbfb1ef, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[30]
+      value: 
+      objectReference: {fileID: 2800000, guid: 8a13b35641f16e44c89c897309bcdca9, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[31]
+      value: 
+      objectReference: {fileID: 2800000, guid: bf95547c7aedd464fad405b4946b17df, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[32]
+      value: 
+      objectReference: {fileID: 2800000, guid: a01fc5cc3c7b674439a768a250c4c417, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[33]
+      value: 
+      objectReference: {fileID: 2800000, guid: d4a4c5b26333338439fd3b78cfb701ec, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[34]
+      value: 
+      objectReference: {fileID: 2800000, guid: a17dcd9f0900595499beb92ae06e433f, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[35]
+      value: 
+      objectReference: {fileID: 2800000, guid: de869416b57c19141b8de6d7fde89e74, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[36]
+      value: 
+      objectReference: {fileID: 2800000, guid: d24a3bc542abcb04e9737a765b05914f, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[37]
+      value: 
+      objectReference: {fileID: 2800000, guid: de18140a4fd9aee4dbe1683916e5dd4b, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[38]
+      value: 
+      objectReference: {fileID: 2800000, guid: b4eee9ec30f930c4ba69d5049bae7081, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[39]
+      value: 
+      objectReference: {fileID: 2800000, guid: c3d45a835b8b6664085f0dc3cc6b1b41, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[40]
+      value: 
+      objectReference: {fileID: 2800000, guid: a281a39b029389a43b000a1de1b88be0, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[41]
+      value: 
+      objectReference: {fileID: 2800000, guid: 8e17f59bfe0f1e1419e3bc10630bc069, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[42]
+      value: 
+      objectReference: {fileID: 2800000, guid: 95836ce2bec877a4a8e8669de12ee50a, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[43]
+      value: 
+      objectReference: {fileID: 2800000, guid: b3df4cb2f0dbbb842889155de38652a6, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[44]
+      value: 
+      objectReference: {fileID: 2800000, guid: 7aa03bbf1145d80438111302e0139094, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[45]
+      value: 
+      objectReference: {fileID: 2800000, guid: d0893b7d3bcbf8c4f806e5543cec2a32, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[46]
+      value: 
+      objectReference: {fileID: 2800000, guid: b263d81465ccfd74980f9c72e4a4e794, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[47]
+      value: 
+      objectReference: {fileID: 2800000, guid: be71e7916ae7b0e4faf4d22ccf62ad24, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[48]
+      value: 
+      objectReference: {fileID: 2800000, guid: 5203e8b5746c6444289ad019bde56711, type: 3}
+    - target: {fileID: 3876751550944017391, guid: f794b5b0ced210e44b863845d86161fa,
+        type: 3}
+      propertyPath: GrassTextures.Array.data[49]
+      value: 
+      objectReference: {fileID: 2800000, guid: dc92af4c176c5f2458c3adbc09c77766, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f794b5b0ced210e44b863845d86161fa, type: 3}

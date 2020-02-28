@@ -100,15 +100,18 @@ public class Soldier : Agent
                     target = item.gameObject;
                 }
         }
-        if(CurrentWeapon.CurrentMagazine.BulletsInMag <=0)
-        {
-            CurrentWeapon.Reload(inventory);
-        }
+       
+
         if (target)
         {
+            if (CurrentWeapon.CurrentMagazine.BulletsInMag <= 0)
+            {
+             StartCoroutine(   CurrentWeapon.Reload(inventory));
+            }
+           
             transform.LookAt(target.transform);
 
-            PrimaryWeapon.Fire(transform);
+            CurrentWeapon.Fire(transform);
         }
         Vector2 velocitySum = Vector2.zero;
     }

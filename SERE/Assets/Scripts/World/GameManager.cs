@@ -20,12 +20,36 @@ public struct DebugRand
 
 public class GameManager : MonoBehaviour
 {
+
     [Header("Team Management")]
+    public Team OneZero;
     public Team OneOne;
     public Team OneTwo;
     public Team OneThree;
-    public Team OneZero;
-    public Team DemonOne;
+    public Team UglyOne;
+
+    public GameManager()
+    {
+        OneOne = new Team();
+        OneOne.TeamName = "1 - 1";
+        OneOne.TeamID = 1;
+
+        OneTwo = new Team();
+        OneTwo.TeamName = "1 - 2";
+        OneTwo.TeamID = 2;
+
+        OneThree = new Team();
+        OneThree.TeamName = "1 - 1";
+        OneThree.TeamID = 3;
+
+        OneZero = new Team();
+        OneZero.TeamName = "1 - 0";
+        OneZero.TeamID = 4;
+
+        UglyOne = new Team();
+        UglyOne.TeamName = "Ugly One";
+        UglyOne.TeamID = 5;
+    }
     [Header("Game Management")]
     public float TimeScale;
     public bool Reset;
@@ -85,13 +109,13 @@ public class GameManager : MonoBehaviour
         OneTwo.ReferenceMembersInTeam();
         OneThree.ReferenceMembersInTeam();
         OneZero.ReferenceMembersInTeam();
-        DemonOne.ReferenceMembersInTeam();
+        UglyOne.ReferenceMembersInTeam();
 
         OneOne.SetUpTeam();
         OneTwo.SetUpTeam();
         OneThree.SetUpTeam();
         OneZero.SetUpTeam();
-        DemonOne.SetUpTeam();
+        UglyOne.SetUpTeam();
 
         GM = this;
         RestartLevel = true;
