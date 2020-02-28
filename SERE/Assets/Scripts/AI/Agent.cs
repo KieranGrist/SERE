@@ -128,6 +128,7 @@ public abstract class Agent : Entity
     [Tooltip("How long the Agent should search the area for")]
     public float MaxSearchTime;
     float CurrentSearchTime;
+    public bool SearchInsideCicle;
 
     [Header("Brain Information")]
     public Vector3 PlayersLastKnownLocation;

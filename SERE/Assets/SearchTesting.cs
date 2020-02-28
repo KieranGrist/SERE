@@ -4,11 +4,8 @@ using UnityEngine;
 using UnityEditor;
 public class SearchTesting : MonoBehaviour
 {
-
-
-
     public GameObject Cube;
-    List<GameObject> SearchPoints = new List<GameObject>();
+ public   List<GameObject> SearchPoints = new List<GameObject>();
     public int NumberOfSearchPoints = 12;
     public Vector3 SearchLocation = new Vector3();
 
@@ -38,8 +35,13 @@ public class SearchTesting : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        for (int i = 0; i < NumberOfSearchPoints; i++)        
-            Handles.Label(SearchPoints[i].transform.position," " + i.ToString());
+
+        int i = 0;
+        foreach (var item in SearchPoints)
+        {
+            i++;
+            Handles.Label(item.transform.position, " " + i.ToString());
+        }
     }
     // Update is called once per frame
     void Update()
