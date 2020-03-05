@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Soldier : Agent
 {
+  public  BT_Search Search;
    public Soldier()
     {
         PrimaryWeapon = new L85A2();
@@ -44,6 +45,7 @@ public class Soldier : Agent
     new void Start()
     {
         base.Start();
+        Search = new BT_Search(this);
         AINavAgent = GetComponent<NavMeshAgent>();
         name = _firstNames[Random.Range(0, _firstNames.Length)];
     }
@@ -53,7 +55,7 @@ public class Soldier : Agent
     {
 
         base.Update();
-       
+        Search.Execute();
         RadioManagement();
 
         EndPosition = AINavAgent.pathEndPosition;

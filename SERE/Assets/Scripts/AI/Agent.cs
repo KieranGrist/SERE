@@ -11,7 +11,6 @@ public class Team
     public List<Agent> Members = new List<Agent>();
 
 
-
     public Team()
     {
         TeamName = "1 - 1";
@@ -129,6 +128,8 @@ public abstract class Agent : Entity
     public float MaxSearchTime;
     float CurrentSearchTime;
     public bool SearchInsideCicle;
+    public List<Grid> SearchedGrids = new List<Grid>();
+    public List<GameObject> SearchPoints = new List<GameObject>();
 
     [Header("Brain Information")]
     public Vector3 PlayersLastKnownLocation;
@@ -150,6 +151,7 @@ public abstract class Agent : Entity
 
     public void MoveTo(Vector3 TargetPosition)
     {
+        AINavAgent.stoppingDistance = StopDistance;
         var desiredVelocity = TargetPosition - transform.position;
         desiredVelocity = desiredVelocity.normalized * MaxVelocity;
 

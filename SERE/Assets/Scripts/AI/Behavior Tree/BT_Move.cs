@@ -5,7 +5,7 @@ using UnityEngine;
 public class BT_Move : Node
 {
     private Agent agent;
-    public BT_Move(Node Node, Agent agent) : base( agent)
+    public BT_Move( Agent agent) : base( agent)
     {
         this.agent = agent;
     }
@@ -13,6 +13,10 @@ public class BT_Move : Node
     public override NodeStatus Execute()
     {
         agent.MoveTo(agent.MoveToLocation);
-        return NodeStatus.SUCCESS;
+        bool ReachedLocation = Vector3.Distance(agent.MoveToLocation, agent.transform.position) < 1;
+ if (ReachedLocation)
+            return NodeStatus.SUCCESS;
+        else
+            return NodeStatus.RUNNING;
     }
 }
