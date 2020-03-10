@@ -6,6 +6,8 @@ using UnityEngine;
 /// Sequences execute their children in order until a child fails, at which point it stops execution
 /// If a child returns RUNNING, then it will need to stop execution but resume from the same point the next time it executes
 /// </summary>
+/// 
+[System.Serializable]
 public class Sequence : CompositeNode
 {
     public Sequence(Agent bb) : base(bb)

@@ -9,8 +9,8 @@ public class Team
     public string TeamName;
     public int TeamID;
     public List<Agent> Members = new List<Agent>();
-
-
+    public List<Grid> SearchedGrids = new List<Grid>();
+    public Agent TeamLeader;
     public Team()
     {
         TeamName = "1 - 1";
@@ -110,7 +110,7 @@ public abstract class Agent : Entity
 };
 
     public Team AgentsTeam = new Team();
-
+    public Terrain navMesh;
     [Header("Agent Stats")]
     public NavMeshAgent AINavAgent;
     public float Mass, MaxVelocity, MaxForce;
@@ -119,6 +119,8 @@ public abstract class Agent : Entity
     public Vector3 MoveToLocation;
     bool IsMoving;
 
+
+    public BT_Search Search;
     [Header("Search")]
     [Tooltip("Center of search ")]
     public Vector3 SearchLocation;
@@ -142,25 +144,40 @@ public abstract class Agent : Entity
     public float HearingDistance = 150;
     [Tooltip("How powerfull the nose is")]
     public float SmellPower = 3;
+    public bool SeePlayer = false;
 
     [Header("Radio")]
     public Radio AIRadio;
     public bool SquadTransmitRadio;
 
+    public void CreateSearchPoints()
+    {
+        SearchPoints = new List<GameObject>();
+        GameObject sp = Resources.Load("SearchPoint") as GameObject;
+        for (var i=0; i < 30; i ++)
+        {
+            GameObject go = Instantiate(sp, transform.position, transform.rotation);
+            go.name = name + i;
+            SearchPoints.Add(go);
+        }
+    }
 
 
     public void MoveTo(Vector3 TargetPosition)
     {
+        navMesh = FindObjectOfType<Terrain>();
         AINavAgent.stoppingDistance = StopDistance;
-        var desiredVelocity = TargetPosition - transform.position;
-        desiredVelocity = desiredVelocity.normalized * MaxVelocity;
+        AINavAgent.destination = TargetPosition;
+       
+        //var desiredVelocity = TargetPosition - transform.position;
+        //desiredVelocity = desiredVelocity.normalized * MaxVelocity;
 
-        var steering = desiredVelocity - velocity;
-        steering = Vector3.ClampMagnitude(steering, MaxForce);
-        steering /= Mass;
+        //var steering = desiredVelocity - velocity;
+        //steering = Vector3.ClampMagnitude(steering, MaxForce);
+        //steering /= Mass;
 
-        velocity = Vector3.ClampMagnitude(velocity + steering, MaxVelocity);
-        transform.position += velocity * Time.deltaTime;
-        transform.forward = velocity.normalized;
+        //velocity = Vector3.ClampMagnitude(velocity + steering, MaxVelocity);
+        //transform.position += velocity * Time.deltaTime;
+        //transform.forward = velocity.normalized;
     }
 }

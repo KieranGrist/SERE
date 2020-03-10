@@ -13,7 +13,7 @@ public class BT_Move : Node
     public override NodeStatus Execute()
     {
         agent.MoveTo(agent.MoveToLocation);
-        bool ReachedLocation = Vector3.Distance(agent.MoveToLocation, agent.transform.position) < 1;
+        bool ReachedLocation = Vector3.Distance(agent.MoveToLocation, agent.transform.position) < 2;
  if (ReachedLocation)
             return NodeStatus.SUCCESS;
         else

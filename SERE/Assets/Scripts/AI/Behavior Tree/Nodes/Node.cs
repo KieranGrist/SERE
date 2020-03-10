@@ -11,7 +11,6 @@ public enum NodeStatus
     FAILURE
 }
 [System.Serializable]
-
 public abstract class Node
 {
     public Agent Bt;

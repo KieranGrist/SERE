@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+[System.Serializable]
 public class Soldier : Agent
 {
-  public  BT_Search Search;
+
    public Soldier()
     {
         PrimaryWeapon = new L85A2();
@@ -45,9 +46,11 @@ public class Soldier : Agent
     new void Start()
     {
         base.Start();
+        name = _firstNames[Random.Range(0, _firstNames.Length)];
+        CreateSearchPoints();
         Search = new BT_Search(this);
         AINavAgent = GetComponent<NavMeshAgent>();
-        name = _firstNames[Random.Range(0, _firstNames.Length)];
+
     }
 
     // Update is called once per frame

@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class BT_Communicate : MonoBehaviour
+class CalculateTalkTo : Node
 {
-    // Start is called before the first frame update
-    void Start()
+    Agent agent;
+    public CalculateTalkTo(Agent Bt) : base(Bt)
     {
-        
+        agent = Bt;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override NodeStatus Execute()
     {
-        
+        throw new System.NotImplementedException();
+    }
+}
+
+
+public class BT_Communicate : Sequence
+{
+    Agent agent;
+    public BT_Communicate(Agent bb) : base(bb)
+    {
+        agent = bb;
+        AddChild(new CalculateTalkTo(agent));
+
     }
 }
