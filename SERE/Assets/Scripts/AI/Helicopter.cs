@@ -12,14 +12,14 @@ public class Helicopter : Agent
     
     public Helicopter ()
     {
-        PrimaryWeapon = new EmptyWeapon();
-        SecondaryWeapon = new EmptyWeapon();
-        TertiaryWeapon = new EmptyWeapon();
-        CurrentWeapon = PrimaryWeapon;
+        combat.PrimaryWeapon = new EmptyWeapon();
+        combat.SecondaryWeapon = new EmptyWeapon();
+        combat.TertiaryWeapon = new EmptyWeapon();
+        combat.CurrentWeapon = combat.PrimaryWeapon;
         inventory = new Inventory();
-        inventory.AddItem(CurrentWeapon);
-        inventory.AddItem(SecondaryWeapon);
-        inventory.AddItem(TertiaryWeapon);
+        inventory.AddItem(combat.CurrentWeapon);
+        inventory.AddItem(combat.SecondaryWeapon);
+        inventory.AddItem(combat.TertiaryWeapon);
 
         ANPRC119 aNPRC119 = new ANPRC119();
         AIRadio = aNPRC119;
@@ -32,8 +32,8 @@ public class Helicopter : Agent
 
 
         inventory.CalculateWeight();
-        VisionDistance = 1000;
-        CombatDistance = 0;
+        brain.VisionDistance = 1000;
+        brain.CombatDistance = 0;
     }
     private new void Start()
     {

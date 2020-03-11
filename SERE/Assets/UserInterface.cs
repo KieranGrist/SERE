@@ -27,9 +27,9 @@ public class UserInterface : MonoBehaviour
 
         if (player)
         {
-            if (player.CurrentWeapon != null)
+            if (player.combat.CurrentWeapon != null)
             {
-                CurrentWeapon.text = player.CurrentWeapon.Name;
+                CurrentWeapon.text = player.combat.CurrentWeapon.Name;
 
                 P1.color = Color.white;
                 P2.color = Color.white;
@@ -38,7 +38,7 @@ public class UserInterface : MonoBehaviour
                 P5.color = Color.white;
                 P6.color = Color.white;
 
-                switch  (player.CurrentWeapon.WeaponFireRate)
+                switch  (player.combat.CurrentWeapon.WeaponFireRate)
                 {
                     case RateOfFire.Automatic:
                         P1.color = Color.white;
@@ -81,14 +81,14 @@ public class UserInterface : MonoBehaviour
                     if (item.GetType().BaseType.ToString() == "Magazine")
                     {
                         var Mag = (Magazine)item;
-                        foreach (var magazine in player.CurrentWeapon.CompatableMagazines)
+                        foreach (var magazine in player.combat.CurrentWeapon.CompatableMagazines)
                             if (item.Name == magazine.Name)
                                 CompatableMags++;
                     }
                 }
 
 
-                WeaponInfo.text = player.CurrentWeapon.CurrentMagazine.BulletsInMag + (" | ") + CompatableMags;
+                WeaponInfo.text = player.combat.CurrentWeapon.CurrentMagazine.BulletsInMag + (" | ") + CompatableMags;
             }
         }
     }

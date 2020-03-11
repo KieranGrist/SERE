@@ -51,23 +51,21 @@ public class GameManager : MonoBehaviour
         UglyOne.TeamID = 5;
     }
     [Header("Game Management")]
-    public float TimeScale;
+    public float TimeScale = 1;
     public bool Reset;
     public static GameManager GM;
     bool RestartLevel;
     [Header("Player Spawn Management")]
-  public  Target player;
-    public float PlayerSpawnArea;
+  public  Player player;
+    public float PlayerSpawnArea = 1000;
     public Vector3 PlayerSpawnLocation;
-    public GameObject PlayerSpawnLocationGO;
     public DebugRand DebugPlayerRand;
 
 
     [Header("AI Spawn Management")]
     public List<Agent> AIToManage; 
     public float MiniumDistanceToPlayer;
-    public float AISpawnArea;
-    public GameObject AISpawnLocationGO;
+    public float AISpawnArea = 500;
     public Vector3 AISpawnLocation;
     public DebugRand DebugAIRand;
 
@@ -76,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Extraction Spawn Management")]
     public GameObject ExtractionGameObject;
-    public float ExtractionPointSpawnArea;
+    public float ExtractionPointSpawnArea = 1500;
     public float TimeNeededForExtraction;
     public Vector3 ExtractionLocation;
     float TimeOnExtractionPoint;
@@ -86,7 +84,7 @@ public class GameManager : MonoBehaviour
         GameObject GO = Instantiate(gameObject, transform.position, transform.rotation);
         return GO;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(PlayerSpawnArea * 2, PlayerSpawnArea * 2, PlayerSpawnArea * 2));
@@ -125,27 +123,22 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GM = this;
+        ExtractionLocation = ExtractionGameObject.transform.position;
+        Time.timeScale = TimeScale;
+        GM = this;
+        if (Reset)
+        {
+            NewGame();
+            Reset = false;
+        }
+        if (RestartLevel)
+        {
+            SpawnPlayer();
+            SpawnAI();
+            SpawnExtractionPoint();
 
-
-        //    AISpawnLocationGO.transform.position = AISpawnLocation;
-        //    PlayerSpawnLocationGO.transform.position = PlayerSpawnLocation;
-        //    ExtractionLocation = ExtractionGameObject.transform.position;
-        //Time.timeScale = TimeScale;
-        //    GM = this;
-        //    if (Reset)
-        //    {
-        //        NewGame();
-        //        Reset = false;
-        //    }
-        //    if (RestartLevel)
-        //    {
-        //         SpawnPlayer();
-        //        SpawnAI();   
-        //        SpawnExtractionPoint();
-
-        //        //FindObjectOfType<NavMeshSurface>().BuildNavMesh();
-        //        RestartLevel = false;
-        //    }
+            RestartLevel = false;
+        }
 
     }
     private static Vector3 GenerateRandomPoint(Vector3 Position, float Radius,out DebugRand debugRand)
@@ -158,7 +151,7 @@ public class GameManager : MonoBehaviour
         float X = Random.Range(MINX, MAXX);
         float Z = Random.Range(MINZ, MAXZ);
         float Y = Terrain.activeTerrain.SampleHeight(new Vector3(X, 0, Z));
-
+        Y += 1;
         debugRand.MaxX = MAXX;
         debugRand.Minx = MINX;
         debugRand.MinZ = MINZ;
@@ -183,12 +176,12 @@ public class GameManager : MonoBehaviour
     }
     void SpawnPlayer()
     {
+        player.Restart();
         PlayerSpawnLocation = new Vector3(); 
         //Generate a vector for the player to be created at
         PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);
-        player.transform.position = new Vector3();
-        player.Health = 100;
-  //      player.Target_agent.Warp(PlayerSpawnLocation);
+        player.transform.position = PlayerSpawnLocation;
+        player.agentStats.Health = 100;
 
 
     }
@@ -202,11 +195,11 @@ AISpawnLocation  = new Vector3();
         //Create and Spawn AI
         foreach (var item in AIToManage)
         {
-     
+            item.Restart();
             item.transform.position = new Vector3();
             item.AINavAgent.Warp(AISpawnLocation);
             item.enabled = true;
-            item.Health = 100;
+            item.agentStats.Health = 100;
             item.transform.position = AISpawnLocation;
         }
 

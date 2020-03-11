@@ -39,9 +39,125 @@ public class Team
         return null;
     }
 }
+[System.Serializable]
+public class Search
+{
+    [Header("Search")]
+    [Tooltip("Center of search ")]
+    public Vector3 SearchLocation;
+    [Tooltip("Distance to search ")]
+    public float SearchDistance = 500;
+    [Tooltip("How long the Agent should search the area for")]
+    public float MaxSearchTime = 100;
+    float CurrentSearchTime;
+    public bool SearchInsideCicle;
+    public bool Searching = true;
+    public bool OrderedSearch = false;
+
+    public Grid CurrentSearchGrid;
+    public List<Grid> SearchedGrids = new List<Grid>();
+    public List<GameObject> SearchPoints = new List<GameObject>();
+
+
+ public   Search()
+    {
+        SearchLocation = new Vector3();
+        SearchDistance = 500;
+        MaxSearchTime = 100;
+        SearchInsideCicle = false;
+        SearchedGrids = new List<Grid>();
+            }
+    public Search(float Distance, float SearchTime, bool InsideCircle = false)
+    {
+        SearchLocation = new Vector3();
+        SearchDistance = Distance;
+        MaxSearchTime = SearchTime;
+        SearchInsideCicle = InsideCircle;
+        SearchedGrids = new List<Grid>();
+    }
+    public Search(bool insideCircle )
+    {
+        SearchLocation = new Vector3();
+        SearchDistance = 500;
+        MaxSearchTime = 100;
+        SearchInsideCicle = insideCircle;
+        SearchedGrids = new List<Grid>();
+    }
+}
+[System.Serializable]
+public class BrainInformation
+{
+    [Header("Brain Information")]
+    public Vector3 PlayersLastKnownLocation;
+    public Vector3 PlayersTravelingDirection;
+    [Tooltip("How far the AI can see")]
+    public float VisionDistance = 500;
+    [Tooltip("How far the AI can shoot")]
+    public float CombatDistance = 100;
+    [Tooltip("How far the AI can hear")]
+    public float HearingDistance = 150;
+    [Tooltip("How powerfull the nose is")]
+    public float SmellPower = 3;
+    public bool SeePlayer = false;
+    public bool SmellPlayer;
+    public bool HearPlayer;
+}
+[System.Serializable]
+
 public abstract class Agent : Entity
 {
-   protected readonly string[] _firstNames = new string[]
+    Node RootNode;
+   public Agent() : base ()
+    {
+        search = new Search();
+        AgentsTeam = new Team();
+        AIRadio = null;
+    }
+    public virtual new void Start()
+    {
+        base.Start();
+        Selector root = new Selector(this);
+        RootNode = root;
+
+        BT_Combat CombatNode = new BT_Combat(this);
+        BT_Search  SearchNode = new BT_Search(this);
+        BT_Chase ChaseNode = new BT_Chase(this);
+        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this);
+        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this);
+        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this);
+        root.AddChild(CombatDec);
+        root.AddChild(SearchDec);
+        root.AddChild(ChaseDec);
+    }
+    public virtual new void Restart()
+    {
+        base.Restart();
+        Selector root = new Selector(this);
+        RootNode = root;
+        search = new Search();
+        brain = new BrainInformation();
+        BT_Combat CombatNode = new BT_Combat(this);
+        BT_Search SearchNode = new BT_Search(this);
+        BT_Chase ChaseNode = new BT_Chase(this);
+        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this);
+        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this);
+        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this);
+        root.AddChild(CombatDec);
+        root.AddChild(SearchDec);
+        root.AddChild(ChaseDec);
+    }
+    public virtual new void Update()
+    {
+        base.Update();
+
+        if (PerceptionSystem())
+            AINavAgent.speed = 10;
+        else
+            AINavAgent.speed = 5;
+
+        RootNode.Execute();
+    }
+    protected readonly string[] _firstNames = new string[]
 {
         "Kieran",
         "Alex",
@@ -111,6 +227,7 @@ public abstract class Agent : Entity
 
     public Team AgentsTeam = new Team();
     public Terrain navMesh;
+
     [Header("Agent Stats")]
     public NavMeshAgent AINavAgent;
     public float Mass, MaxVelocity, MaxForce;
@@ -118,66 +235,71 @@ public abstract class Agent : Entity
     public Vector3 velocity;
     public Vector3 MoveToLocation;
     bool IsMoving;
+    public  Search search;
 
-
-    public BT_Search Search;
-    [Header("Search")]
-    [Tooltip("Center of search ")]
-    public Vector3 SearchLocation;
-    [Tooltip("Distance to search ")]
-    public float SearchDistance;
-    [Tooltip("How long the Agent should search the area for")]
-    public float MaxSearchTime;
-    float CurrentSearchTime;
-    public bool SearchInsideCicle;
-    public List<Grid> SearchedGrids = new List<Grid>();
-    public List<GameObject> SearchPoints = new List<GameObject>();
-
-    [Header("Brain Information")]
-    public Vector3 PlayersLastKnownLocation;
-    public Vector3 PlayersTravelingDirection;
-    [Tooltip("How far the AI can see")]
-    public float VisionDistance = 500;
-    [Tooltip("How far the AI can shoot")]
-    public float CombatDistance = 100;
-    [Tooltip("How far the AI can hear")]
-    public float HearingDistance = 150;
-    [Tooltip("How powerfull the nose is")]
-    public float SmellPower = 3;
-    public bool SeePlayer = false;
-
+    public BrainInformation brain;
+      
     [Header("Radio")]
     public Radio AIRadio;
     public bool SquadTransmitRadio;
 
     public void CreateSearchPoints()
     {
-        SearchPoints = new List<GameObject>();
+       search.SearchPoints = new List<GameObject>();
         GameObject sp = Resources.Load("SearchPoint") as GameObject;
         for (var i=0; i < 30; i ++)
         {
             GameObject go = Instantiate(sp, transform.position, transform.rotation);
-            go.name = name + i;
-            SearchPoints.Add(go);
+            go.name = name +" Search Point :" + i;
+            search.SearchPoints.Add(go);
         }
     }
 
+    public void Reload()
+    {
 
+        StartCoroutine(combat.CurrentWeapon.Reload(inventory));
+    }
+    public Entity PerceptionSystem()
+    {
+        float ClosestDistance = float.MaxValue;
+        foreach (var item in Physics.OverlapSphere(transform.position, brain.VisionDistance, LayerMask.GetMask("Enemy")))
+        {
+            if (item.gameObject != gameObject)
+                if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)
+                {
+                    brain.SeePlayer = true;
+                    brain.PlayersLastKnownLocation = item.transform.position;
+                    brain.PlayersTravelingDirection = item.transform.forward;
+                    ClosestDistance = Vector3.Distance(transform.position, item.transform.position);
+                    return item.GetComponent<Entity>();
+
+                }
+        }
+        return null;
+    }
+        public Entity CombatSystem()
+    {
+        float ClosestDistance = float.MaxValue;
+        foreach (var item in Physics.OverlapSphere(transform.position, brain.CombatDistance, LayerMask.GetMask("Enemy")))
+        {
+            if (item.gameObject != gameObject)
+                if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)
+                {
+                    brain.SeePlayer = true;
+                    brain.PlayersLastKnownLocation = item.transform.position;
+                    brain.PlayersTravelingDirection = item.transform.forward;
+                    ClosestDistance = Vector3.Distance(transform.position, item.transform.position);
+                    return item.GetComponent<Entity>();
+                    
+                }
+        }
+        return null;
+    }
     public void MoveTo(Vector3 TargetPosition)
     {
         navMesh = FindObjectOfType<Terrain>();
         AINavAgent.stoppingDistance = StopDistance;
         AINavAgent.destination = TargetPosition;
-       
-        //var desiredVelocity = TargetPosition - transform.position;
-        //desiredVelocity = desiredVelocity.normalized * MaxVelocity;
-
-        //var steering = desiredVelocity - velocity;
-        //steering = Vector3.ClampMagnitude(steering, MaxForce);
-        //steering /= Mass;
-
-        //velocity = Vector3.ClampMagnitude(velocity + steering, MaxVelocity);
-        //transform.position += velocity * Time.deltaTime;
-        //transform.forward = velocity.normalized;
     }
 }

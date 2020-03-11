@@ -8,9 +8,10 @@ using UnityEngine;
 /// </summary>
 public class Selector : CompositeNode
 {
+    Agent agent;
     public Selector(Agent bb) : base(bb)
     {
-
+        agent = bb;
     }
 
     public override NodeStatus Execute()

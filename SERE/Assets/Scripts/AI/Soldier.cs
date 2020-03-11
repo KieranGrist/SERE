@@ -6,14 +6,13 @@ using UnityEngine.AI;
 public class Soldier : Agent
 {
 
-   public Soldier()
+   public Soldier() : base ()
     {
-        PrimaryWeapon = new L85A2();
-        SecondaryWeapon = new Glock17();
-        CurrentWeapon = PrimaryWeapon;
-        inventory = new Inventory();
-        inventory.AddItem(CurrentWeapon);
-        inventory.AddItem(SecondaryWeapon);
+       combat. PrimaryWeapon = new L85A2();
+        combat.SecondaryWeapon = new Glock17();
+        combat.CurrentWeapon = combat.PrimaryWeapon;
+        inventory.AddItem(combat.CurrentWeapon);
+        inventory.AddItem(combat.SecondaryWeapon);
         ANPRC152 aNPRC152 = new ANPRC152();
         AIRadio = aNPRC152;
         inventory.AddItem(aNPRC152);
@@ -29,26 +28,39 @@ public class Soldier : Agent
 
         inventory.CalculateWeight();
     }
-    public Vector3 EndPosition;
-    private void OnDrawGizmos()
+    public virtual new void Restart()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, CombatDistance);
+        base.Restart();
+        combat.PrimaryWeapon = new L85A2();
+        combat.SecondaryWeapon = new Glock17();
+        combat.CurrentWeapon = combat.PrimaryWeapon;
+        inventory.AddItem(combat.CurrentWeapon);
+        inventory.AddItem(combat.SecondaryWeapon);
+        ANPRC152 aNPRC152 = new ANPRC152();
+        AIRadio = aNPRC152;
+        inventory.AddItem(aNPRC152);
+        for (int i = 0; i < 4; i++)
+            inventory.AddItem(new NATO30TracerMag());
+        for (int i = 0; i < 6; i++)
+            inventory.AddItem(new NATO30StandardMag());
+        for (int i = 0; i < 2; i++)
+        {
+            inventory.AddItem(new NATO17StandardMag());
+            inventory.AddItem(new NATO17TracerMag());
+        }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, VisionDistance);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, AIRadio.RadioTransmistionDistance);
+        inventory.CalculateWeight();
 
     }
+    public Vector3 EndPosition;
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
-        name = _firstNames[Random.Range(0, _firstNames.Length)];
+        if (AIRadio != null)
+            tag = "HasRadio";
+      
         CreateSearchPoints();
-        Search = new BT_Search(this);
         AINavAgent = GetComponent<NavMeshAgent>();
 
     }
@@ -56,68 +68,23 @@ public class Soldier : Agent
     // Update is called once per frame
   new  void  Update()
     {
-
-        base.Update();
-        Search.Execute();
-        RadioManagement();
-
+        
+        base.Update();     
+ 
         EndPosition = AINavAgent.pathEndPosition;
-
+        if (AIRadio != null)
+            tag = "HasRadio";
 
         //   AINavAgent.SetDestination(PlayersLastKnownLocation);
 
-        if (Health < 0)
+        if (agentStats.Health < 0)
         {
             transform.position = new Vector3(0, 0, 0);
             enabled = false;
         }
 
-        Combat();
 
     }
 
-    private void RadioManagement()
-    {
-        if (inventory.ItemInInventory("ANPRC152")) tag = "HasRadio";
-        if (SquadTransmitRadio)
-        {
-            AIRadio.Transmit(this, "I have taken contact at " + transform.position.ToString());
-            SquadTransmitRadio = false;
-        }
-    }
 
-    private void Combat()
-    {
-
-        float ClosestDistance = float.MaxValue;
-        GameObject target = null;
-        if (Physics.CheckSphere(transform.position, VisionDistance))
-            AINavAgent.speed = 8;
-        else
-            AINavAgent.speed = 5;
-
-        foreach (var item in Physics.OverlapSphere(transform.position, CombatDistance, LayerMask.GetMask("Enemy")))
-        {
-            if (item.gameObject != gameObject)
-                if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)
-                {
-                    ClosestDistance = Vector3.Distance(transform.position, item.transform.position);
-                    target = item.gameObject;
-                }
-        }
-       
-
-        if (target)
-        {
-            if (CurrentWeapon.CurrentMagazine.BulletsInMag <= 0)
-            {
-             StartCoroutine(   CurrentWeapon.Reload(inventory));
-            }
-           
-            transform.LookAt(target.transform);
-
-            CurrentWeapon.Fire(transform);
-        }
-        Vector2 velocitySum = Vector2.zero;
-    }
 }

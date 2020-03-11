@@ -13,11 +13,11 @@ class CalculateSearchLocation : Node
 
     public override NodeStatus Execute()
     {
-
+        if (!agent.search.OrderedSearch)
         foreach (var item in MapGrids.MG.grids)
         {
             bool Contains = false;
-            foreach (var sg in agent.SearchedGrids)
+            foreach (var sg in agent.search.SearchedGrids)
                 if (item.ID == sg.ID)
                 {
                     Contains = true;
@@ -31,13 +31,15 @@ class CalculateSearchLocation : Node
                 }
             if (!Contains)
             {
-                agent.SearchLocation = item.Location;
-                agent.SearchedGrids.Add(item);
-                agent.AgentsTeam.SearchedGrids.Add(item);
+                agent.search.CurrentSearchGrid = item;
+                agent.search.SearchLocation = item.Location;
+                AIRadioMessage<Search> SearchMessage = new AIRadioMessage<Search>();
+                SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.search, "Hello I am searching " + agent.search.CurrentSearchGrid.ID);
+                agent.search.SearchedGrids.Add(item);
                 return NodeStatus.SUCCESS;
             }
         }
-
+        
         return NodeStatus.FAILURE;
     }
 }
@@ -62,32 +64,19 @@ class CalculateSearchPatern : Node
         for (int i = 0; i < NumberOfSearchPoints; i++)
         {
 
-            agent.SearchPoints[i].transform.eulerAngles = new Vector3(0, Degress, 0);
-            agent.SearchPoints[i].transform.position = agent.SearchLocation;
+            agent.search.SearchPoints[i].transform.eulerAngles = new Vector3(0, Degress, 0);
+            agent.search.SearchPoints[i].transform.position = agent.search.SearchLocation;
 
 
-            if (agent.SearchInsideCicle)
-                agent.SearchPoints[i].transform.position += agent.SearchPoints[i].transform.forward * Random.Range(1, agent.SearchDistance);
+            if (agent.search.SearchInsideCicle)
+                agent.search.SearchPoints[i].transform.position += agent.search.SearchPoints[i].transform.forward * Random.Range(1, agent.search.SearchDistance);
             else
-                agent.SearchPoints[i].transform.position += agent.SearchPoints[i].transform.forward * agent.SearchDistance;
+                agent.search.SearchPoints[i].transform.position += agent.search.SearchPoints[i].transform.forward * agent.search.SearchDistance;
 
-            Vector3 pos = agent.SearchPoints[i].transform.position;
-            pos.y = Terrain.activeTerrain.SampleHeight(agent.SearchPoints[i].transform.position);
-            agent.SearchPoints[i].transform.position = pos;
-
-            var g = agent.SearchPoints[i].GetComponent<Renderer>().material;
-            if (g)
-                g.color = Color.red;
+            Vector3 pos = agent.search.SearchPoints[i].transform.position;
+            pos.y = Terrain.activeTerrain.SampleHeight(agent.search.SearchPoints[i].transform.position);
+            agent.search.SearchPoints[i].transform.position = pos;
             Degress += Increase;
-
-
-        }
-        for (int i = 0; i < NumberOfSearchPoints; i++)
-        {
-            if (i == NumberOfSearchPoints - 1)
-                Debug.DrawLine(agent.SearchPoints[i].transform.position, agent.SearchPoints[0].transform.position);
-            else
-                Debug.DrawLine(agent.SearchPoints[i].transform.position, agent.SearchPoints[i + 1].transform.position);
         }
         return NodeStatus.SUCCESS;
     }
@@ -106,16 +95,29 @@ class CalculateSearchPatern : Node
     {
 
         BT_Move bT_Move = new BT_Move(agent);
-
-        agent.MoveToLocation = agent.SearchPoints[i].transform.position ;
-        if (agent.SeePlayer)
+      
+            agent.MoveToLocation = agent.search.SearchPoints[i].transform.position ;
+        agent.PerceptionSystem();
+        if (agent.brain.SeePlayer)
+        {
+            agent.search.Searching = false;
+            agent.search.SearchedGrids.Clear();
+            AIRadioMessage<BrainInformation> SearchMessage = new AIRadioMessage<BrainInformation>();
+            SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
             return NodeStatus.SUCCESS;
+
+        }
+
+  
         if (bT_Move.Execute() == NodeStatus.SUCCESS)
         {
+
             i++;
              if (i == 29)
             {
                 i = 0;
+                agent.search.OrderedSearch = false;
+                agent.search.SearchInsideCicle = false;
                 return NodeStatus.SUCCESS;
             }
 
@@ -123,15 +125,10 @@ class CalculateSearchPatern : Node
         }
         else
             return NodeStatus.RUNNING;
-
-
-
-        return NodeStatus.FAILURE;
     }
 }
 public class BT_Search :Sequence
 {
-    bool FoundPlayer;
     Agent agent;
     List<Transform> SearchLocations = new List<Transform>();
 
@@ -141,5 +138,18 @@ public BT_Search(Agent bb) : base(bb)
         AddChild(new CalculateSearchLocation(agent));
         AddChild(new CalculateSearchPatern(agent));
         AddChild(new ExecuteSearch(agent));
+    }
+}
+public class SearchDecorator : ConditionalDecorator
+{
+    Agent agent;
+    public SearchDecorator(Node WrappedNode, Agent bb) : base(WrappedNode, bb)
+    {
+        agent = bb;
+    }
+
+    public override bool CheckStatus()
+    {
+        return agent.search.Searching;
     }
 }

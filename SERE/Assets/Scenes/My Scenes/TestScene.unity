@@ -227,8 +227,8 @@ GameObject:
   - component: {fileID: 213086053}
   - component: {fileID: 213086052}
   m_Layer: 9
-  m_Name: Soldier (1)
-  m_TagString: Untagged
+  m_Name: Agent 1
+  m_TagString: HasRadio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!195 &213086053
 NavMeshAgent:
@@ -259,11 +259,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 8
+  m_Speed: 20
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -322,222 +322,203 @@ MonoBehaviour:
       Weight: 2.125
     MaxiumWeight: 50
     Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
   TravelingDirection: {x: 0, y: 0, z: 0}
-  Health: 100
-  Sensertivity: 1
-  Speed: 5
-  PrimaryWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  SecondaryWeapon:
-    Name: Glock 17 Pistol
-    Weight: 0.017681314
-    WeaponFireRate: 0
-    FiringSpeed: 4000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: 9x19 mm NATO 17 Round Tracer Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: 9x19 mm NATO 17 Round Standard Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  TertiaryWeapon:
-    Name: Item
-    Weight: 0
-    WeaponFireRate: 0
-    FiringSpeed: 5700
-    FiringRate: 0
-    CompatableMagazines: []
-    CurrentMagazine:
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
       Name: Item
       Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 3000
-      BulletDamage: 0
-      NextTracer: 0
-  CurrentWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
   AgentsTeam:
     TeamName: 1 - 1
     TeamID: 0
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   navMesh: {fileID: 0}
   AINavAgent: {fileID: 0}
-  Mass: 1
-  MaxVelocity: 10
-  MaxForce: 1
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
   StopDistance: 1
   velocity: {x: 0, y: 0, z: 0}
   MoveToLocation: {x: 0, y: 0, z: 0}
-  SearchLocation: {x: 0, y: 0, z: 0}
-  SearchDistance: 500
-  MaxSearchTime: 100
-  SearchInsideCicle: 0
-  SearchedGrids: []
-  SearchPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
-  PlayersTravelingDirection: {x: 0, y: 0, z: 0}
-  VisionDistance: 500
-  CombatDistance: 100
-  HearingDistance: 150
-  SmellPower: 3
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
   AIRadio:
     Name: ANPRC152
     Weight: 0.5
     Frequency: 0
-    RadioTransmistionDistance: 500
+    RadioTransmistionDistance: 1500
     Message: 
   SquadTransmitRadio: 0
   EndPosition: {x: 0, y: 0, z: 0}
@@ -609,11 +590,120 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213086051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 336, y: 190.28, z: 2000}
+  m_LocalPosition: {x: 340.962, y: 1.732, z: 2000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &313417730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313417735}
+  - component: {fileID: 313417734}
+  - component: {fileID: 313417733}
+  - component: {fileID: 313417732}
+  - component: {fileID: 313417731}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &313417731
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313417730}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &313417732
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313417730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &313417733
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313417730}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &313417734
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313417730}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &313417735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313417730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2467.5693, y: 194.43, z: 2046.7264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &852252279
 GameObject:
@@ -631,8 +721,8 @@ GameObject:
   - component: {fileID: 852252281}
   - component: {fileID: 852252280}
   m_Layer: 9
-  m_Name: Soldier (2)
-  m_TagString: Untagged
+  m_Name: Agent 2
+  m_TagString: HasRadio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,7 +741,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!195 &852252281
 NavMeshAgent:
@@ -663,11 +753,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 8
+  m_Speed: 20
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -726,222 +816,203 @@ MonoBehaviour:
       Weight: 2.125
     MaxiumWeight: 50
     Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
   TravelingDirection: {x: 0, y: 0, z: 0}
-  Health: 100
-  Sensertivity: 1
-  Speed: 5
-  PrimaryWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  SecondaryWeapon:
-    Name: Glock 17 Pistol
-    Weight: 0.017681314
-    WeaponFireRate: 0
-    FiringSpeed: 4000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: 9x19 mm NATO 17 Round Tracer Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: 9x19 mm NATO 17 Round Standard Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  TertiaryWeapon:
-    Name: Item
-    Weight: 0
-    WeaponFireRate: 0
-    FiringSpeed: 5700
-    FiringRate: 0
-    CompatableMagazines: []
-    CurrentMagazine:
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
       Name: Item
       Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 3000
-      BulletDamage: 0
-      NextTracer: 0
-  CurrentWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
   AgentsTeam:
     TeamName: 1 - 1
     TeamID: 0
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   navMesh: {fileID: 0}
   AINavAgent: {fileID: 0}
-  Mass: 1
-  MaxVelocity: 10
-  MaxForce: 1
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
   StopDistance: 1
   velocity: {x: 0, y: 0, z: 0}
   MoveToLocation: {x: 0, y: 0, z: 0}
-  SearchLocation: {x: 0, y: 0, z: 0}
-  SearchDistance: 500
-  MaxSearchTime: 100
-  SearchInsideCicle: 0
-  SearchedGrids: []
-  SearchPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
-  PlayersTravelingDirection: {x: 0, y: 0, z: 0}
-  VisionDistance: 500
-  CombatDistance: 100
-  HearingDistance: 150
-  SmellPower: 3
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
   AIRadio:
     Name: ANPRC152
     Weight: 0.5
     Frequency: 0
-    RadioTransmistionDistance: 500
+    RadioTransmistionDistance: 1500
     Message: 
   SquadTransmitRadio: 0
   EndPosition: {x: 0, y: 0, z: 0}
@@ -1013,11 +1084,1632 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 852252279}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 336, y: 190.28, z: 2000}
+  m_LocalPosition: {x: 347.08, y: 1.732, z: 2004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &879940877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879940884}
+  - component: {fileID: 879940883}
+  - component: {fileID: 879940882}
+  - component: {fileID: 879940881}
+  - component: {fileID: 879940880}
+  - component: {fileID: 879940879}
+  - component: {fileID: 879940878}
+  m_Layer: 9
+  m_Name: Agent 7
+  m_TagString: HasRadio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &879940878
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &879940879
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 20
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &879940880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d089104699f69b4c84834e98212295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems:
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: ANPRC152
+      Weight: 0.5
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    MaxiumWeight: 50
+    Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: Item
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    TeamLeader: {fileID: 0}
+  navMesh: {fileID: 0}
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
+  AIRadio:
+    Name: ANPRC152
+    Weight: 0.5
+    Frequency: 0
+    RadioTransmistionDistance: 1500
+    Message: 
+  SquadTransmitRadio: 0
+  EndPosition: {x: 0, y: 0, z: 0}
+--- !u!136 &879940881
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &879940882
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &879940883
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &879940884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879940877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 343.93, y: 1.732, z: 2002.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &893954862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893954869}
+  - component: {fileID: 893954868}
+  - component: {fileID: 893954867}
+  - component: {fileID: 893954866}
+  - component: {fileID: 893954865}
+  - component: {fileID: 893954864}
+  - component: {fileID: 893954863}
+  m_Layer: 9
+  m_Name: Agent 5
+  m_TagString: HasRadio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &893954863
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &893954864
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 20
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &893954865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d089104699f69b4c84834e98212295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems:
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: ANPRC152
+      Weight: 0.5
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    MaxiumWeight: 50
+    Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: Item
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    TeamLeader: {fileID: 0}
+  navMesh: {fileID: 0}
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
+  AIRadio:
+    Name: ANPRC152
+    Weight: 0.5
+    Frequency: 0
+    RadioTransmistionDistance: 1500
+    Message: 
+  SquadTransmitRadio: 0
+  EndPosition: {x: 0, y: 0, z: 0}
+--- !u!136 &893954866
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &893954867
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &893954868
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &893954869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893954862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 334.83, y: 1.732, z: 2002.85}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &938131430
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3933193634734804182, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5dd293a3118475d47aeae91ff593115e, type: 3}
+--- !u!114 &938131431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3933193634734804171, guid: 5dd293a3118475d47aeae91ff593115e,
+    type: 3}
+  m_PrefabInstance: {fileID: 938131430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b2dacc816bbc14f8aa33276be9d0f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1034729593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1034729600}
+  - component: {fileID: 1034729599}
+  - component: {fileID: 1034729598}
+  - component: {fileID: 1034729597}
+  - component: {fileID: 1034729596}
+  - component: {fileID: 1034729595}
+  - component: {fileID: 1034729594}
+  m_Layer: 9
+  m_Name: Agent 6
+  m_TagString: HasRadio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1034729594
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &1034729595
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 20
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1034729596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d089104699f69b4c84834e98212295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems:
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: ANPRC152
+      Weight: 0.5
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    MaxiumWeight: 50
+    Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: Item
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    TeamLeader: {fileID: 0}
+  navMesh: {fileID: 0}
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
+  AIRadio:
+    Name: ANPRC152
+    Weight: 0.5
+    Frequency: 0
+    RadioTransmistionDistance: 1500
+    Message: 
+  SquadTransmitRadio: 0
+  EndPosition: {x: 0, y: 0, z: 0}
+--- !u!136 &1034729597
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1034729598
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1034729599
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1034729600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034729593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 340.962, y: 1.732, z: 2002.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1044734751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044734758}
+  - component: {fileID: 1044734757}
+  - component: {fileID: 1044734756}
+  - component: {fileID: 1044734755}
+  - component: {fileID: 1044734754}
+  - component: {fileID: 1044734753}
+  - component: {fileID: 1044734752}
+  m_Layer: 9
+  m_Name: Agent 8
+  m_TagString: HasRadio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1044734752
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &1044734753
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 20
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1044734754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d089104699f69b4c84834e98212295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems:
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: ANPRC152
+      Weight: 0.5
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    MaxiumWeight: 50
+    Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: Item
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    TeamLeader: {fileID: 0}
+  navMesh: {fileID: 0}
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
+  AIRadio:
+    Name: ANPRC152
+    Weight: 0.5
+    Frequency: 0
+    RadioTransmistionDistance: 1500
+    Message: 
+  SquadTransmitRadio: 0
+  EndPosition: {x: 0, y: 0, z: 0}
+--- !u!136 &1044734755
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1044734756
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1044734757
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1044734758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044734751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 346.857, y: 1.732, z: 2000}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1069209721
 GameObject:
@@ -1083,7 +2775,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1076184100
 GameObject:
@@ -1094,7 +2786,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1076184102}
-  - component: {fileID: 1076184101}
   - component: {fileID: 1076184103}
   m_Layer: 0
   m_Name: GameObject
@@ -1103,35 +2794,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1076184101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1076184100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: e668dca10ade9bb4d805685b3d02a53e, type: 2}
 --- !u!4 &1076184102
 Transform:
   m_ObjectHideFlags: 0
@@ -1140,11 +2802,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076184100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.3, y: 190.28, z: 56.1}
+  m_LocalPosition: {x: 2000, y: 0, z: 2000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1076184103
 MonoBehaviour:
@@ -1163,6 +2825,7 @@ MonoBehaviour:
     TeamID: 4
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   OneOne:
     TeamName: 1 - 1
     TeamID: 1
@@ -1170,28 +2833,36 @@ MonoBehaviour:
     - {fileID: 213086054}
     - {fileID: 852252282}
     - {fileID: 6341764839622732318}
+    - {fileID: 1724874054}
+    - {fileID: 893954865}
+    - {fileID: 1034729596}
+    - {fileID: 879940880}
+    - {fileID: 1044734754}
     SearchedGrids: []
+    TeamLeader: {fileID: 213086054}
   OneTwo:
     TeamName: 1 - 2
     TeamID: 2
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   OneThree:
     TeamName: 1 - 1
     TeamID: 3
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   UglyOne:
     TeamName: Ugly One
     TeamID: 5
     Members: []
     SearchedGrids: []
-  TimeScale: 0
+    TeamLeader: {fileID: 0}
+  TimeScale: 1
   Reset: 0
-  player: {fileID: 0}
-  PlayerSpawnArea: 0
+  player: {fileID: 938131431}
+  PlayerSpawnArea: 1000
   PlayerSpawnLocation: {x: 0, y: 0, z: 0}
-  PlayerSpawnLocationGO: {fileID: 0}
   DebugPlayerRand:
     Minx: 0
     MaxX: 0
@@ -1199,10 +2870,17 @@ MonoBehaviour:
     MinZ: 0
     MaxZ: 0
     RandZ: 0
-  AIToManage: []
+  AIToManage:
+  - {fileID: 213086054}
+  - {fileID: 852252282}
+  - {fileID: 6341764839622732318}
+  - {fileID: 1724874054}
+  - {fileID: 893954865}
+  - {fileID: 1034729596}
+  - {fileID: 879940880}
+  - {fileID: 1044734754}
   MiniumDistanceToPlayer: 0
-  AISpawnArea: 0
-  AISpawnLocationGO: {fileID: 0}
+  AISpawnArea: 500
   AISpawnLocation: {x: 0, y: 0, z: 0}
   DebugAIRand:
     Minx: 0
@@ -1211,8 +2889,8 @@ MonoBehaviour:
     MinZ: 0
     MaxZ: 0
     RandZ: 0
-  ExtractionGameObject: {fileID: 0}
-  ExtractionPointSpawnArea: 0
+  ExtractionGameObject: {fileID: 2089820393}
+  ExtractionPointSpawnArea: 1500
   TimeNeededForExtraction: 0
   ExtractionLocation: {x: 0, y: 0, z: 0}
   DebugExtractionRand:
@@ -1234,6 +2912,7 @@ GameObject:
   - component: {fileID: 1491654875}
   - component: {fileID: 1491654874}
   - component: {fileID: 1491654877}
+  - component: {fileID: 1491654878}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -1296,7 +2975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1491654877
 MonoBehaviour:
@@ -1351,13 +3030,204 @@ MonoBehaviour:
     Location: {x: 3500, y: 0, z: 1500}
   - ID: 3446
     Location: {x: 3500, y: 0, z: 500}
---- !u!54 &2222111505158200133
+--- !u!114 &1491654878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491654873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: 60760983334ea2044b7f2ac97dfd8848, type: 2}
+--- !u!1 &1586216778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1586216779}
+  - component: {fileID: 1586216780}
+  - component: {fileID: 1586216781}
+  m_Layer: 0
+  m_Name: Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1586216779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586216778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1758887840}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!120 &1586216780
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586216778}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 0.2
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 0
+  m_Loop: 0
+--- !u!114 &1586216781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586216778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59870f3f4bbd1314fa2b02c763263467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1724874051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724874058}
+  - component: {fileID: 1724874057}
+  - component: {fileID: 1724874056}
+  - component: {fileID: 1724874055}
+  - component: {fileID: 1724874054}
+  - component: {fileID: 1724874053}
+  - component: {fileID: 1724874052}
+  m_Layer: 9
+  m_Name: Agent 4
+  m_TagString: HasRadio
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!54 &1724874052
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6341764839622732317}
+  m_GameObject: {fileID: 1724874051}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -1365,8 +3235,560 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &1724874053
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 20
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1724874054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d089104699f69b4c84834e98212295c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems:
+    - Name: L85A2 Rifle
+      Weight: 4.98
+    - Name: Glock 17 Pistol
+      Weight: 0.017681314
+    - Name: ANPRC152
+      Weight: 0.5
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+      Weight: 1.86
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Standard Magazine
+      Weight: 2.125
+    - Name: 9x19 mm NATO 17 Round Tracer Magazine
+      Weight: 2.125
+    MaxiumWeight: 50
+    Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: Item
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    TeamLeader: {fileID: 0}
+  navMesh: {fileID: 0}
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
+  AIRadio:
+    Name: ANPRC152
+    Weight: 0.5
+    Frequency: 0
+    RadioTransmistionDistance: 1500
+    Message: 
+  SquadTransmitRadio: 0
+  EndPosition: {x: 0, y: 0, z: 0}
+--- !u!136 &1724874055
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1724874056
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1724874057
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1724874058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724874051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 335.68, y: 1.732, z: 2000}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1758887840 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3933193634734804170, guid: 5dd293a3118475d47aeae91ff593115e,
+    type: 3}
+  m_PrefabInstance: {fileID: 938131430}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2089820392
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3557833059195911690, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_Name
+      value: Extract
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1991.1682
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 188.75664
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3314.7588
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557833059195911689, guid: 8b391181468592743a89214757c3a37d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b391181468592743a89214757c3a37d, type: 3}
+--- !u!1 &2089820393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3557833059195911690, guid: 8b391181468592743a89214757c3a37d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2089820392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2123305183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 300774230622876040, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_Name
+      value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876052, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 300774230622876055, guid: b4ae2886c180e4043b21e54c640a9034,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 938131431}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b4ae2886c180e4043b21e54c640a9034, type: 3}
 --- !u!195 &4684111618829741392
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1377,11 +3799,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
-  m_Acceleration: 8
+  m_Speed: 20
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1443,11 +3865,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6341764839622732317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 336, y: 190.28, z: 2000}
+  m_LocalPosition: {x: 343.696, y: 1.732, z: 2000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6341764839622732317
 GameObject:
@@ -1463,10 +3885,10 @@ GameObject:
   - component: {fileID: 6341764839622732319}
   - component: {fileID: 6341764839622732318}
   - component: {fileID: 4684111618829741392}
-  - component: {fileID: 2222111505158200133}
+  - component: {fileID: 6341764839622732320}
   m_Layer: 9
-  m_Name: Soldier
-  m_TagString: Untagged
+  m_Name: Agent 3
+  m_TagString: HasRadio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1522,222 +3944,203 @@ MonoBehaviour:
       Weight: 2.125
     MaxiumWeight: 50
     Weight: 32.597683
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
   TravelingDirection: {x: 0, y: 0, z: 0}
-  Health: 100
-  Sensertivity: 1
-  Speed: 5
-  PrimaryWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  SecondaryWeapon:
-    Name: Glock 17 Pistol
-    Weight: 0.017681314
-    WeaponFireRate: 0
-    FiringSpeed: 4000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: 9x19 mm NATO 17 Round Tracer Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: 9x19 mm NATO 17 Round Standard Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  TertiaryWeapon:
-    Name: Item
-    Weight: 0
-    WeaponFireRate: 0
-    FiringSpeed: 5700
-    FiringRate: 0
-    CompatableMagazines: []
-    CurrentMagazine:
+  combat:
+    PrimaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
       Name: Item
       Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 3000
-      BulletDamage: 0
-      NextTracer: 0
-  CurrentWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
+      WeaponFireRate: 0
+      FiringSpeed: 5700
+      FiringRate: 0
+      CompatableMagazines: []
+      CurrentMagazine:
+        Name: Item
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 3000
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
   AgentsTeam:
     TeamName: 1 - 1
     TeamID: 0
     Members: []
     SearchedGrids: []
+    TeamLeader: {fileID: 0}
   navMesh: {fileID: 0}
   AINavAgent: {fileID: 0}
-  Mass: 1
-  MaxVelocity: 10
-  MaxForce: 1
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
   StopDistance: 1
   velocity: {x: 0, y: 0, z: 0}
   MoveToLocation: {x: 0, y: 0, z: 0}
-  SearchLocation: {x: 0, y: 0, z: 0}
-  SearchDistance: 500
-  MaxSearchTime: 100
-  SearchInsideCicle: 0
-  SearchedGrids: []
-  SearchPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
-  PlayersTravelingDirection: {x: 0, y: 0, z: 0}
-  VisionDistance: 500
-  CombatDistance: 100
-  HearingDistance: 150
-  SmellPower: 3
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    SmellPower: 3
+    SeePlayer: 0
+    SmellPlayer: 0
+    HearPlayer: 0
   AIRadio:
     Name: ANPRC152
     Weight: 0.5
     Frequency: 0
-    RadioTransmistionDistance: 500
+    RadioTransmistionDistance: 1500
     Message: 
   SquadTransmitRadio: 0
   EndPosition: {x: 0, y: 0, z: 0}
@@ -1755,3 +4158,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6341764839622732320
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341764839622732317}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

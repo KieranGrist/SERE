@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
 
 public enum Side
 {
@@ -8,64 +9,96 @@ public enum Side
     Enemy,
     Civilian
 }
-public class Entity : MonoBehaviour
+[System.Serializable]
+public class EntityStats
 {
-    public Side Affiliation = Side.Friendly;
-    public Inventory inventory;
-
-    [Header("Movement")]
-    public Vector3 TravelingDirection;
     [Header("Stats")]
     public float Health = 100;
     public float Sensertivity = 1;
     public float Speed = 5;
+}
+[System.Serializable]
+public class Combat
+{
     [Header("Combat")]
-    public Weapon PrimaryWeapon;
-    public Weapon SecondaryWeapon;
-    public Weapon TertiaryWeapon;
-    public Weapon CurrentWeapon;
-     Weapon PreviousPrimaryWeapon;
-     Weapon PreviousSecondaryWeapon;
-     Weapon PreviousTerriaryWeapon;
+    public Weapon PrimaryWeapon = new EmptyWeapon();
+    public Weapon SecondaryWeapon = new EmptyWeapon();
+    public Weapon TertiaryWeapon = new EmptyWeapon();
+    public Weapon CurrentWeapon = new EmptyWeapon();
+    [System.NonSerialized]
+    public Weapon PreviousPrimaryWeapon = new EmptyWeapon();
+    [System.NonSerialized]
+    public Weapon PreviousSecondaryWeapon = new EmptyWeapon();
+    [System.NonSerialized]
+    public Weapon PreviousTerriaryWeapon = new EmptyWeapon();
+}
+[System.Serializable]
+public class Entity : MonoBehaviour
+{
+    public Entity()
+    {
+        inventory = new Inventory();
+        agentStats = new EntityStats();
+        combat = new Combat(); 
+    }
+    public Side Affiliation = Side.Friendly;
+    public Inventory inventory;
+    public EntityStats agentStats;
+    [Header("Movement")]
+    public Vector3 TravelingDirection;
+    public Combat combat;
     public virtual void DealDamage(float Damage)
     {
-        Health -= Damage;
+        agentStats.Health -= Damage;
     }
-
-    // Start is called before the first frame update
-    public virtual void Start()
+    public virtual void Restart()
     {
-        Health = 100;
+       
+        agentStats.Health = 100;
+        inventory = new Inventory();
+        agentStats = new EntityStats();
+        combat = new Combat();
         foreach (var item in inventory.inventoryItems)
         {
             item.Start();
         }
-        PrimaryWeapon.LoadPrefabs();
-        SecondaryWeapon.LoadPrefabs();
-        TertiaryWeapon.LoadPrefabs();
+        combat.PrimaryWeapon.LoadPrefabs();
+        combat.SecondaryWeapon.LoadPrefabs();
+        combat.TertiaryWeapon.LoadPrefabs();
+    }
+    // Start is called before the first frame update
+    public virtual void Start()
+    {
+        agentStats.Health = 100;
+        foreach (var item in inventory.inventoryItems)
+        {
+            item.Start();
+        }
+      combat.PrimaryWeapon.LoadPrefabs();
+        combat.SecondaryWeapon.LoadPrefabs();
+        combat.TertiaryWeapon.LoadPrefabs();
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
         inventory.CalculateWeight();
-  
         TravelingDirection = transform.forward;
-        PrimaryWeapon.UpdateGap(Time.deltaTime);
-        SecondaryWeapon.UpdateGap(Time.deltaTime);
-        TertiaryWeapon.UpdateGap(Time.deltaTime);
+        combat.PrimaryWeapon.UpdateGap(Time.deltaTime);
+        combat.SecondaryWeapon.UpdateGap(Time.deltaTime);
+        combat.TertiaryWeapon.UpdateGap(Time.deltaTime);
 
-        if (PrimaryWeapon != PreviousPrimaryWeapon)
-            PrimaryWeapon.LoadPrefabs();     
-        PreviousPrimaryWeapon = PrimaryWeapon;
+        if (combat.PrimaryWeapon != combat.PreviousPrimaryWeapon)
+            combat.PrimaryWeapon.LoadPrefabs();
+        combat.PreviousPrimaryWeapon = combat.PrimaryWeapon;
 
-        if (SecondaryWeapon != PreviousSecondaryWeapon)
-            SecondaryWeapon.LoadPrefabs();
-        PreviousSecondaryWeapon = SecondaryWeapon;
+        if (combat.SecondaryWeapon != combat.PreviousSecondaryWeapon)
+            combat.SecondaryWeapon.LoadPrefabs();
+        combat.PreviousSecondaryWeapon = combat.SecondaryWeapon;
 
-        if (TertiaryWeapon != PreviousTerriaryWeapon)
-            TertiaryWeapon.LoadPrefabs();
-        PreviousTerriaryWeapon = TertiaryWeapon;
+        if (combat.TertiaryWeapon != combat.PreviousTerriaryWeapon)
+            combat.TertiaryWeapon.LoadPrefabs();
+        combat.PreviousTerriaryWeapon = combat.TertiaryWeapon;
         switch(Affiliation)
         {
             case Side.Civilian:
@@ -82,7 +115,7 @@ public class Entity : MonoBehaviour
 
         if (transform.position.y < -1)
         {
-            Health = 0;
+            agentStats.Health = 0;
         }
   
   
