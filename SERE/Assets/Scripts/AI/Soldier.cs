@@ -77,11 +77,7 @@ public class Soldier : Agent
 
         //   AINavAgent.SetDestination(PlayersLastKnownLocation);
 
-        if (agentStats.Health < 0)
-        {
-            transform.position = new Vector3(0, 0, 0);
-            enabled = false;
-        }
+
 
 
     }

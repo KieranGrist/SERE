@@ -126,6 +126,14 @@ public class GameManager : MonoBehaviour
         ExtractionLocation = ExtractionGameObject.transform.position;
         Time.timeScale = TimeScale;
         GM = this;
+        foreach(var item in FindObjectsOfType<Agent>())
+        {
+            if (item.agentStats.Health < 0)
+            {
+                item.transform.position = AISpawnLocation;
+                item.Restart();
+            }
+        }
         if (Reset)
         {
             NewGame();
