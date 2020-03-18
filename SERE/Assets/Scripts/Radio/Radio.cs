@@ -11,7 +11,7 @@ public class AIRadioMessage<t>
         var S = Data as Search;
         if (S != null)
         {
-            if (HearingMessage.AgentsTeam.TeamLeader == HearingMessage)
+            if (HearingMessage.AgentsTeam.teamLeader == HearingMessage)
             {      
                 bool contains = false;
 
@@ -61,5 +61,4 @@ public class Radio : InventoryItem
     [Header("Radio")]
     public int Frequency;
     public float RadioTransmistionDistance;
-    public string Message;
 }

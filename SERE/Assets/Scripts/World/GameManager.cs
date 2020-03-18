@@ -22,33 +22,30 @@ public class GameManager : MonoBehaviour
 {
 
     [Header("Team Management")]
-    public Team OneZero;
-    public Team OneOne;
-    public Team OneTwo;
-    public Team OneThree;
-    public Team UglyOne;
-
+    public Team TeamOne;
+    public Team TeamTwo;
+    public Team TeamThree;
+    public Team TeamFour;
     public GameManager()
     {
-        OneOne = new Team();
-        OneOne.TeamName = "1 - 1";
-        OneOne.TeamID = 1;
+        TeamOne = new Team();
+        TeamOne.TeamName = "Team One";
+        TeamOne.TeamID = 1;
 
-        OneTwo = new Team();
-        OneTwo.TeamName = "1 - 2";
-        OneTwo.TeamID = 2;
+        TeamTwo = new Team();
+        TeamTwo.TeamName = "Team Two";
+        TeamTwo.TeamID = 2;
 
-        OneThree = new Team();
-        OneThree.TeamName = "1 - 1";
-        OneThree.TeamID = 3;
 
-        OneZero = new Team();
-        OneZero.TeamName = "1 - 0";
-        OneZero.TeamID = 4;
+        TeamThree = new Team();
+        TeamThree.TeamName = "Team Three";
+        TeamThree.TeamID = 3;
 
-        UglyOne = new Team();
-        UglyOne.TeamName = "Ugly One";
-        UglyOne.TeamID = 5;
+
+        TeamFour = new Team();
+        TeamFour.TeamName = "Team Team Four";
+        TeamFour.TeamID = 4;
+
     }
     [Header("Game Management")]
     public float TimeScale = 1;
@@ -97,23 +94,42 @@ public class GameManager : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(ExtractionLocation, new Vector3(50, 50, 50));
         Gizmos.DrawWireCube(transform.position, new Vector3(ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2));
-    }
 
+
+
+
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        if (TeamOne.teamLeader)
+            foreach (var item in TeamOne.Members)
+                Gizmos.DrawLine(item.transform.position, TeamOne.teamLeader.transform.position);
+        if (TeamTwo.teamLeader)
+            foreach (var item in TeamTwo.Members)
+                Gizmos.DrawLine(item.transform.position, TeamTwo.teamLeader.transform.position);
+        if (TeamThree.teamLeader)
+            foreach (var item in TeamThree.Members)
+                Gizmos.DrawLine(item.transform.position, TeamThree.teamLeader.transform.position);
+        if (TeamFour.teamLeader)
+            foreach (var item in TeamFour.Members)
+                Gizmos.DrawLine(item.transform.position, TeamFour.teamLeader.transform.position);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        OneOne.ReferenceMembersInTeam();
-        OneTwo.ReferenceMembersInTeam();
-        OneThree.ReferenceMembersInTeam();
-        OneZero.ReferenceMembersInTeam();
-        UglyOne.ReferenceMembersInTeam();
-
-        OneOne.SetUpTeam();
-        OneTwo.SetUpTeam();
-        OneThree.SetUpTeam();
-        OneZero.SetUpTeam();
-        UglyOne.SetUpTeam();
+        AIToManage = new List<Agent>();
+        AIToManage.Clear();
+        AIToManage.AddRange(FindObjectsOfType<Agent>());
+        TeamOne.ReferenceMembersInTeam();
+        TeamTwo.ReferenceMembersInTeam();
+        TeamThree.ReferenceMembersInTeam();
+        TeamFour.ReferenceMembersInTeam();
+        TeamOne.SetUpTeam();
+        TeamTwo.SetUpTeam();
+        TeamThree.SetUpTeam();
+        TeamFour.SetUpTeam();  
 
         GM = this;
         RestartLevel = true;

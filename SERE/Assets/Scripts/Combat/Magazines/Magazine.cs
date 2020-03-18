@@ -13,11 +13,6 @@ public class Magazine : InventoryItem
     public float BulletDamage;
     public   float NextTracer;
 
-
-    public new void Start()
-    {
-
-    }
     public  void CalculateWeight()
     {
       Weight = BulletWeight * BulletsInMag;

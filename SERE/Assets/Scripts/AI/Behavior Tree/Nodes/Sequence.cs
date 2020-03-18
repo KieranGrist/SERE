@@ -10,8 +10,9 @@ using UnityEngine;
 [System.Serializable]
 public class Sequence : CompositeNode
 {
-    public Sequence(Agent bb) : base(bb)
+    public Sequence(Agent Bt, string name) : base(Bt, name)
     {
+        NodeName = name;
     }
     public override NodeStatus Execute()
     {

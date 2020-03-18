@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class BT_Combat : Node
 {
     Agent agent;
-    public BT_Combat(Agent Bt) : base(Bt)
+    public BT_Combat(Agent Bt, string name) : base(Bt, name)
     {
         agent = Bt;
+        NodeName = name;
     }
 
     public override NodeStatus Execute()
@@ -29,9 +30,9 @@ public class BT_Combat : Node
             }
 
             agent.transform.LookAt(target.transform);
-            BT_Move bT_Move = new BT_Move(agent);
+            BT_Move bT_Move = new BT_Move(agent, "Move Node");
             AIRadioMessage<BrainInformation> SearchMessage = new AIRadioMessage<BrainInformation>();
-            SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
+            SearchMessage.Transmit(agent, agent.AgentsTeam.teamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
             agent.MoveToLocation = agent.brain.PlayersLastKnownLocation;
             agent.combat.CurrentWeapon.WeaponFireRate = RateOfFire.Single;
             agent.combat.CurrentWeapon.Fire(agent.transform);
@@ -50,10 +51,11 @@ public class BT_Combat : Node
     }
 
 }
+[System.Serializable]
 public class CombatDecorator : ConditionalDecorator
 {
     Agent agent;
-    public CombatDecorator(Node WrappedNode, Agent bb) : base(WrappedNode, bb)
+    public CombatDecorator(Node WrappedNode, Agent bb, string name) : base(WrappedNode, bb, name)
     {
         agent = bb;
     }

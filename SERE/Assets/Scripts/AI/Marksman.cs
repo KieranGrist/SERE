@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Marksman : Soldier
 {
-   public Marksman()
+   public Marksman() :base()
     {
         combat.PrimaryWeapon = new L129a1();
         combat.SecondaryWeapon = new Glock17();
@@ -30,7 +30,7 @@ public class Marksman : Soldier
             inventory.AddItem(new NATO17TracerMag());
         }
         inventory.CalculateWeight();
-        brain.VisionDistance = 1000;
+       brain.VisionDistance = 1000;
        brain. CombatDistance = 500;
     }
     public override void Restart()

@@ -54,19 +54,17 @@ public class Soldier : Agent
     }
     public Vector3 EndPosition;
     // Start is called before the first frame update
-    new void Start()
+   public new virtual void Start()
     {
         base.Start();
         if (AIRadio != null)
-            tag = "HasRadio";
-      
-        CreateSearchPoints();
+            tag = "HasRadio";        
         AINavAgent = GetComponent<NavMeshAgent>();
 
     }
 
     // Update is called once per frame
-  new  void  Update()
+    public new virtual void  Update()
     {
         
         base.Update();     

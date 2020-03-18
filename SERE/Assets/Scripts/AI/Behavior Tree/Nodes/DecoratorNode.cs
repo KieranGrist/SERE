@@ -6,12 +6,13 @@ using UnityEngine;
 /// <summary>
 /// Decorator nodes customise functionality of other nodes by wrapping around them, see InverterDecorator for example
 /// </summary>
+[System.Serializable]
 public abstract class DecoratorNode : Node
 {
     protected Node WrappedNode;
-    public DecoratorNode(Node WrappedNode, Agent bb) : base(bb)
+    public DecoratorNode(Node WrappedNode, Agent Bt, string name) : base(Bt, name)
     {
-        this.WrappedNode = WrappedNode;
+        NodeName = name;
     }
 
     public Node GetWrappedNode()

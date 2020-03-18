@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-class CalculateSearchLocation : Node
+public class CalculateSearchLocation : Node
 {
     Agent agent;
 
-    public CalculateSearchLocation(Agent agent) : base(agent)
+    public CalculateSearchLocation(Agent Bt, string name) : base(Bt, name)
     {
-        this.agent = agent;
+        agent = Bt;
+        NodeName = name;
     }
 
     public override NodeStatus Execute()
@@ -34,7 +35,7 @@ class CalculateSearchLocation : Node
                 agent.search.CurrentSearchGrid = item;
                 agent.search.SearchLocation = item.Location;
                 AIRadioMessage<Search> SearchMessage = new AIRadioMessage<Search>();
-                SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.search, "Hello I am searching " + agent.search.CurrentSearchGrid.ID);
+                SearchMessage.Transmit(agent, agent.AgentsTeam.teamLeader, agent.AIRadio, agent.search, "Hello I am searching " + agent.search.CurrentSearchGrid.ID);
                 agent.search.SearchedGrids.Add(item);
                 return NodeStatus.SUCCESS;
             }
@@ -44,18 +45,19 @@ class CalculateSearchLocation : Node
     }
 }
 [System.Serializable]
-class CalculateSearchPatern : Node
+public class CalculateSearchPatern : Node
 {
     Agent agent;
-    public CalculateSearchPatern(Agent Bt) : base(Bt)
+    public CalculateSearchPatern(Agent Bt, string name) : base(Bt, name)
     {
         agent = Bt;
-        
+        NodeName = name;
     }
+
 
     public override NodeStatus Execute()
     {       
-        var NumberOfSearchPoints = 30;
+        var NumberOfSearchPoints = agent.search.SearchPoints.Count;
         float Degress = 0;
         var Increase = 360 / NumberOfSearchPoints;
 
@@ -82,38 +84,38 @@ class CalculateSearchPatern : Node
     }
 }
 [System.Serializable]
- class ExecuteSearch :Node
+public class ExecuteSearch : Node
 {
     Agent agent;
-     int i = 0;
-    public ExecuteSearch(Agent Bt) : base(Bt)
+    int i = 0;
+    public ExecuteSearch(Agent Bt, string name) : base(Bt, name)
     {
         agent = Bt;
+        NodeName = name;
     }
-
     public override NodeStatus Execute()
     {
 
-        BT_Move bT_Move = new BT_Move(agent);
-      
-            agent.MoveToLocation = agent.search.SearchPoints[i].transform.position ;
+        BT_Move bT_Move = new BT_Move(agent, "Move");
+
+        agent.MoveToLocation = agent.search.SearchPoints[i].transform.position;
         agent.PerceptionSystem();
         if (agent.brain.SeePlayer)
         {
             agent.search.Searching = false;
             agent.search.SearchedGrids.Clear();
             AIRadioMessage<BrainInformation> SearchMessage = new AIRadioMessage<BrainInformation>();
-            SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
+            SearchMessage.Transmit(agent, agent.AgentsTeam.teamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
             return NodeStatus.SUCCESS;
 
         }
 
-  
+
         if (bT_Move.Execute() == NodeStatus.SUCCESS)
         {
 
             i++;
-             if (i == 29)
+            if (i == 29)
             {
                 i = 0;
                 agent.search.OrderedSearch = false;
@@ -127,23 +129,27 @@ class CalculateSearchPatern : Node
             return NodeStatus.RUNNING;
     }
 }
-public class BT_Search :Sequence
+
+[System.Serializable]
+public class BT_Search : Sequence
 {
     Agent agent;
     List<Transform> SearchLocations = new List<Transform>();
 
-public BT_Search(Agent bb) : base(bb)
+    public BT_Search(Agent Bt, string name) : base(Bt, name)
     {
-        agent = bb;    
-        AddChild(new CalculateSearchLocation(agent));
-        AddChild(new CalculateSearchPatern(agent));
-        AddChild(new ExecuteSearch(agent));
+        agent = Bt;
+        NodeName = name;    
+        AddChild(new CalculateSearchLocation(agent, "Calculate Search Location"));
+        AddChild(new CalculateSearchPatern(agent, "Calculate Search Patern"));
+        AddChild(new ExecuteSearch(agent, "Execute Search"));
     }
 }
+[System.Serializable]
 public class SearchDecorator : ConditionalDecorator
 {
     Agent agent;
-    public SearchDecorator(Node WrappedNode, Agent bb) : base(WrappedNode, bb)
+    public SearchDecorator(Node WrappedNode, Agent bb, string name) : base(WrappedNode, bb, name)
     {
         agent = bb;
     }

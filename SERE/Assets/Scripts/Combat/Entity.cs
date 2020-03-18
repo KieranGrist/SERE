@@ -41,6 +41,7 @@ public class Entity : MonoBehaviour
         agentStats = new EntityStats();
         combat = new Combat(); 
     }
+    [Header("Entity")]
     public Side Affiliation = Side.Friendly;
     public Inventory inventory;
     public EntityStats agentStats;
@@ -58,10 +59,6 @@ public class Entity : MonoBehaviour
         inventory = new Inventory();
         agentStats = new EntityStats();
         combat = new Combat();
-        foreach (var item in inventory.inventoryItems)
-        {
-            item.Start();
-        }
         combat.PrimaryWeapon.LoadPrefabs();
         combat.SecondaryWeapon.LoadPrefabs();
         combat.TertiaryWeapon.LoadPrefabs();
@@ -70,10 +67,6 @@ public class Entity : MonoBehaviour
     public virtual void Start()
     {
         agentStats.Health = 100;
-        foreach (var item in inventory.inventoryItems)
-        {
-            item.Start();
-        }
       combat.PrimaryWeapon.LoadPrefabs();
         combat.SecondaryWeapon.LoadPrefabs();
         combat.TertiaryWeapon.LoadPrefabs();

@@ -33,6 +33,7 @@ public class Player : Entity
     {
         base.Start();
         combat.CurrentWeapon.LoadPrefabs();
+        InvokeRepeating("CreateScenetTrail", 0, 5);
     }
     public override void Restart()
     {
@@ -71,7 +72,15 @@ public class Player : Entity
 
 
     }
-
+    void CreateScenetTrail()
+    {
+        GameObject st = Resources.Load("ScentSphere") as GameObject;
+        GameObject go = Instantiate(st);
+        var scent = go.GetComponent<ScentSphere>();
+        go.transform.position = transform.position;
+        scent.TravelingDirection = transform.forward;
+        scent.TravelingLocation = transform.position;
+    }
     private void Movement()
     {
         if (Input.GetKey(KeyCode.Alpha1))

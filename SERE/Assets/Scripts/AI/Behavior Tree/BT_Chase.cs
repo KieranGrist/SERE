@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class BT_Chase : Node
 {
     Agent agent;
-    public BT_Chase(Agent Bt) : base(Bt)
+    public BT_Chase(Agent Bt, string name) : base(Bt, name)
     {
         agent = Bt;
+        NodeName = name;
     }
 
     public override NodeStatus Execute()
@@ -18,9 +19,9 @@ public class BT_Chase : Node
         if ( Target)
         {
             agent.MoveToLocation = Target.transform.position;
-            BT_Move bT_Move = new BT_Move(agent);
+            BT_Move bT_Move = new BT_Move(agent,"Move");
             AIRadioMessage<BrainInformation> SearchMessage = new AIRadioMessage<BrainInformation>();
-            SearchMessage.Transmit(agent, agent.AgentsTeam.TeamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
+            SearchMessage.Transmit(agent, agent.AgentsTeam.teamLeader, agent.AIRadio, agent.brain, "Hello I can see the player" + agent.brain.PlayersLastKnownLocation);
             bT_Move.Execute();
             if (Vector3.Distance(agent.transform.position, agent.brain.PlayersLastKnownLocation) < agent.brain.CombatDistance)
                 return NodeStatus.RUNNING;
@@ -41,11 +42,11 @@ public class BT_Chase : Node
         return NodeStatus.FAILURE;
     }
 }
-
+[System.Serializable]
 public class ChaseDecorator : ConditionalDecorator
 {
     Agent agent;
-    public ChaseDecorator(Node WrappedNode, Agent bb) : base(WrappedNode, bb)
+    public ChaseDecorator(Node WrappedNode, Agent bb, string name) : base(WrappedNode, bb, name)
     {
         agent = bb;
     }

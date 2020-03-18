@@ -8,14 +8,14 @@ public class Team
     [Header("Team")]
     public string TeamName;
     public int TeamID;
-    public List<Agent> Members = new List<Agent>();
+    public List<Agent> Members = new List<Agent>(4);
     public List<Grid> SearchedGrids = new List<Grid>();
-    public Agent TeamLeader;
+    public TeamLeader teamLeader;
     public Team()
     {
         TeamName = "1 - 1";
         TeamID = 0;
-        Members = new List<Agent>();
+        Members = new List<Agent>(4);
     }
     public void SetUpTeam()
     {
@@ -97,66 +97,32 @@ public class BrainInformation
     [Tooltip("How far the AI can hear")]
     public float HearingDistance = 150;
     [Tooltip("How powerfull the nose is")]
-    public float SmellPower = 3;
+    public bool AbillityToSmell = false;
+
     public bool SeePlayer = false;
-    public bool SmellPlayer;
-    public bool HearPlayer;
+    public bool HearPlayer = false;
 }
 [System.Serializable]
 
+public class DebugInformation
+{
+    Agent agent;
+    public DebugInformation(Agent agent)
+    {
+        this.agent = agent;
+    }
+    public float DistanceToPlayer;
+
+  public void UpdateInformation()
+    {
+        DistanceToPlayer = Vector3.Distance(agent.transform.position, GameManager.GM.player.transform.position);
+
+    }
+}
+[System.Serializable]
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class Agent : Entity
 {
-    Node RootNode;
-   public Agent() : base ()
-    {
-        search = new Search();
-        AgentsTeam = new Team();
-        AIRadio = null;
-    }
-    public virtual new void Start()
-    {
-        base.Start();
-        Selector root = new Selector(this);
-        RootNode = root;
-
-        BT_Combat CombatNode = new BT_Combat(this);
-        BT_Search  SearchNode = new BT_Search(this);
-        BT_Chase ChaseNode = new BT_Chase(this);
-        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this);
-        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this);
-        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this);
-        root.AddChild(CombatDec);
-        root.AddChild(SearchDec);
-        root.AddChild(ChaseDec);
-    }
-    public virtual new void Restart()
-    {
-        base.Restart();
-        Selector root = new Selector(this);
-        RootNode = root;
-        search = new Search();
-        brain = new BrainInformation();
-        BT_Combat CombatNode = new BT_Combat(this);
-        BT_Search SearchNode = new BT_Search(this);
-        BT_Chase ChaseNode = new BT_Chase(this);
-        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this);
-        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this);
-        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this);
-        root.AddChild(CombatDec);
-        root.AddChild(SearchDec);
-        root.AddChild(ChaseDec);
-    }
-    public virtual new void Update()
-    {
-        base.Update();
-
-        if (PerceptionSystem())
-            AINavAgent.speed = 10;
-        else
-            AINavAgent.speed = 5;
-
-        RootNode.Execute();
-    }
     protected readonly string[] _firstNames = new string[]
 {
         "Kieran",
@@ -224,9 +190,21 @@ public abstract class Agent : Entity
 
 
 };
-
+    public Agent() : base ()
+    {
+        search = new Search();
+        AgentsTeam = new Team();
+     brain = new BrainInformation();
+        AIRadio = null;
+    }
+    [Header("Agent")]
+    public DebugInformation DebugInfo;
+    public Node RootNode;
     public Team AgentsTeam = new Team();
-    public Terrain navMesh;
+    public Search search;
+    public BrainInformation brain;
+    
+
 
     [Header("Agent Stats")]
     public NavMeshAgent AINavAgent;
@@ -235,13 +213,65 @@ public abstract class Agent : Entity
     public Vector3 velocity;
     public Vector3 MoveToLocation;
     bool IsMoving;
-    public  Search search;
 
-    public BrainInformation brain;
       
     [Header("Radio")]
     public Radio AIRadio;
     public bool SquadTransmitRadio;
+
+    public virtual new void Start()
+    {
+        base.Start();
+        AINavAgent = GetComponent<NavMeshAgent>();
+        DebugInfo = new DebugInformation(this);
+        Selector root = new Selector(this, "Root Node");
+        RootNode = root;
+        search = new Search();
+        brain = new BrainInformation();
+        CreateSearchPoints();
+        BT_Combat CombatNode = new BT_Combat(this, "Combat Node");
+        BT_Search SearchNode = new BT_Search(this, "Search Node");
+        BT_Chase ChaseNode = new BT_Chase(this, "Chase Node");
+        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this, "Combat Decorator");
+        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this, "Search Decorator");
+        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this, "Chase Decorator");
+        root.AddChild(CombatDec);
+        root.AddChild(SearchDec);
+        root.AddChild(ChaseDec);
+    }
+
+    public virtual new void Update()
+    {
+        base.Update();
+
+        if (PerceptionSystem())
+            AINavAgent.speed = 10;
+        else
+            AINavAgent.speed = 5;
+        if (search.SearchPoints.Count == 0)
+            CreateSearchPoints();
+        RootNode.Execute();
+    }
+    public virtual new void Restart()
+    {
+        base.Restart();
+        AINavAgent = GetComponent<NavMeshAgent>();
+        DebugInfo = new DebugInformation(this);
+        Selector root = new Selector(this, "Root Node");
+        RootNode = root;
+        search = new Search();
+        brain = new BrainInformation();
+        CreateSearchPoints();
+        BT_Combat CombatNode = new BT_Combat(this, "Combat Node");
+        BT_Search SearchNode = new BT_Search(this, "Search Node");
+        BT_Chase ChaseNode = new BT_Chase(this, "Chase Node");
+        CombatDecorator CombatDec = new CombatDecorator(CombatNode, this, "Combat Decorator");
+        SearchDecorator SearchDec = new SearchDecorator(SearchNode, this, "Search Decorator");
+        ChaseDecorator ChaseDec = new ChaseDecorator(ChaseNode, this, "Chase Decorator");
+        root.AddChild(CombatDec);
+        root.AddChild(SearchDec);
+        root.AddChild(ChaseDec);
+    }
 
     public void CreateSearchPoints()
     {
@@ -297,8 +327,7 @@ public abstract class Agent : Entity
         return null;
     }
     public void MoveTo(Vector3 TargetPosition)
-    {
-        navMesh = FindObjectOfType<Terrain>();
+    {      
         AINavAgent.stoppingDistance = StopDistance;
         AINavAgent.destination = TargetPosition;
     }

@@ -6,12 +6,15 @@ using UnityEngine;
 /// Selectors execute their children in order until a child succeeds, at which point it stops execution
 /// If a child returns RUNNING, then it will need to stop execution but resume from the same point the next time it executes
 /// </summary>
+
+[System.Serializable]
 public class Selector : CompositeNode
 {
     Agent agent;
-    public Selector(Agent bb) : base(bb)
+    public Selector(Agent Bt, string name) : base(Bt, name)
     {
-        agent = bb;
+        agent = Bt;
+        NodeName = name;
     }
 
     public override NodeStatus Execute()

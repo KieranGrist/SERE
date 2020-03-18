@@ -38,7 +38,6 @@ public class Helicopter : Agent
     private new void Start()
     {
         base.Start();
-        AINavAgent = GetComponent<NavMeshAgent>();
         name = "Ugly 1";
         AIRadio.Frequency = 7;
         

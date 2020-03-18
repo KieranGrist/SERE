@@ -14,9 +14,11 @@ public enum NodeStatus
 public abstract class Node
 {
     public Agent Bt;
-    public Node(Agent Bt)
+    public string NodeName;
+    public Node(Agent Bt,string NodeName)
     {
         this.Bt = Bt;
+        this.NodeName = NodeName;
     }
     public abstract NodeStatus Execute();
 

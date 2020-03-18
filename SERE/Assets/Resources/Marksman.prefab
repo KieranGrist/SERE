@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 274496298d9dd924d9a329dd88d2e7d3, type: 2}
+  - {fileID: 2100000, guid: 71e763789ac90a8409254c02aef8286d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -267,197 +267,220 @@ MonoBehaviour:
       Weight: 2.125
     MaxiumWeight: 50
     Weight: 155.91762
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
   TravelingDirection: {x: 0, y: 0, z: 0}
-  Health: 100
-  Sensertivity: 1
-  Speed: 5
-  PrimaryWeapon:
-    Name: L129A1 Marksman Rifle
-    Weight: 4.4
-    WeaponFireRate: 0
-    FiringSpeed: 15000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: "7.62\xD751mm NATO 20 Round Armour Piercieing Magazine"
-      Weight: 2.8799999
-      MaxCapacity: 20
-      BulletsInMag: 20
-      BulletWeight: 0.144
-      Tracergap: 2
-      BulletDamage: 60
-      NextTracer: 2
-    - Name: "7.62\xD751mm NATO 20 Round High Velocity Magazine"
-      Weight: 2.48
-      MaxCapacity: 20
-      BulletsInMag: 20
-      BulletWeight: 0.124
-      Tracergap: 2
-      BulletDamage: 70
-      NextTracer: 2
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  SecondaryWeapon:
-    Name: Glock 17 Pistol
-    Weight: 0.017681314
-    WeaponFireRate: 0
-    FiringSpeed: 4000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: 9x19 mm NATO 17 Round Tracer Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: 9x19 mm NATO 17 Round Standard Magazine
-      Weight: 2.125
-      MaxCapacity: 17
-      BulletsInMag: 17
-      BulletWeight: 0.125
-      Tracergap: 0
-      BulletDamage: 20
-      NextTracer: 0
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  TertiaryWeapon:
-    Name: L85A2 Rifle
-    Weight: 4.98
-    WeaponFireRate: 0
-    FiringSpeed: 10000
-    FiringRate: 0.25
-    CompatableMagazines:
-    - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 0
-      BulletDamage: 40
-      NextTracer: 0
-    - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
-      Weight: 1.86
-      MaxCapacity: 30
-      BulletsInMag: 30
-      BulletWeight: 0.062
-      Tracergap: 3
-      BulletDamage: 40
-      NextTracer: 3
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-  CurrentWeapon:
-    Name: L129A1 Marksman Rifle
-    Weight: 4.4
-    WeaponFireRate: 0
-    FiringSpeed: 15000
-    FiringRate: 0.5
-    CompatableMagazines:
-    - Name: "7.62\xD751mm NATO 20 Round Armour Piercieing Magazine"
-      Weight: 2.8799999
-      MaxCapacity: 20
-      BulletsInMag: 20
-      BulletWeight: 0.144
-      Tracergap: 2
-      BulletDamage: 60
-      NextTracer: 2
-    - Name: "7.62\xD751mm NATO 20 Round High Velocity Magazine"
-      Weight: 2.48
-      MaxCapacity: 20
-      BulletsInMag: 20
-      BulletWeight: 0.124
-      Tracergap: 2
-      BulletDamage: 70
-      NextTracer: 2
-    - Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
-    CurrentMagazine:
-      Name: No Magazine
-      Weight: 0
-      MaxCapacity: 0
-      BulletsInMag: 0
-      BulletWeight: 0
-      Tracergap: 0
-      BulletDamage: 0
-      NextTracer: 0
+  combat:
+    PrimaryWeapon:
+      Name: L129A1 Marksman Rifle
+      Weight: 4.4
+      WeaponFireRate: 0
+      FiringSpeed: 15000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: "7.62\xD751mm NATO 20 Round Armour Piercieing Magazine"
+        Weight: 2.8799999
+        MaxCapacity: 20
+        BulletsInMag: 20
+        BulletWeight: 0.144
+        Tracergap: 2
+        BulletDamage: 60
+        NextTracer: 2
+      - Name: "7.62\xD751mm NATO 20 Round High Velocity Magazine"
+        Weight: 2.48
+        MaxCapacity: 20
+        BulletsInMag: 20
+        BulletWeight: 0.124
+        Tracergap: 2
+        BulletDamage: 70
+        NextTracer: 2
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: Glock 17 Pistol
+      Weight: 0.017681314
+      WeaponFireRate: 0
+      FiringSpeed: 4000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: 9x19 mm NATO 17 Round Tracer Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: 9x19 mm NATO 17 Round Standard Magazine
+        Weight: 2.125
+        MaxCapacity: 17
+        BulletsInMag: 17
+        BulletWeight: 0.125
+        Tracergap: 0
+        BulletDamage: 20
+        NextTracer: 0
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: L85A2 Rifle
+      Weight: 4.98
+      WeaponFireRate: 0
+      FiringSpeed: 10000
+      FiringRate: 0.25
+      CompatableMagazines:
+      - Name: "5.5.56\xD745mm NATO 30 Round Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 0
+        BulletDamage: 40
+        NextTracer: 0
+      - Name: "5.5.56\xD745mm NATO 30 Round Standard Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: "5.5.56\xD745mm NATO 30 Round No Tracer Magazine"
+        Weight: 1.86
+        MaxCapacity: 30
+        BulletsInMag: 30
+        BulletWeight: 0.062
+        Tracergap: 3
+        BulletDamage: 40
+        NextTracer: 3
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: L129A1 Marksman Rifle
+      Weight: 4.4
+      WeaponFireRate: 0
+      FiringSpeed: 15000
+      FiringRate: 0.5
+      CompatableMagazines:
+      - Name: "7.62\xD751mm NATO 20 Round Armour Piercieing Magazine"
+        Weight: 2.8799999
+        MaxCapacity: 20
+        BulletsInMag: 20
+        BulletWeight: 0.144
+        Tracergap: 2
+        BulletDamage: 60
+        NextTracer: 2
+      - Name: "7.62\xD751mm NATO 20 Round High Velocity Magazine"
+        Weight: 2.48
+        MaxCapacity: 20
+        BulletsInMag: 20
+        BulletWeight: 0.124
+        Tracergap: 2
+        BulletDamage: 70
+        NextTracer: 2
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  DebugInfo:
+    DistanceToPlayer: 0
   AgentsTeam:
     TeamName: 1 - 1
     TeamID: 0
     Members: []
+    SearchedGrids: []
+    teamLeader: {fileID: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    Searching: 1
+    OrderedSearch: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 1000
+    CombatDistance: 500
+    HearingDistance: 150
+    AbillityToSmell: 0
+    SeePlayer: 0
+    HearPlayer: 0
   AINavAgent: {fileID: 0}
-  SearchLocation: {x: 0, y: 0, z: 0}
-  SearchDistance: 0
-  MaxSearchTime: 0
-  PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
-  PlayersTravelingDirection: {x: 0, y: 0, z: 0}
-  VisionDistance: 1000
-  CombatDistance: 500
-  HearingDistance: 150
-  SmellPower: 3
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
   AIRadio:
     Name: ANPRC152
     Weight: 0.5
     Frequency: 0
     RadioTransmistionDistance: 500
-    Message: 
   SquadTransmitRadio: 0
   EndPosition: {x: 0, y: 0, z: 0}

@@ -10,10 +10,11 @@ using UnityEngine;
 public abstract class CompositeNode : Node
 {
     public int CurrentChildIndex = 0;
-    public List<Node> children;
-    public CompositeNode(Agent bb) : base(bb)
+    public List<Node> children = new List<Node>();
+    public CompositeNode(Agent Bt, string name) : base(Bt, name)
     {
         children = new List<Node>();
+        NodeName = name;
     }
     public void AddChild(Node child)
     {

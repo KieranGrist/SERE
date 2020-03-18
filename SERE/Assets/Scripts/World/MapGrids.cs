@@ -30,8 +30,6 @@ public class MapGrids : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-
-
         CenterPoint = terrain.terrainData.size.x / 2;
         TopX = CenterPoint - terrain.terrainData.size.x / 2;
         BottomX = CenterPoint + terrain.terrainData.size.x / 2;

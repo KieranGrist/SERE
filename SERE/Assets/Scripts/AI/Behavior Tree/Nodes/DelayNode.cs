@@ -5,14 +5,18 @@ using System.Timers;
 /// <summary>
 /// This node simply returns success after the allotted delay time has passed
 /// </summary>
+[System.Serializable]
 public class DelayNode : Node
 {
     protected float Delay = 0.0f;
     bool Started = false;
     private Timer regulator;
     bool DelayFinished = false;
-    public DelayNode(Agent bb, float DelayTime) : base(bb)
+    public DelayNode(Agent bb, string name,float DelayTime) : base(bb, name)
     {
+
+      NodeName = name;
+    
         this.Delay = DelayTime;
         regulator = new Timer(Delay * 1000.0f); // in milliseconds, so multiply by 1000
         regulator.Elapsed += OnTimedEvent;
