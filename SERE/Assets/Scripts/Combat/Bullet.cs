@@ -23,7 +23,9 @@ public class Bullet : MonoBehaviour
             if (Hit)
             {
                 Hit.DealDamage(Damage);
-                Hit.GetComponent<Rigidbody>().velocity = new Vector3();
+                var rb = Hit.GetComponent<Rigidbody>();
+           if ( rb)
+                    rb.velocity = new Vector3();
                 Destroy(gameObject);
             }
 

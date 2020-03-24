@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
-
+    int ss = 0;
     public Player()
     {
         Affiliation = Side.Enemy;
@@ -74,9 +74,12 @@ public class Player : Entity
     }
     void CreateScenetTrail()
     {
+        ss++;
+ 
         GameObject st = Resources.Load("ScentSphere") as GameObject;
         GameObject go = Instantiate(st);
         var scent = go.GetComponent<ScentSphere>();
+        go.name = "Scent Sphere : " + ss;       
         go.transform.position = transform.position;
         scent.TravelingDirection = transform.forward;
         scent.TravelingLocation = transform.position;

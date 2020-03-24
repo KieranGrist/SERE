@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5924968273509193155}
   - component: {fileID: 5924968273509193166}
   - component: {fileID: 5924968273509193167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ScentSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
