@@ -23,15 +23,18 @@ public class Sequence : CompositeNode
             this.CurrentChildIndex = i;
             if (rv == NodeStatus.RUNNING)
             {
+        
                 return NodeStatus.RUNNING;
             }
             if (rv == NodeStatus.FAILURE)
             {
                 this.Reset();
+           
                 return NodeStatus.FAILURE;
             }
         }
         this.Reset();
+
         return rv;
     }
 }

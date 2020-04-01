@@ -19,10 +19,12 @@ public class InverterDecorator : DecoratorNode
 
         if (rv == NodeStatus.FAILURE)
         {
+
             rv = NodeStatus.SUCCESS;
         }
         else if (rv == NodeStatus.SUCCESS)
         {
+          
             rv = NodeStatus.FAILURE;
         }
 

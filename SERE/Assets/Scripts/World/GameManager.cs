@@ -206,7 +206,11 @@ public class GameManager : MonoBehaviour
         PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);
         player.transform.position = PlayerSpawnLocation;
         player.agentStats.Health = 100;
-
+        AIPlayer aIPlayer = player.GetComponent<AIPlayer>();
+        if(aIPlayer)
+        {
+            aIPlayer.agent.Warp(PlayerSpawnLocation);
+        }
 
     }
     void SpawnAI()

@@ -18,8 +18,8 @@ public abstract class ConditionalDecorator :DecoratorNode
     public override NodeStatus Execute()
     {
         NodeStatus rv = NodeStatus.FAILURE;
-
-        if (CheckStatus())
+        bool Status = CheckStatus();
+        if (Status)
             rv = WrappedNode.Execute();
 
         return rv;

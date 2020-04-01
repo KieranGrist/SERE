@@ -8,10 +8,10 @@ using System.Timers;
 [System.Serializable]
 public class DelayNode : Node
 {
-    protected float Delay = 0.0f;
-    bool Started = false;
-    private Timer regulator;
-    bool DelayFinished = false;
+    public float Delay = 0.0f;
+    public bool Started = false;
+    public Timer regulator;
+    public bool DelayFinished = false;
     public DelayNode(Agent bb, string name,float DelayTime) : base(bb, name)
     {
 

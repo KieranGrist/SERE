@@ -26,16 +26,18 @@ public class Selector : CompositeNode
             this.CurrentChildIndex = i;
             if (rv == NodeStatus.RUNNING)
             {
-
+               
                 return NodeStatus.RUNNING;
             }
             if (rv == NodeStatus.SUCCESS)
             {
                 this.Reset();
+            
                 return NodeStatus.SUCCESS;
             }
         }
         this.Reset();
+
         return rv;
     }
 }

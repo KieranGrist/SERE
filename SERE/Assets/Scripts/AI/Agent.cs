@@ -113,7 +113,7 @@ public class DebugInformation
     }
     public float DistanceToPlayer;
 
-  public void UpdateInformation()
+    public void UpdateInformation()
     {
         DistanceToPlayer = Vector3.Distance(agent.transform.position, GameManager.GM.player.transform.position);
 
@@ -190,11 +190,11 @@ public abstract class Agent : Entity
 
 
 };
-    public Agent() : base ()
+    public Agent() : base()
     {
         search = new Search();
         AgentsTeam = new Team();
-     brain = new BrainInformation();
+        brain = new BrainInformation();
         AIRadio = null;
     }
     [Header("Agent")]
@@ -203,7 +203,7 @@ public abstract class Agent : Entity
     public Team AgentsTeam = new Team();
     public Search search;
     public BrainInformation brain;
-    
+
 
 
     [Header("Agent Stats")]
@@ -214,7 +214,7 @@ public abstract class Agent : Entity
     public Vector3 MoveToLocation;
     bool IsMoving;
 
-      
+
     [Header("Radio")]
     public Radio AIRadio;
     public bool SquadTransmitRadio;
@@ -275,12 +275,12 @@ public abstract class Agent : Entity
 
     public void CreateSearchPoints()
     {
-       search.SearchPoints = new List<GameObject>();
+        search.SearchPoints = new List<GameObject>();
         GameObject sp = Resources.Load("SearchPoint") as GameObject;
-        for (var i=0; i < 30; i ++)
+        for (var i = 0; i < 30; i++)
         {
             GameObject go = Instantiate(sp, transform.position, transform.rotation);
-            go.name = name +" Search Point :" + i;
+            go.name = name + " Search Point :" + i;
             search.SearchPoints.Add(go);
         }
     }
@@ -308,7 +308,7 @@ public abstract class Agent : Entity
         }
         return null;
     }
-        public Entity CombatSystem()
+    public Entity CombatSystem()
     {
         float ClosestDistance = float.MaxValue;
         foreach (var item in Physics.OverlapSphere(transform.position, brain.CombatDistance, LayerMask.GetMask("Enemy")))
@@ -321,13 +321,13 @@ public abstract class Agent : Entity
                     brain.PlayersTravelingDirection = item.transform.forward;
                     ClosestDistance = Vector3.Distance(transform.position, item.transform.position);
                     return item.GetComponent<Entity>();
-                    
+
                 }
         }
         return null;
     }
     public void MoveTo(Vector3 TargetPosition)
-    {      
+    {
         AINavAgent.stoppingDistance = StopDistance;
         AINavAgent.destination = TargetPosition;
     }
