@@ -1,0 +1,5 @@
+R, G, B, Climate, Land type
+140, 220, 80, "Tropical", "Grass",
+140, 220, 70, "Tropical", "Steep grass",
+120, 120, 120, "Tropical", "Cliff face",
+80, 80, 80, "Tropical", "Steep cliffs",

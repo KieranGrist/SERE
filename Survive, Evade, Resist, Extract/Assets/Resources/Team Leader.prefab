@@ -1,0 +1,302 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7663671810445129310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7663671810445129305}
+  - component: {fileID: 7663671810445129306}
+  - component: {fileID: 7663671810445129307}
+  - component: {fileID: 7663671810445129308}
+  - component: {fileID: 8311925133311193363}
+  - component: {fileID: 3210551730513413894}
+  - component: {fileID: 7663671810445129297}
+  m_Layer: 9
+  m_Name: Team Leader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7663671810445129305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7663671810445129306
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7663671810445129307
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fd0d7c43bad4c754e9b468d182c70748, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!136 &7663671810445129308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &8311925133311193363
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 10
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &3210551730513413894
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &7663671810445129297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663671810445129310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97241a41654263c4cb4920c52e48cc1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Affiliation: 0
+  inventory:
+    inventoryItems: []
+    MaxiumWeight: 50
+    Weight: 0
+  agentStats:
+    Health: 100
+    Sensertivity: 1
+    Speed: 5
+  TravelingDirection: {x: 0, y: 0, z: 0}
+  combat:
+    PrimaryWeapon:
+      Name: No Weapon
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 0
+      FiringRate: 0
+      CompatableMagazines:
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    SecondaryWeapon:
+      Name: No Weapon
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 0
+      FiringRate: 0
+      CompatableMagazines:
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    TertiaryWeapon:
+      Name: No Weapon
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 0
+      FiringRate: 0
+      CompatableMagazines:
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+    CurrentWeapon:
+      Name: No Weapon
+      Weight: 0
+      WeaponFireRate: 0
+      FiringSpeed: 0
+      FiringRate: 0
+      CompatableMagazines:
+      - Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+      CurrentMagazine:
+        Name: No Magazine
+        Weight: 0
+        MaxCapacity: 0
+        BulletsInMag: 0
+        BulletWeight: 0
+        Tracergap: 0
+        BulletDamage: 0
+        NextTracer: 0
+  DebugInfo:
+    DistanceToPlayer: 0
+  AgentsTeam:
+    TeamName: 1 - 1
+    TeamID: 0
+    Members: []
+    SearchedGrids: []
+    teamLeader: {fileID: 0}
+  search:
+    SearchLocation: {x: 0, y: 0, z: 0}
+    SearchDistance: 500
+    MaxSearchTime: 100
+    SearchInsideCicle: 0
+    Searching: 1
+    OrderedSearch: 0
+    CurrentSearchGrid:
+      ID: 0
+      Location: {x: 0, y: 0, z: 0}
+    SearchedGrids: []
+    SearchPoints: []
+  brain:
+    PlayersLastKnownLocation: {x: 0, y: 0, z: 0}
+    PlayersTravelingDirection: {x: 0, y: 0, z: 0}
+    VisionDistance: 500
+    CombatDistance: 100
+    HearingDistance: 150
+    AbillityToSmell: 0
+    SeePlayer: 0
+    HearPlayer: 0
+  AINavAgent: {fileID: 0}
+  Mass: 0
+  MaxVelocity: 0
+  MaxForce: 0
+  StopDistance: 1
+  velocity: {x: 0, y: 0, z: 0}
+  MoveToLocation: {x: 0, y: 0, z: 0}
+  AIRadio:
+    Name: Item
+    Weight: 0
+    Frequency: 0
+    RadioTransmistionDistance: 0
+  SquadTransmitRadio: 0
+  TeamLeaderRadio:
+    Name: ANPRC119
+    Weight: 3
+    Frequency: 5
+    RadioTransmistionDistance: 4000
