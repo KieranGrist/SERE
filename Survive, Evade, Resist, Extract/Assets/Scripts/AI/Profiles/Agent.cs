@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
+public class AgentBrainSequence : Sequence
+{
+    public AgentBrainSequence(Agent agent, string name) : base(agent, name)
+    {
+        AddChild(new DelayNode(agent, "Delay", 1));
+        AddChild(agent.move_BT);
+        AddChild(agent.RootNode);
+    }
+}
 public class Agent : Entity
 {
     [Header("Brain")]
     public Node RootNode;
     public Node CurrentExecutingNode;
+    public AgentBrainSequence brainSequence;
     /// <summary>
     /// Contains all information usefull towards the AIS "Brain"
     /// </summary>
@@ -20,6 +30,7 @@ public class Agent : Entity
     [Header("Movement")]
    public List<Vector3> WayPoints = new List<Vector3>();
     public Vector3 TargetLocation;
+
     public Move_BT move_BT;
     [Header("Agent Stats")]
     public NavMeshAgent AINavAgent;
@@ -73,6 +84,10 @@ public class Agent : Entity
     public virtual new void Restart()
     {
         base.Restart();
+        brainSequence = new AgentBrainSequence(this, "Sequence");
+        brain = new BrainInformation();
+        search = new SearchInformation();
+
         AINavAgent = GetComponent<NavMeshAgent>();
         AgentsTeam = new Team();
         search = new SearchInformation();
@@ -92,18 +107,8 @@ public class Agent : Entity
     public virtual new void Update()
     {
         base.Update();
-        move_BT.Execute();
-        brain.WhatIAmDoing = "I am executing my root node ";
-        RootNode.Execute();
-        brain.WhatIAmDoing = "I am checking my sight";
-        SensesSystem();
-        brain.UpdateEnemyInfo();
-        if (brain.Enemy)
-        {
-            Sprint();
-            brain.EnemyTravelingDirection = brain.Enemy.transform.forward; 
-         
-        }
+
+        brainSequence.Execute();
        
     }
 
@@ -113,6 +118,15 @@ public class Agent : Entity
     }
     public void SensesSystem()
     {
+        brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "Checking my senses"));
+        brain.UpdateEnemyInfo();
+        if (brain.Enemy)
+        {
+            Sprint();
+            brain.EnemyTravelingDirection = brain.Enemy.transform.forward;
+
+        }
+
         float ClosestDistance = float.MaxValue;
         brain.SeePlayer = false;
         brain.HearPlayer = false;

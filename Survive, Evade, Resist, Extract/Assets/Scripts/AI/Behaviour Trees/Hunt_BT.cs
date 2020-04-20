@@ -12,7 +12,7 @@ public class Hunt_BT : Node
 
     public override NodeStatus Execute()
     {
-
+        agent.SensesSystem();
         return node.Execute();
     }
 }
@@ -46,10 +46,10 @@ class Chase : Node
     {
         agent.CurrentExecutingNode = this;
         agent.brain.Hunting = true;
-        agent.brain.WhatIAmDoing = "I am chasing after the player ";
+        agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time , "I am chasing after the player ")) ;
         if (agent.brain.Enemy)
         {
-            agent.brain.WhatIAmDoing = "I have found the player";
+            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I have found the player"));
             agent.brain.Hunting = false;
             agent.AIRadio.TransmitEnemySeen();
             return NodeStatus.FAILURE;
@@ -57,7 +57,7 @@ class Chase : Node
 
         if (agent.brain.Enemy == false && Traveled == false && Travelling == false)
         {
-            agent.brain.WhatIAmDoing = "I am going to the players last known location";
+            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time,"I am going to the players last known location"));
             agent.WayPoints.Add(agent.brain.EnemyLastPosition);
             Travelling = true;
         }
@@ -66,13 +66,20 @@ class Chase : Node
         {
             Travelling = false;
             Traveled = false;
-            agent.brain.WhatIAmDoing = "I am travelling in the direction the player was last seen going ";
+            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I am travelling in the direction the player was last seen going "));
             agent.WayPoints.Add(agent.brain.EnemyTravelingDirection * 500);
             agent.brain.HasSensedPlayer = false;
             return NodeStatus.SUCCESS;
         }
-        if (Vector3.Distance(agent.transform.position, agent.WayPoints[0]) < agent.StopDistance)
-            Traveled = true;
+        else
+        {
+            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I am going to the players last known location"));
+            if (agent.WayPoints.Count > 0 == false)
+            {
+                Traveled = true;
+            }
+        }
+
 
         return NodeStatus.RUNNING;
     }

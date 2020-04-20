@@ -10,16 +10,15 @@ public class SearchInformation
     public Vector3 SearchLocation;
     [Tooltip("Distance to search ")]
     public float SearchDistance = 500;
-    public bool Searching = true;
 
     public Grid CurrentSearchGrid;
     public List<Grid> SearchedGrids = new List<Grid>();
-
 
     public SearchInformation()
     {
         SearchLocation = new Vector3();
         SearchDistance = 500;
+        CurrentSearchGrid = null;
         SearchedGrids = new List<Grid>();
     }
     public SearchInformation(float Distance)

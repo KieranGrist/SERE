@@ -38,7 +38,7 @@ public static class AIRadioMessage<t>
         if (Data is BrainInformation)
         {
             HearingMessage.AgentsTeam.SearchedGrids.Clear();
-            HearingMessage.search.Searching = false;
+            HearingMessage.brain.Searching = false;
             HearingMessage.search.SearchedGrids.Clear();
             //     HearingMessage.brain.PlayersLastKnownLocation = B.PlayersLastKnownLocation;
             //      HearingMessage.brain.PlayersTravelingDirection = B.PlayersTravelingDirection;

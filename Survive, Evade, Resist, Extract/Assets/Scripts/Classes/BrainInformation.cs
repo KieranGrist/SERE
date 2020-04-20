@@ -4,9 +4,20 @@ using UnityEngine;
 
 
 [System.Serializable]
+public class WhatAmIDoing
+{
+    public float TimeIDoneIt;
+    public string WhatIWasDoing ="Blah";
+    public WhatAmIDoing( float T, string What)
+    {
+        TimeIDoneIt = T;
+        WhatIWasDoing = What;
+    }
+}
+[System.Serializable]
 public class BrainInformation
 {
-    public string WhatIAmDoing = " I am not doing anything";
+    public List<WhatAmIDoing> WhatIWasDoing = new List<WhatAmIDoing>();
     [Header("Brain Information")]
     public Entity Enemy = null;
     public Vector3 EnemyTravelingDirection, EnemyLastPosition;
@@ -24,6 +35,29 @@ public class BrainInformation
     public bool SeePlayer = false;
     public bool SmellPlayer = false;
 
+    public BrainInformation()
+    {
+        WhatIWasDoing = new List<WhatAmIDoing>();
+
+        Enemy = null;
+        EnemyTravelingDirection = new Vector3();
+        EnemyLastPosition = new Vector3();
+
+        extractionPoint = null;
+        DistanceToTeamLeader = 0;
+
+        Hunting = false;
+        Combat = false;
+        Searching = false;
+
+        HasSensedPlayer = false;
+
+        AbillityToSmell = false;
+
+        HearPlayer = false;
+        SeePlayer = false;
+        SmellPlayer = false;
+    }
     public bool CheckSenses()
     {
         if (HearPlayer|| SeePlayer|| SmellPlayer)

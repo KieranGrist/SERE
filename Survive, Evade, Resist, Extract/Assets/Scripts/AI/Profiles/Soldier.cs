@@ -10,6 +10,7 @@ public class Soldier : Agent
         Selector root = new Selector(this, "Root Node");
         RootNode = root;
         Hunt_BT hunt_BT = new Hunt_BT(this, "Hunt Behaviour Tree");
+  
         root.AddChild(hunt_BT);
 
     }
@@ -22,8 +23,6 @@ public class Soldier : Agent
     public override void Update()
     {
         base.Update();
-
-        brain.WhatIAmDoing = "I am checking my senses";
         if (brain.HasSensedPlayer == false)           
           brain.HasSensedPlayer = brain.CheckSenses();
 

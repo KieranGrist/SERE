@@ -17,7 +17,7 @@ class SearchDecorator : ConditionalDecorator
 
     public override bool CheckStatus()
     {
-        return agent.search.Searching;
+        return agent.brain.Searching;
     }
 }
 
@@ -30,7 +30,7 @@ class CalculateSearchPattern : Node
 
     public override NodeStatus Execute()
     {
-        agent.search.Searching = true;
+        agent.brain.Searching = true;
         var WaypointsNeeded = 30;
         var Angle = 0;
         var IncreaseAngle = 360 / WaypointsNeeded;
@@ -58,7 +58,7 @@ class CalculateSearchPattern : Node
          //       agent.WayPoints.Add(agent.WayPoints[0]);       
             }
         }
-        agent.search.Searching = true;
+        agent.brain.Searching = true;
         return NodeStatus.SUCCESS;
     }
 

@@ -14,8 +14,11 @@ public class Team
     public Team()
     {
         TeamName = "1 - 1";
+      
         TeamID = 0;
         Members = new List<Agent>(4);
+        SearchedGrids = new List<Grid>();
+        teamLeader = null;  
     }
     public void SetUpTeam()
     {

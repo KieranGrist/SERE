@@ -7,7 +7,7 @@ public class EntityStats
     [Header("Entity Stats")]
     public float Health = 100;
     public float Stamina = 100;
-    public float SightRange = 50;
+    public float SightRange = 500;
     public float SmellRange = 50;
     public float EarRange = 50;
     public float Mass = 1;
@@ -20,7 +20,7 @@ public class EntityStats
     {
         Health = 50;
         Stamina = 100;
-        SightRange = 50;
+        SightRange = 500;
         SmellRange = 50;
         EarRange = 50;
         Mass = 1;
@@ -32,7 +32,7 @@ public class EntityStats
     public EntityStats(
         float Health = 100,
      float Stamina = 100,
-     float SightRange = 50,
+     float SightRange = 500,
      float SmellRange = 50,
      float EarRange = 50,
      float Mass = 1,
