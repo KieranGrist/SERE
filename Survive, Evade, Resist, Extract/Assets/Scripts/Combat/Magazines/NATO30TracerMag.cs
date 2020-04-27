@@ -12,13 +12,8 @@ public class NATO30TracerMag : Magazine
         Tracergap = 0;
         BulletDamage = 40;
         NextTracer = 0;
-        Name = "5.5.56×45mm NATO 30 Round Tracer Magazine";
+        Name = "5.56×45mm NATO 30 Round Tracer Magazine";
         CalculateWeight();
-    }
-    // Start is called before the first frame update
-public    void Start()
-    {
-        
     }
 
 

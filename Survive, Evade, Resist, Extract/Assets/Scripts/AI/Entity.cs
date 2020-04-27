@@ -8,13 +8,19 @@ public enum Side
     Enemy,
     Civilian
 }
+
+
+
 public class Entity : MonoBehaviour
 {
+    public bool Control;
     [Header("Entity")]
     public Side Affiliation = Side.Friendly;
     public Inventory inventory;
     [Header("Movement")]
     public Vector3 TravelingDirection;
+    [Header("Combat")]
+    public Combat combat = new Combat();
 
     /// <summary>
     /// Contains all data for the entitys statistics such as health
@@ -23,15 +29,7 @@ public class Entity : MonoBehaviour
      
 
 
-    [Header("Combat")]
-    public Weapon PrimaryWeapon = new EmptyWeapon();
-    public Weapon SecondaryWeapon = new EmptyWeapon();
-    public Weapon TertiaryWeapon = new EmptyWeapon();
-    public Weapon CurrentWeapon = new EmptyWeapon();
 
-     Weapon PreviousPrimaryWeapon = new EmptyWeapon();
-    Weapon PreviousSecondaryWeapon = new EmptyWeapon();
-     Weapon PreviousTerriaryWeapon = new EmptyWeapon();
     public Entity()
     {
         inventory = new Inventory();
@@ -52,6 +50,8 @@ public class Entity : MonoBehaviour
     }
     public virtual void Restart()
     {
+        Control = false;
+        if(GameManager.GM)
         name = GameManager.GM.GenerateName();
         switch (Affiliation)
         {
@@ -65,20 +65,11 @@ public class Entity : MonoBehaviour
                 gameObject.layer = 11;
                 break;
         }
-
         entityStats = new EntityStats();
-
-
-
         inventory = new Inventory();
-        PrimaryWeapon = new EmptyWeapon();
-        SecondaryWeapon = new EmptyWeapon();
-        TertiaryWeapon = new EmptyWeapon();
-        CurrentWeapon = new EmptyWeapon();          
+        combat = new Combat();
 
-        PrimaryWeapon.LoadPrefabs();
-        SecondaryWeapon.LoadPrefabs();
-        TertiaryWeapon.LoadPrefabs();
+
     }
     // Start is called before the first frame update
     public virtual void Start()
@@ -102,23 +93,10 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
+        combat.Update();
         inventory.CalculateWeight();
         TravelingDirection = transform.forward;
-        PrimaryWeapon.UpdateGap(Time.deltaTime);
-        SecondaryWeapon.UpdateGap(Time.deltaTime);
-        TertiaryWeapon.UpdateGap(Time.deltaTime);
-
-        if (PrimaryWeapon != PreviousPrimaryWeapon)
-            PrimaryWeapon.LoadPrefabs();
-        PreviousPrimaryWeapon = PrimaryWeapon;
-
-        if (SecondaryWeapon != PreviousSecondaryWeapon)
-            SecondaryWeapon.LoadPrefabs();
-        PreviousSecondaryWeapon = SecondaryWeapon;
-
-        if (TertiaryWeapon != PreviousTerriaryWeapon)
-            TertiaryWeapon.LoadPrefabs();
-        PreviousTerriaryWeapon = TertiaryWeapon;
+       
         switch (Affiliation)
         {
             case Side.Civilian:
@@ -137,9 +115,76 @@ public class Entity : MonoBehaviour
         {
             entityStats.Health = 0;
         }
-
+        if (Control)
+        {
+            PlayerInput();
+            WeaponSystems();
+            Camera.main.transform.parent = transform;
+            Camera.main.transform.position = transform.position;
+            Camera.main.transform.rotation = transform.rotation;
+        }
 
     }
+    private void PlayerInput()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+            if (combat.PrimaryWeapon != null)
+                combat.SwitchCurrentWeapon(1);
+        if (Input.GetKey(KeyCode.Alpha2))
+            if (combat.SecondaryWeapon != null)
+                combat.SwitchCurrentWeapon(2);
+        if (Input.GetKey(KeyCode.Alpha3))
+            if (combat.TertiaryWeapon != null)
+                combat.SwitchCurrentWeapon(3);
+
+        if (Input.GetKey(KeyCode.W))
+            transform.position += transform.forward * Time.deltaTime * entityStats.CurrentSpeed;
+        if (Input.GetKey(KeyCode.D))
+            transform.position += transform.right * Time.deltaTime * entityStats.CurrentSpeed;
+        if (Input.GetKey(KeyCode.S))
+            transform.position -= transform.forward * Time.deltaTime * entityStats.CurrentSpeed;
+        if (Input.GetKey(KeyCode.A))
+            transform.position -= transform.right * Time.deltaTime * entityStats.CurrentSpeed;
+
+        transform.eulerAngles += new Vector3(entityStats.Sensertivity * Input.GetAxis("Mouse Y"), -entityStats.Sensertivity * Input.GetAxis("Mouse X"), 0);
+    }
+    private void WeaponSystems()
+    {
+        switch (combat.CurrentWeapon.WeaponFireRate)
+        {
+            case RateOfFire.Automatic:
+                if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
+                    combat.CurrentWeapon.Fire(transform);
+                break;
+            case RateOfFire.Burst:
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    StartCoroutine(combat.CurrentWeapon.BurstFire(transform));
+                }
+                break;
+            case RateOfFire.Single:
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                    combat.CurrentWeapon.Fire(transform);
+                break;
+            case RateOfFire.Saftey:
+                break;
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            entityStats.CurrentSpeed = 9;
+        }
+        else
+        {
+            entityStats.CurrentSpeed = 4;
+        }
+
+        if (Input.GetKey(KeyCode.R))
+            StartCoroutine(combat.CurrentWeapon.Reload(inventory));
+        if (Input.GetKeyDown(KeyCode.F))
+            combat.CurrentWeapon.SwitchFireRate();
+    }
+
+
     public void Respawn(Vector3 RespawnPosition)
     {
         transform.position = RespawnPosition;

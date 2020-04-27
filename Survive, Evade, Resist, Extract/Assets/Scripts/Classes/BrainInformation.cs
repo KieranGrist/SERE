@@ -1,23 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-[System.Serializable]
-public class WhatAmIDoing
-{
-    public float TimeIDoneIt;
-    public string WhatIWasDoing ="Blah";
-    public WhatAmIDoing( float T, string What)
-    {
-        TimeIDoneIt = T;
-        WhatIWasDoing = What;
-    }
-}
 [System.Serializable]
 public class BrainInformation
 {
-    public List<WhatAmIDoing> WhatIWasDoing = new List<WhatAmIDoing>();
+
     [Header("Brain Information")]
     public Entity Enemy = null;
     public Vector3 EnemyTravelingDirection, EnemyLastPosition;
@@ -37,8 +24,6 @@ public class BrainInformation
 
     public BrainInformation()
     {
-        WhatIWasDoing = new List<WhatAmIDoing>();
-
         Enemy = null;
         EnemyTravelingDirection = new Vector3();
         EnemyLastPosition = new Vector3();
@@ -60,9 +45,14 @@ public class BrainInformation
     }
     public bool CheckSenses()
     {
-        if (HearPlayer|| SeePlayer|| SmellPlayer)
-        return true;
+        if (HearPlayer || SeePlayer || SmellPlayer)
+            return true;
         return false;
+    }
+
+    public void UpdateEnemy(Entity enemy)
+    {
+        this.Enemy = enemy;
     }
     public void UpdateEnemyInfo()
     {
@@ -74,7 +64,7 @@ public class BrainInformation
     }
     public bool FoundEnemy()
     {
-        if (Enemy||SeePlayer||HearPlayer||SmellPlayer)
+        if (Enemy || SeePlayer || HearPlayer || SmellPlayer)
             return true;
         return false;
     }

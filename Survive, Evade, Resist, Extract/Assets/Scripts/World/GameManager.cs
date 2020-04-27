@@ -525,7 +525,10 @@ public class GameManager : MonoBehaviour
     }
     void SpawnPlayer()
     {
-        player.Restart();
+        foreach (var item in FindObjectsOfType<ScentSphere>())
+            item.Age = 0;
+            
+            player.Restart();
         PlayerSpawnLocation = new Vector3(); 
         //Generate a vector for the player to be created at
         PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);

@@ -7,15 +7,20 @@ public class AgentBrainSequence : Sequence
 {
     public AgentBrainSequence(Agent agent, string name) : base(agent, name)
     {
+        Debug.Log("Agent Brain Sequence");
+        Debug.Log(agent);
+        Debug.Log(agent.RootNode);
+        AddChild(agent.RootNode);
         AddChild(new DelayNode(agent, "Delay", 1));
         AddChild(agent.move_BT);
-        AddChild(agent.RootNode);
+        AddChild(new DelayNode(agent, "Delay", 1));
     }
 }
 public class Agent : Entity
 {
+
     [Header("Brain")]
-    public Node RootNode;
+    public Selector RootNode;
     public Node CurrentExecutingNode;
     public AgentBrainSequence brainSequence;
     /// <summary>
@@ -29,7 +34,6 @@ public class Agent : Entity
 
     [Header("Movement")]
    public List<Vector3> WayPoints = new List<Vector3>();
-    public Vector3 TargetLocation;
 
     public Move_BT move_BT;
     [Header("Agent Stats")]
@@ -51,10 +55,12 @@ public class Agent : Entity
     }
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawLine(transform.position, TargetLocation);
+        if (WayPoints.Count > 0)
+        {
+            Gizmos.DrawLine(transform.position, WayPoints[0]);
 
-        Gizmos.DrawCube(TargetLocation, new Vector3(1, 1, 1));
-
+            Gizmos.DrawCube(WayPoints[0], new Vector3(1, 1, 1));
+        }
         Gizmos.DrawWireSphere(transform.position, entityStats.SightRange);
 
         Gizmos.color = Color.green;
@@ -84,7 +90,7 @@ public class Agent : Entity
     public virtual new void Restart()
     {
         base.Restart();
-        brainSequence = new AgentBrainSequence(this, "Sequence");
+
         brain = new BrainInformation();
         search = new SearchInformation();
 
@@ -92,6 +98,7 @@ public class Agent : Entity
         AgentsTeam = new Team();
         search = new SearchInformation();
         move_BT = new Move_BT(this, "Movement");
+        brainSequence = new AgentBrainSequence(this, "Sequence");
     }
 
 
@@ -107,18 +114,19 @@ public class Agent : Entity
     public virtual new void Update()
     {
         base.Update();
-
-        brainSequence.Execute();
-       
+        if (!Control)
+            brainSequence.Execute();
+  
     }
+
 
     public void Reload()
     {
-        StartCoroutine(CurrentWeapon.Reload(inventory));
+        StartCoroutine(combat.CurrentWeapon.Reload(inventory));
     }
     public void SensesSystem()
     {
-        brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "Checking my senses"));
+
         brain.UpdateEnemyInfo();
         if (brain.Enemy)
         {

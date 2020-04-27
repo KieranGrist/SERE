@@ -8,4 +8,5 @@ public class InventoryItem
     [Header("Item")]
     public string Name = "Item";
     public  float Weight;
+
 }

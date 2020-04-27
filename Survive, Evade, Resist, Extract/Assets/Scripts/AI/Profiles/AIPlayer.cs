@@ -39,5 +39,29 @@ public class AIPlayer : Player
         {
             entityStats.Health = 0;
         }
+
+
+        inventory.CalculateWeight();
+        TravelingDirection = transform.forward;
+        combat.Update();
+        switch (Affiliation)
+        {
+            case Side.Civilian:
+                gameObject.layer = 12;
+                break;
+            case Side.Enemy:
+                gameObject.layer = 10;
+                break;
+            case Side.Friendly:
+                gameObject.layer = 11;
+                break;
+        }
+
+
+        if (transform.position.y < -1)
+        {
+            entityStats.Health = 0;
+        }
+
     }
 }

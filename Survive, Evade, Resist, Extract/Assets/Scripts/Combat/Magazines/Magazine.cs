@@ -4,8 +4,8 @@ using UnityEngine;
 
 [System.Serializable]   
 public class Magazine : InventoryItem
-{
-    [Header("Magazine")]
+{  
+   [Header("Magazine Settings")]
     public   float MaxCapacity;
     public  float BulletsInMag;
     public  float BulletWeight;

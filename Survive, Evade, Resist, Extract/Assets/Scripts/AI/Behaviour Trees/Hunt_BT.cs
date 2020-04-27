@@ -16,6 +16,24 @@ public class Hunt_BT : Node
         return node.Execute();
     }
 }
+
+[System.Serializable]
+class ChaseDecorator : ConditionalDecorator
+{
+    public ChaseDecorator(Node WrappedNode, Agent agent, string name) : base(WrappedNode, agent, name)
+    {
+        this.agent = agent;
+    }
+
+    public override bool CheckStatus()
+    {
+        agent.CurrentExecutingNode = this;
+        return agent.brain.Hunting;
+
+    }
+}
+
+
 [System.Serializable]
 class ChaseSequence : Sequence
 {
@@ -32,6 +50,8 @@ class ChaseSequence : Sequence
         return base.Execute();
     }
 }
+
+[System.Serializable]
 class Chase : Node
 {
     bool Traveled = false;
@@ -46,10 +66,10 @@ class Chase : Node
     {
         agent.CurrentExecutingNode = this;
         agent.brain.Hunting = true;
-        agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time , "I am chasing after the player ")) ;
+      
         if (agent.brain.Enemy)
         {
-            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I have found the player"));
+      
             agent.brain.Hunting = false;
             agent.AIRadio.TransmitEnemySeen();
             return NodeStatus.FAILURE;
@@ -57,7 +77,7 @@ class Chase : Node
 
         if (agent.brain.Enemy == false && Traveled == false && Travelling == false)
         {
-            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time,"I am going to the players last known location"));
+     
             agent.WayPoints.Add(agent.brain.EnemyLastPosition);
             Travelling = true;
         }
@@ -66,14 +86,13 @@ class Chase : Node
         {
             Travelling = false;
             Traveled = false;
-            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I am travelling in the direction the player was last seen going "));
+          
             agent.WayPoints.Add(agent.brain.EnemyTravelingDirection * 500);
             agent.brain.HasSensedPlayer = false;
             return NodeStatus.SUCCESS;
         }
         else
         {
-            agent.brain.WhatIWasDoing.Add(new WhatAmIDoing(Time.time, "I am going to the players last known location"));
             if (agent.WayPoints.Count > 0 == false)
             {
                 Traveled = true;
@@ -86,18 +105,3 @@ class Chase : Node
 }
 
 
-[System.Serializable]
-class ChaseDecorator : ConditionalDecorator
-{
-    public ChaseDecorator(Node WrappedNode, Agent agent, string name) : base(WrappedNode, agent, name)
-    {
-        this.agent = agent;
-    }
-
-    public override bool CheckStatus()
-    {
-        agent.CurrentExecutingNode = this;
-        return agent.brain.Hunting;
-    
-    }
-}

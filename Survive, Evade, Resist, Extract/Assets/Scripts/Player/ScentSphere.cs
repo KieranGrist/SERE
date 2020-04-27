@@ -6,19 +6,21 @@ public class ScentSphere : MonoBehaviour
 {
     public Vector3 TravelingDirection;
     public Vector3 TravelingLocation;
-    public float Age = 30;
-    // Start is called before the first frame update
-    void Start()
+    public float Age = 120;
+    private void Start()
     {
-        Age = 30;
+        Age = 120;
     }
-
     // Update is called once per frame
     void Update()
     {
         Age -= Time.deltaTime;
         if (Age < 0)
             Destroy(gameObject);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 5);
     }
     private void OnTriggerEnter(Collider other)
     {

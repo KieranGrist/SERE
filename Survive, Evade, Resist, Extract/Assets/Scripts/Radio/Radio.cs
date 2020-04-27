@@ -84,6 +84,9 @@ public class Radio : InventoryItem
     {
 
     }
+    public void TransmitSearchingGrid(Grid grid)
+    {
+    }
     public void TransmitSearching()
     {
 

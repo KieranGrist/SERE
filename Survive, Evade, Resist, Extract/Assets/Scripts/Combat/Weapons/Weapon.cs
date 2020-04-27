@@ -7,9 +7,9 @@ public enum RateOfFire
     Single,
     Burst,
     Automatic,
-  Max
+    Max
 
-   
+
 }
 
 [System.Serializable]
@@ -28,7 +28,10 @@ public class Weapon : InventoryItem
     float gap;
 
 
-
+      public bool NeedsReloading()
+    {
+        return CurrentMagazine.BulletsInMag <= 0;
+    }
     public IEnumerator Reload(Inventory inventory)
     {
         yield  return new WaitForSeconds(1);
@@ -130,8 +133,6 @@ public class Weapon : InventoryItem
     }
     public void UpdateGap(float DeltaTime)
     {
-
-
         gap += DeltaTime;
         ReloadGap += DeltaTime;
     }

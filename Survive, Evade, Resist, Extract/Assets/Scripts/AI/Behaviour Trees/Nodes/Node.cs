@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Timers;
-
+/// <summary>
+/// Status of the running node
+/// </summary>
 public enum NodeStatus
 {
     RUNNING,
@@ -13,19 +15,38 @@ public enum NodeStatus
 [System.Serializable]
 public class Node
 {
+    /// <summary>
+    /// AI Agent Running the node
+    /// </summary>
     public Agent agent;
+    /// <summary>
+    /// Name of node
+    /// </summary>
     public string NodeName;
+    
+    /// <summary>
+    /// Node Constructor
+    /// </summary>
+    /// <param name="agent"></param>
+    /// <param name="NodeName"></param>
     public Node(Agent agent, string NodeName)
     {
         this.agent = agent;
         this.NodeName = NodeName;
     }
+
+    /// <summary>
+    /// Executes node
+    /// </summary>
+    /// <returns></returns>
     public virtual NodeStatus Execute()
     {
-     
         return NodeStatus.SUCCESS;
     }
 
+    /// <summary>
+    /// Resets the node 
+    /// </summary>
     public virtual void Reset()
     {
 

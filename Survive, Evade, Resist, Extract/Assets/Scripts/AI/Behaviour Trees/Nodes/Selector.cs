@@ -20,8 +20,11 @@ public class Selector : CompositeNode
     public override NodeStatus Execute()
     {
         NodeStatus rv = NodeStatus.FAILURE;
+        Debug.Log(this.NodeName + " Selector");
         for (int i = CurrentChildIndex; i < this.children.Count; i++)
         {
+            Debug.Log(this);
+            Debug.Log(this.children);
             ExecutingNode = this.children[i];
             rv = this.children[i].Execute();
             this.CurrentChildIndex = i;
