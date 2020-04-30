@@ -4,44 +4,20 @@ using UnityEngine;
 
 public class ExtractionPoint : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.GetComponent<Player>())
-
-            GameManager.GM.NewGame();
-
-    }
-
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.GetComponent<Player>())
-
-            GameManager.GM.NewGame();
-
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Player>())
-
-            GameManager.GM.NewGame();
-
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<Player>())
-
-            GameManager.GM.NewGame();
-
-    }
+    public int PlayersInScene;
+    public int PlayersInExtractionPoint;
+    public GameManager GM;
     private void Update()
     {
+        PlayersInScene = GM.Alive;
+        PlayersInExtractionPoint = 0;
         foreach (var item in Physics.OverlapBox(transform.position, new Vector3(2, 2, 2)))
-        {
             if (item.GetComponent<Player>())
-                GameManager.GM.NewGame();
-        }
+                PlayersInExtractionPoint++;
+        if (PlayersInExtractionPoint == PlayersInScene)  
+            GM.Restart();
+    
+        
 
     }
 

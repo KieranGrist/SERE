@@ -41,11 +41,12 @@ class ChaseSequence : Sequence
     public ChaseSequence(Agent agent, string name) : base(agent, name)
     {
         AddChild(new Chase(agent, "Chase "));
-        AddChild(new DelayNode(agent, "Delay 20 seconds", 20));
+     //   AddChild(new DelayNode(agent, "Delay 20 seconds", 20));
     }
 
     public override NodeStatus Execute()
     {
+        
         agent.CurrentExecutingNode = this;
         return base.Execute();
     }
@@ -71,7 +72,7 @@ class Chase : Node
         {
       
             agent.brain.Hunting = false;
-            agent.AIRadio.TransmitEnemySeen();
+            agent.AIRadio.TransmitEnemySeen(agent);
             return NodeStatus.FAILURE;
         }
 

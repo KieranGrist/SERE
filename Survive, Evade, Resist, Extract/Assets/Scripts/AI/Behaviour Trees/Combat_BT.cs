@@ -26,6 +26,7 @@ public class Combat_BT : Node
     /// <returns></returns>
     public override NodeStatus Execute()
     {
+        agent.CurrentExecutingNode = this;
         return node.Execute();
     }
 }
@@ -51,6 +52,7 @@ class CombatDecorator : ConditionalDecorator
     /// <returns></returns>
     public override bool CheckStatus()
     {
+        agent.CurrentExecutingNode = this;
         return agent.brain.Combat;
     }
 
@@ -67,8 +69,9 @@ class EngageEnemy : Node
 
     public override NodeStatus Execute()
     {
+        agent.CurrentExecutingNode = this;
         agent.brain.Searching = false;
-        agent.search.SearchedGrids.Clear(); //Clear the searched grids so the agent can search the same grids again if they loose the enemy 
+  
         agent.SensesSystem(); //Checks the senses system incase the agent has lost the enemy
 
 
@@ -101,8 +104,7 @@ class EngageEnemy : Node
 
                 if (agent.combat.TertiaryWeaponHasMags && WeaponSwitched == false)
                 {
-                    agent.combat.SwitchCurrentWeapon(3);
-                    WeaponSwitched = true;
+                    agent.combat.SwitchCurrentWeapon(3);               
                 }
 
             }
@@ -114,8 +116,7 @@ class EngageEnemy : Node
             agent.transform.LookAt(agent.brain.Enemy.transform);
 
             //Transmit on the radio that the agent is seeing the enemy and about to engage
-            agent.AIRadio.TransmitEnemySeen();
-            agent.AIRadio.TransmitInCombat();
+            agent.AIRadio.TransmitInCombat(agent);
             agent.WayPoints.Clear();
             agent.WayPoints.Add(new Vector3());
             //Set the waypoint to the enemys location so the agent is moving and firing

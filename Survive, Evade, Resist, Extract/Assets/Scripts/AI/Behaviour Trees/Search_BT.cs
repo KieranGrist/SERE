@@ -13,6 +13,7 @@ public class Search_BT : Node
     }
     public override NodeStatus Execute()
     {
+        agent.CurrentExecutingNode = this;
         agent.SensesSystem();
         return node.Execute();
     }
@@ -28,6 +29,7 @@ class SearchDecorator : ConditionalDecorator
 
     public override bool CheckStatus()
     {
+        agent.CurrentExecutingNode = this;
         return agent.brain.Searching;
     }
 
@@ -45,6 +47,7 @@ class SearchSequence : Sequence
     }
     public override NodeStatus Execute()
     {
+        
         agent.CurrentExecutingNode = this;
         return base.Execute();
     }
@@ -61,16 +64,18 @@ class CalculateSearchLocation : Node
 
     public override NodeStatus Execute()
     {
+        agent.CurrentExecutingNode = this;
+        if (agent.WayPoints.Count == 0)
             foreach (var item in MapGrids.MG.grids)
             {
                 bool Contains = false;
-                foreach (var sg in agent.search.SearchedGrids)
+                foreach (var sg in agent.GM.SearchedGrids)
                     if (item.ID == sg.ID)
                     {
                         Contains = true;
                         break;
                     }
-                foreach (var sg in agent.AgentsTeam.SearchedGrids)
+                foreach (var sg in agent.GM.SearchedGrids)
                     if (item.ID == sg.ID)
                     {
                         Contains = true;
@@ -80,13 +85,13 @@ class CalculateSearchLocation : Node
                 {
                     agent.search.CurrentSearchGrid = item;
                     agent.search.SearchLocation = item.Location;
-                    agent.AIRadio.TransmitSearchingGrid(item);
-                    agent.search.SearchedGrids.Add(item);
+                    agent.AIRadio.TransmitSearchingGrid(agent,item);
+                  agent.GM.SearchedGrids.Add(item);
                     return NodeStatus.SUCCESS;
                 }
             }
 
-        return NodeStatus.FAILURE;
+        return NodeStatus.SUCCESS;
     }
 }
 
@@ -99,36 +104,37 @@ class CalculateSearchPattern : Node
 
     public override NodeStatus Execute()
     {
-        agent.brain.Searching = true;
-        var WaypointsNeeded = 30;
-        var Angle = 0;
-        var IncreaseAngle = 360 / WaypointsNeeded;
-        for (int i = 0; i < WaypointsNeeded; i++)
+        agent.CurrentExecutingNode = this;
+        if (agent.WayPoints.Count == 0)
         {
-            var EndPoint = agent.transform.position;
-            var EulerAngle = new Vector3(0, Angle, 0);
+            agent.WayPoints.Clear();
 
-            float Pitch = EulerAngle.x * Mathf.Deg2Rad; //Set pitch to be euler angle x in radians
-            float Yaw = EulerAngle.y * Mathf.Deg2Rad; //Set yaw to be euler angle y in radians
-            Vector3 RV = new Vector3
+   
+            var WaypointsNeeded = 30;
+            var Angle = 0;
+            var IncreaseAngle = 360 / WaypointsNeeded;
+            for (int i = 0; i < WaypointsNeeded; i++)
             {
+                var EndPoint = agent.search.SearchLocation;
+                var EulerAngle = new Vector3(0, Angle, 0);
 
-                z = Mathf.Cos(Yaw) * Mathf.Cos(Pitch), //z = cos of yaw * cos of pitch
-                y = Mathf.Sin(Pitch), //Y = sin of pitch
-                x = Mathf.Cos(Pitch) * Mathf.Sin(Yaw) //x = cos of pitch * sin of yaw
-            };
+                float Pitch = EulerAngle.x * Mathf.Deg2Rad; //Set pitch to be euler angle x in radians
+                float Yaw = EulerAngle.y * Mathf.Deg2Rad; //Set yaw to be euler angle y in radians
+                Vector3 RV = new Vector3
+                {
+
+                    z = Mathf.Cos(Yaw) * Mathf.Cos(Pitch), //z = cos of yaw * cos of pitch
+                    y = Mathf.Sin(Pitch), //Y = sin of pitch
+                    x = Mathf.Cos(Pitch) * Mathf.Sin(Yaw) //x = cos of pitch * sin of yaw
+                };
 
 
-            EndPoint += RV * agent.search.SearchDistance;
+                EndPoint += RV * agent.search.SearchDistance;
 
-            Angle += IncreaseAngle;
-            if (i == WaypointsNeeded - 1)
-            {
-                agent.WayPoints.Add(agent.WayPoints[0]);
-            }
-            agent.WayPoints.Add(EndPoint);
+                Angle += IncreaseAngle;  
+                agent.WayPoints.Add(EndPoint);
+            }       
         }
-        agent.brain.Searching = true;
         return NodeStatus.SUCCESS;
     }
 }
@@ -144,21 +150,21 @@ class ExecuteSearch : Node
     }
     public override NodeStatus Execute()
     {
-
+        agent.CurrentExecutingNode = this;
         agent.SensesSystem();
         if (agent.brain.SeePlayer)
         {
             agent.brain.Searching = false;
-            agent.WayPoints.Clear();
-            agent.search.SearchedGrids.Clear();
-            agent.AIRadio.TransmitEnemySeen();
+            agent.WayPoints.Clear();         
+
+            agent.AIRadio.TransmitEnemySeen(agent);
             return NodeStatus.SUCCESS;
         }
 
         if (agent.WayPoints.Count == 0)
             return NodeStatus.SUCCESS;
 
-        return NodeStatus.RUNNING;
+        return NodeStatus.SUCCESS;
 
     }
 }

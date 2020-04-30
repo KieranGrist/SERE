@@ -6,8 +6,7 @@ using UnityEngine.AI;
 public class MachineGunner : Soldier
 {
     public MachineGunner()
-    {
-    
+    {    
         combat.PrimaryWeapon = new L7A2();
         combat.SecondaryWeapon = new Glock17();
         inventory = new Inventory();
@@ -41,8 +40,5 @@ public class MachineGunner : Soldier
         }
         inventory.CalculateWeight(); 
     }
-    public override void Start()
-    {
-        Restart();
-    }
+ 
 }

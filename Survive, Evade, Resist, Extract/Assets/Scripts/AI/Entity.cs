@@ -26,13 +26,15 @@ public class Entity : MonoBehaviour
     /// Contains all data for the entitys statistics such as health
     /// </summary>
     public EntityStats entityStats;
-     
+    public GameManager GM;
 
 
 
     public Entity()
     {
+        entityStats = new EntityStats();
         inventory = new Inventory();
+        combat = new Combat();
     }
     public virtual void OnDrawGizmos()
     {
@@ -51,8 +53,8 @@ public class Entity : MonoBehaviour
     public virtual void Restart()
     {
         Control = false;
-        if(GameManager.GM)
-        name = GameManager.GM.GenerateName();
+        if(GM)
+        name = GM.GenerateName();
         switch (Affiliation)
         {
             case Side.Civilian:
@@ -71,12 +73,6 @@ public class Entity : MonoBehaviour
 
 
     }
-    // Start is called before the first frame update
-    public virtual void Start()
-    {
-        Restart();
-    }
-
     public void Sprint()
     {
         if (entityStats.Stamina > 0)

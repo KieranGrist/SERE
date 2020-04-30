@@ -7,13 +7,10 @@ public class AgentBrainSequence : Sequence
 {
     public AgentBrainSequence(Agent agent, string name) : base(agent, name)
     {
-        Debug.Log("Agent Brain Sequence");
-        Debug.Log(agent);
-        Debug.Log(agent.RootNode);
         AddChild(agent.RootNode);
-        AddChild(new DelayNode(agent, "Delay", 1));
+      //  AddChild(new DelayNode(agent, "Delay", 1));
         AddChild(agent.move_BT);
-        AddChild(new DelayNode(agent, "Delay", 1));
+   //     AddChild(new DelayNode(agent, "Delay", 1));
     }
 }
 public class Agent : Entity
@@ -53,8 +50,10 @@ public class Agent : Entity
         brain = new BrainInformation();
         //AIRadio = null;
     }
-    private void OnDrawGizmosSelected()
+    private new void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.white;
         if (WayPoints.Count > 0)
         {
             Gizmos.DrawLine(transform.position, WayPoints[0]);
@@ -99,15 +98,6 @@ public class Agent : Entity
         search = new SearchInformation();
         move_BT = new Move_BT(this, "Movement");
         brainSequence = new AgentBrainSequence(this, "Sequence");
-    }
-
-
-
-    // Start is called before the first frame update
-    public virtual new void Start()
-    {
-        Restart();
-
     }
 
     // Update is called once per frame

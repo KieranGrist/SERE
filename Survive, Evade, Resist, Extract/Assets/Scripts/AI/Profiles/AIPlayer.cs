@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+[RequireComponent(typeof(NavMeshAgent))]
 public class AIPlayer : Player
 {
     public NavMeshAgent AINavAgent;
@@ -11,16 +12,17 @@ public class AIPlayer : Player
         AINavAgent = GetComponent<NavMeshAgent>();
         base.Start();
     }
-    private void OnDrawGizmosSelected()
+    private new void OnDrawGizmos()
     {
-        Gizmos.DrawLine(transform.position, GameManager.GM.ExtractionLocation);
-        Gizmos.DrawCube(GameManager.GM.ExtractionLocation, new Vector3(1, 1, 1));
+        base.OnDrawGizmos();
+        Gizmos.DrawLine(transform.position, GM.ExtractionLocation);
+        Gizmos.DrawCube(GM.ExtractionLocation, new Vector3(1, 1, 1));
     }
     // Update is called once per frame
     public new void Update()
     {
-        AINavAgent.destination = GameManager.GM.ExtractionLocation;
-        AINavAgent.SetDestination(GameManager.GM.ExtractionLocation);
+        AINavAgent.destination = GM.ExtractionLocation;
+        AINavAgent.SetDestination(GM.ExtractionLocation);
         switch (Affiliation)
         {
             case Side.Civilian:

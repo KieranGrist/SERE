@@ -16,6 +16,8 @@ public class Sequence : CompositeNode
     }
     public override NodeStatus Execute()
     {
+        
+        agent.CurrentExecutingNode = this;
         NodeStatus rv = NodeStatus.SUCCESS;
         for (int i = CurrentChildIndex; i < this.children.Count; i++)
         {

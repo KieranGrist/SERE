@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ShootingTarget : Entity
+using UnityEngine.AI;
+public class ShootingTarget : Player
 {
+  public  NavMeshAgent AINavMeshAgent;
     float Gap = 4;
-    int Deaths = 0;
+   public int Deaths = 0;
     float Timer = 60;
+    public bool InfiniteHealth;
     public List<float> DamageDone = new List<float>();
     public List<float> DamageDoneInAMinute = new List<float>();
     public float TotalDamage;
@@ -15,7 +17,7 @@ public class ShootingTarget : Entity
     public float LastDamage;
     public ShootingTarget()
     {
-
+    
     }
 
     public override void DealDamage(float Damage)
@@ -26,13 +28,20 @@ public class ShootingTarget : Entity
         base.DealDamage(Damage);
     }
 
-    public override void Start()
+    new void  Start()
     {
         base.Start();
+        AINavMeshAgent = GetComponent<NavMeshAgent>();
+        Control = false;
+        Affiliation = Side.Enemy;
     }
 
     public override void Update()
     {
+        if (Affiliation == Side.Enemy)
+            AINavMeshAgent.destination = GM.ExtractionGameObject.transform.position;
+        else
+            AINavMeshAgent.destination = transform.position;
         DamagePerMinute = 0;
         foreach(var item in DamageDoneInAMinute)
         {
@@ -52,18 +61,21 @@ public class ShootingTarget : Entity
         }
         if (entityStats.Health > 70)
         {
+            Affiliation = Side.Enemy;
             Gap = 4;
             GetComponent<Renderer>().material.color = Color.green;
         }
         if (entityStats.Health >40 && entityStats.Health <70)
         {
+            Affiliation = Side.Enemy;
             GetComponent<Renderer>().material.color = Color.yellow;
         }
         if (entityStats.Health > 0 && entityStats.Health < 40)
         {
+            Affiliation = Side.Enemy;
             GetComponent<Renderer>().material.color = Color.red;
         }
-        if (entityStats.Health <= 0)
+        if (entityStats.Health <= 0 && InfiniteHealth)
         {
             GetComponent<Renderer>().material.color = Color.black;
             Gap -= Time.deltaTime;
@@ -73,6 +85,20 @@ public class ShootingTarget : Entity
                 entityStats.Health = 100;
             }
         }
+        if (entityStats.Health <= 0 && !InfiniteHealth)
+        {
+            Affiliation = Side.Civilian;
+        }
             base.Update();
+    }
+
+    public override void Restart()
+    {
+        base.Restart();
+        AINavMeshAgent = GetComponent<NavMeshAgent>();
+        Control = false;
+        entityStats = new EntityStats();
+        Affiliation = Side.Enemy;
+
     }
 }

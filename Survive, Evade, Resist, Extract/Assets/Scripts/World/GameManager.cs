@@ -3,31 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 [System.Serializable]
-public struct DebugRand
-
-{
-    [Header("X Debug")]
-    public float Minx;
-    public float MaxX;
-    public float RandX;
-    [Header("Z Debug")]
-    public float MinZ;
-    public float MaxZ;
-    public float RandZ;
-}
-
-[System.Serializable]
-
 public class GameManager : MonoBehaviour
 {
     [Header("Names ")]
     public List<string> FirstNames = new List<string>
     {
           "Kieran",
-      
+
           "Lauren",
           "Liam",
-"Noah", 
+"Noah",
 "William",
 "James",
 "Oliver",
@@ -227,7 +212,6 @@ public class GameManager : MonoBehaviour
 "Brielle",
 "Madeline"
     };
-
     public List<string> LastNames = new List<string>
     {
         "Grist",
@@ -332,6 +316,7 @@ public class GameManager : MonoBehaviour
 "Griffin",
 "Diaz",
     };
+    public List<Grid> SearchedGrids = new List<Grid>();
 
     [Header("Team Management")]
     public Team TeamOne;
@@ -341,69 +326,62 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Management")]
     public float TimeScale = 1;
-    public bool Reset;
-    public static GameManager GM;
-    bool RestartLevel;
     [Header("Player Spawn Management")]
-  public  Player player;
+    public List<Player> player;
     public float PlayerSpawnArea = 1000;
     public Vector3 PlayerSpawnLocation;
-    public DebugRand DebugPlayerRand;
+
 
 
     [Header("AI Spawn Management")]
-    public List<Agent> AIToManage; 
+    public List<Agent> AIToManage;
     public float MiniumDistanceToPlayer;
     public float AISpawnArea = 500;
     public Vector3 AISpawnLocation;
-    public DebugRand DebugAIRand;
 
 
-
+    public int Alive;
+    public int Dead;
+    public int Total;
 
     [Header("Extraction Spawn Management")]
     public ExtractionPoint ExtractionGameObject;
     public float ExtractionPointSpawnArea = 1500;
-    public float TimeNeededForExtraction;
     public Vector3 ExtractionLocation;
-    float TimeOnExtractionPoint;
-    public DebugRand DebugExtractionRand;
+    public List<GameObject> CopiedGameObjects = new List<GameObject>();
+
 
     public GameManager()
     {
-        GM = this;
-        TeamOne = new Team();
-        TeamOne.TeamName = "Team One";
-        TeamOne.TeamID = 1;
+        
+        TeamOne = new Team
+        {
+            TeamName = "Team One",
+            TeamID = 1
+        };
 
-        TeamTwo = new Team();
-        TeamTwo.TeamName = "Team Two";
-        TeamTwo.TeamID = 2;
+        TeamTwo = new Team
+        {
+            TeamName = "Team Two",
+            TeamID = 2
+        };
 
 
-        TeamThree = new Team();
-        TeamThree.TeamName = "Team Three";
-        TeamThree.TeamID = 3;
+        TeamThree = new Team
+        {
+            TeamName = "Team Three",
+            TeamID = 3
+        };
 
 
-        TeamFour = new Team();
-        TeamFour.TeamName = "Team Team Four";
-        TeamFour.TeamID = 4;
+        TeamFour = new Team
+        {
+            TeamName = "Team Team Four",
+            TeamID = 4
+        };
 
     }
-    public string GenerateName()
-    {
-        string Ret = "";
-        Ret = FirstNames[Random.Range(0, FirstNames.Count - 1)];
-        Ret += " " + LastNames[Random.Range(0, LastNames.Count - 1)];
-        return Ret;
-    }
-    public static GameObject Clone(GameObject gameObject, Transform transform)
-    {
-        GameObject GO = Instantiate(gameObject, transform.position, transform.rotation);
-        return GO;
-    }
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(transform.position, new Vector3(PlayerSpawnArea * 2, PlayerSpawnArea * 2, PlayerSpawnArea * 2));
@@ -416,11 +394,6 @@ public class GameManager : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireCube(transform.position, new Vector3(ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2, ExtractionPointSpawnArea * 2));
-
-
-    }
-    private void OnDrawGizmos()
-    {
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(ExtractionLocation, new Vector3(50, 50, 50));
@@ -439,58 +412,43 @@ public class GameManager : MonoBehaviour
             foreach (var item in TeamFour.Members)
                 Gizmos.DrawLine(item.transform.position, TeamFour.teamLeader.transform.position);
     }
-
     // Start is called before the first frame update
-    void Start()
-    {
-        name = "Game Manager";
-        AIToManage = new List<Agent>();
-        AIToManage.Clear();
-        AIToManage.AddRange(FindObjectsOfType<Agent>());
-        TeamOne.ReferenceMembersInTeam();
-        TeamTwo.ReferenceMembersInTeam();
-        TeamThree.ReferenceMembersInTeam();
-        TeamFour.ReferenceMembersInTeam();
-        TeamOne.SetUpTeam();
-        TeamTwo.SetUpTeam();
-        TeamThree.SetUpTeam();
-        TeamFour.SetUpTeam();  
-
-        GM = this;
-        RestartLevel = true;
+    void Awake()
+    {   
+        name = "Game Manager";       
+        Restart();
     }
-
     // Update is called once per frame
     void Update()
     {
-        GM = this;
+        TeamSetup();  
         ExtractionLocation = ExtractionGameObject.transform.position;
         Time.timeScale = TimeScale;
-        GM = this;
-        foreach(var item in FindObjectsOfType<Agent>())
+        var Targets = FindObjectsOfType<Player>();
+        Total = Targets.Length;
+        Alive = 0;
+        Dead = 0;
+        foreach (var item in Targets)
         {
-            if (item.entityStats.Health < 0)
-            {
-                item.transform.position = AISpawnLocation;
-                item.Restart();
-            }
+            if (item.Affiliation == Side.Enemy)
+                Alive++;
+            if (item.Affiliation == Side.Civilian)
+                Dead++;
         }
-        if (Reset)
-        {
-            NewGame();
-            Reset = false;
-        }
-        if (RestartLevel)
-        {
-            SpawnPlayer();
-            SpawnAI();
-            SpawnExtractionPoint();
-
-            RestartLevel = false;
-        }
-
     }
-    private static Vector3 GenerateRandomPoint(Vector3 Position, float Radius,out DebugRand debugRand)
+    public string GenerateName()
+    {
+        string Ret;
+        Ret = FirstNames[Random.Range(0, FirstNames.Count - 1)];
+        Ret += " " + LastNames[Random.Range(0, LastNames.Count - 1)];
+        return Ret;
+    }
+    public static GameObject Clone(GameObject gameObject, Transform transform)
+    {
+        GameObject GO = Instantiate(gameObject, transform.position, transform.rotation);
+        return GO;
+    }
+    public static Vector3 GenerateRandomPoint(Vector3 Position, float Radius)
     {
         float MINX, MAXX, MINZ, MAXZ;
         MINX = Position.x - Radius;
@@ -501,76 +459,250 @@ public class GameManager : MonoBehaviour
         float Z = Random.Range(MINZ, MAXZ);
         float Y = Terrain.activeTerrain.SampleHeight(new Vector3(X, 0, Z));
         Y += 1;
-        debugRand.MaxX = MAXX;
-        debugRand.Minx = MINX;
-        debugRand.MinZ = MINZ;
-        debugRand.MaxZ = MAXZ;
-        debugRand.RandX = X;
-        debugRand.RandZ = Z;
-       
         return new Vector3(X, Y, Z);
     }
-
-
-    void SpawnExtractionPoint()
+    public void Restart()
     {
-        ExtractionLocation = new Vector3();
-        //Generate a vector from the map to spawn the extraction location
-        ExtractionLocation = GenerateRandomPoint(transform.position, ExtractionPointSpawnArea, out DebugExtractionRand);
+        SearchedGrids = new List<Grid>();
+        SpawnPlayer();
+        AISetup();
+        SpawnAI();
+        AssignTeams();
+        TeamSetup();
+        NewGame();
+        var Targets = FindObjectsOfType<Player>();
+        Total = Targets.Length;
+        Alive = 0;
+        Dead = 0;
+        foreach (var item in Targets)
+        {
+            if (item.Affiliation == Side.Enemy)
+                Alive++;
+            if (item.Affiliation == Side.Civilian)
+                Dead++;
+        }
+        SpawnExtractionPoint();
+        Copy();
+    }      
+    public void LearningAIRestart()
+    {
+        SpawnPlayer();
+        SpawnExtractionPoint();
+    }
+    void AISetup()
+    {
+        AIToManage = new List<Agent>();
+        AIToManage.Clear();
+        AIToManage.AddRange(FindObjectsOfType<Agent>());
+    }
+    void TeamSetup()
+    {
+
+        TeamOne.ReferenceMembersInTeam();
+        TeamTwo.ReferenceMembersInTeam();
+        TeamThree.ReferenceMembersInTeam();
+        TeamFour.ReferenceMembersInTeam();
+        TeamOne.SetUpTeam();
+        TeamTwo.SetUpTeam();
+        TeamThree.SetUpTeam();
+        TeamFour.SetUpTeam();
+    }
+    void AssignTeams()
+    {
+        TeamOne = new Team
+        {
+            TeamName = "Team One",
+            TeamID = 1
+        };
+
+        TeamTwo = new Team
+        {
+            TeamName = "Team Two",
+            TeamID = 2
+        };
 
 
-        //Spawn the extraction point prefab at location
-        ExtractionGameObject.transform.position = ExtractionLocation;
-        
+        TeamThree = new Team
+        {
+            TeamName = "Team Three",
+            TeamID = 3
+        };
+
+
+        TeamFour = new Team
+        {
+            TeamName = "Team Team Four",
+            TeamID = 4
+        };
+        var AITOAssign = AIToManage;
+        for (int i = AITOAssign.Count - 1; i >= 0; i--)
+        {
+            if (AITOAssign[i] is Soldier s)
+            {
+                bool Assigned = false;
+                if (s is TeamLeader t)
+                {
+                    if (TeamOne.teamLeader == null && Assigned == false)
+                    {
+                        Assigned = true;
+                        TeamOne.teamLeader = t;
+                        TeamOne.Members.Add(t);
+                        AITOAssign.Remove(t);
+                    }
+                    if (TeamTwo.teamLeader == null && Assigned == false)
+                    {
+                        Assigned = true;
+                        TeamTwo.teamLeader = t;
+                        TeamTwo.Members.Add(t);
+                        AITOAssign.Remove(t);
+                    }
+                    if (TeamThree.teamLeader == null && Assigned == false)
+                    {
+                        Assigned = true;
+                        TeamThree.teamLeader = t;
+                        TeamThree.Members.Add(t);
+                        AITOAssign.Remove(t);
+                    }
+                    if (TeamFour.teamLeader == null && Assigned == false)
+                    {
+                        Assigned = true;
+                        TeamFour.teamLeader = t;
+                        TeamFour.Members.Add(t);
+                        AITOAssign.Remove(t);
+                    }
+                }
+                if ((TeamOne.teamLeader == true && (TeamOne.Members.Count < 4 && Assigned == false)) || (TeamOne.teamLeader == false && (TeamOne.Members.Count < 3 && Assigned == false)))
+                {
+                    Assigned = true;
+                    TeamOne.Members.Add(s);
+                    AITOAssign.Remove(s);
+                }
+                if ((TeamTwo.teamLeader == true && (TeamTwo.Members.Count < 4 && Assigned == false)) || (TeamTwo.teamLeader == false && (TeamTwo.Members.Count < 3 && Assigned == false)))
+                {
+                    Assigned = true;
+                    TeamTwo.Members.Add(s);
+                    AITOAssign.Remove(s);
+                }
+                if ((TeamThree.teamLeader == true && (TeamThree.Members.Count < 4 && Assigned == false)) || (TeamThree.teamLeader == false && (TeamThree.Members.Count < 3 && Assigned == false)))
+                {
+                    Assigned = true;
+                    TeamThree.Members.Add(s);
+                    AITOAssign.Remove(s);
+                }
+                if ((TeamFour.teamLeader == true && (TeamFour.Members.Count < 4 && Assigned == false)) || (TeamFour.teamLeader == false && (TeamFour.Members.Count < 3 && Assigned == false)))
+                {
+                    TeamFour.Members.Add(s);
+                    AITOAssign.Remove(s);
+                }
+
+            }
+        }
+    }
+    void NewGame()
+    {
+        foreach (var bullet in FindObjectsOfType<Bullet>())        
+            Destroy(bullet.gameObject);
+
+        foreach (var scent in FindObjectsOfType<ScentSphere>())
+            Destroy(scent);
     }
     void SpawnPlayer()
     {
+        player.Clear();
+        foreach(var item in FindObjectsOfType<Player>())
+            player.Add(item);     
         foreach (var item in FindObjectsOfType<ScentSphere>())
             item.Age = 0;
-            
-            player.Restart();
-        PlayerSpawnLocation = new Vector3(); 
-        //Generate a vector for the player to be created at
-        PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea,out DebugPlayerRand);
-        player.transform.position = PlayerSpawnLocation;
-        player.entityStats.Health = 100;
-        AIPlayer aIPlayer = player.GetComponent<AIPlayer>();
-        if(aIPlayer)
+        foreach (var item in player)
         {
-         //   aIPlayer.agent.Warp(PlayerSpawnLocation);
+            item.GM = this;
+            item.Restart();
+            PlayerSpawnLocation = new Vector3();
+            //Generate a vector for the player to be created at
+            PlayerSpawnLocation = GenerateRandomPoint(transform.position, PlayerSpawnArea);
+            item.transform.position = PlayerSpawnLocation;
+            item.entityStats.Health = 100;
+            AIPlayer aIPlayer = item.GetComponent<AIPlayer>();
+            if (item is AIPlayer a)
+            {
+                a.Restart();
+                a.AINavAgent.Warp(PlayerSpawnLocation);
+     
+        
+            }
+            if (item is ShootingTarget s)
+            {
+                s.Restart();
+                s.AINavMeshAgent.Warp(PlayerSpawnLocation);
+            
+
+            }
+            
         }
 
     }
     void SpawnAI()
     {
-AISpawnLocation  = new Vector3();
+       
+        AISpawnLocation = new Vector3();
 
         //Generate a vector for the ai to be created at
-        AISpawnLocation = GenerateRandomPoint(transform.position, AISpawnArea,out DebugAIRand);
- 
+        
+
         //Create and Spawn AI
         foreach (var item in AIToManage)
         {
+            item.GM = this;
+            AISpawnLocation = GenerateRandomPoint(transform.position, AISpawnArea);
             item.Restart();
+            item.AINavAgent.Warp(new Vector3(0, 0, 0));
             item.transform.position = new Vector3();
             item.AINavAgent.Warp(AISpawnLocation);
             item.enabled = true;
             item.entityStats.Health = 100;
-            item.transform.position = AISpawnLocation;
+            if (item is Soldier s)                       
+                s.Restart();
+             
+            
+        
         }
 
     }
-
-    public void AssignTeams()
+    void SpawnExtractionPoint()
     {
+       
+        ExtractionLocation = new Vector3();
+        //Generate a vector from the map to spawn the extraction location
+        ExtractionLocation = GenerateRandomPoint(transform.position, ExtractionPointSpawnArea);
+
+        ExtractionGameObject.GM = this;
+        //Spawn the extraction point prefab at location
+        ExtractionGameObject.transform.position = ExtractionLocation;
 
     }
-    public void NewGame()
+    void Copy()
     {
-         foreach (var bullet in FindObjectsOfType<Bullet>())
+        foreach (var item in CopiedGameObjects)
+            DestroyImmediate(item);
+        CopiedGameObjects.Clear();
+        var GameObjectsToCopy = new List<GameObject>();
+        GameObjectsToCopy.AddRange(FindObjectsOfType<GameObject>());
+        GameManager gameManager = this;
+        for (int i = GameObjectsToCopy.Count - 1; i >= 0; i--)
         {
-            Destroy(bullet.gameObject);
+            var item = GameObjectsToCopy[i];
+            if ( item.GetComponent<Light>() || item.GetComponent<UserInterface>() || item.GetComponent<Camera>() || item.GetComponent<Agent>() )
+                GameObjectsToCopy.Remove(item);
+            gameManager = GetComponent<GameManager>();
         }
-        RestartLevel = true;
-    }
+        foreach (var item in GameObjectsToCopy)
+            CopiedGameObjects.Add(Clone(item, item.transform));
+        foreach (var item in CopiedGameObjects)
+        {
+            item.transform.position += new Vector3(5000, 0, 0);
+        }
+        gameManager.LearningAIRestart();
+
+
+        }
 }

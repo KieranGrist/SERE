@@ -5,13 +5,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Soldier : Agent
 {
-    public override void Restart()
+    public Soldier() : base()
     {
-
-        Debug.Log("Creating Selector");
-        Debug.Log(this);
         RootNode = new Selector(this, "Soldier Selector Node");
-        Debug.Log(RootNode);
 
         Hunt_BT hunt_BT = new Hunt_BT(this, "Hunt Behaviour Tree");
         Search_BT search_BT = new Search_BT(this, "Search Behaviour Tree");
@@ -20,16 +16,23 @@ public class Soldier : Agent
         RootNode.AddChild(search_BT);
         RootNode.AddChild(hunt_BT);
         RootNode.AddChild(combat_BT);
-        Debug.Log(RootNode);
+    }
+
+    public override void Restart()
+    {
+        RootNode = new Selector(this, "Soldier Selector Node");
+
+        Hunt_BT hunt_BT = new Hunt_BT(this, "Hunt Behaviour Tree");
+        Search_BT search_BT = new Search_BT(this, "Search Behaviour Tree");
+        Combat_BT combat_BT = new Combat_BT(this, "Combat Behaviour Tree");
+
+        RootNode.AddChild(search_BT);
+        RootNode.AddChild(hunt_BT);
+        RootNode.AddChild(combat_BT);
+
         base.Restart();
 
     }
-    public override void Start()
-    {
-        Restart();
-    }
-
-
     public override void Update()
     {
         base.Update();

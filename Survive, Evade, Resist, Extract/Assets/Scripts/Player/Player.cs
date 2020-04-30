@@ -7,15 +7,15 @@ public class Player : Entity
     int scentSphere = 0;
     public Player()
     {
-        Restart();
     }
-    public override void Start()
+    public virtual void Start()
     {
+        CreateScenetTrail();
         Restart();
        combat.CurrentWeapon.LoadPrefabs();
         InvokeRepeating("CreateScenetTrail", 15, 15);
     }
-    public override void Restart()
+    public virtual new void Restart()
     {
         base.Restart();
         Control = true;
@@ -45,16 +45,9 @@ public class Player : Entity
         combat.CurrentWeapon.LoadPrefabs();
         inventory.CalculateWeight();
     }
-    public override void Update()
-    {
-        base.Update();
-
-
-    }
     void CreateScenetTrail()
     {
         scentSphere++;
-
         GameObject st = Resources.Load("ScentSphere") as GameObject;
         GameObject go = Instantiate(st);
         var scent = go.GetComponent<ScentSphere>();

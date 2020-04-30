@@ -15,8 +15,7 @@ public abstract class ConditionalDecorator :DecoratorNode
     }
 
     public abstract bool CheckStatus();
-    public override NodeStatus Execute()
-    {
+    public override NodeStatus Execute()    {
         NodeStatus rv = NodeStatus.FAILURE;
         bool Status = CheckStatus();
         if (Status)

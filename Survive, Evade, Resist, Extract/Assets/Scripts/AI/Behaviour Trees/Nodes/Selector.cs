@@ -13,18 +13,20 @@ public class Selector : CompositeNode
     public Node ExecutingNode;
     public Selector(Agent agent, string name) : base(agent, name)
     {
+
         this.agent = agent;
         NodeName = name;
     }
 
     public override NodeStatus Execute()
     {
+ 
         NodeStatus rv = NodeStatus.FAILURE;
-        Debug.Log(this.NodeName + " Selector");
+
+        agent.CurrentExecutingNode = this;
         for (int i = CurrentChildIndex; i < this.children.Count; i++)
         {
-            Debug.Log(this);
-            Debug.Log(this.children);
+
             ExecutingNode = this.children[i];
             rv = this.children[i].Execute();
             this.CurrentChildIndex = i;

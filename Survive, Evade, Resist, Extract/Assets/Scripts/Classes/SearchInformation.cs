@@ -12,19 +12,16 @@ public class SearchInformation
     public float SearchDistance = 500;
 
     public Grid CurrentSearchGrid;
-    public List<Grid> SearchedGrids = new List<Grid>();
 
     public SearchInformation()
     {
         SearchLocation = new Vector3();
         SearchDistance = 500;
         CurrentSearchGrid = null;
-        SearchedGrids = new List<Grid>();
     }
     public SearchInformation(float Distance)
     {
         SearchLocation = new Vector3();
         SearchDistance = Distance;
-        SearchedGrids = new List<Grid>();
     }
 }
