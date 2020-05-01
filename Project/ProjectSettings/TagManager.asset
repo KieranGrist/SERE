@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - target
+  - ground
+  - goal
+  - agent
+  - block
+  - wall
+  - switchOff
+  - pyramid
+  - stone
+  - badFood
+  - food
+  - walkableSurface
+  - purpleAgent
+  - purpleGoal
+  - blueAgent
+  - blueGoal
+  - ball
+  - symbol_X
+  - pit
+  - iWall
+  - symbol_O
+  - symbol_O_Goal
+  - symbol_X_Goal
+  - Bullet
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - Enemy
+  - Friendly
+  - Civilian
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
