@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public ExtractionArea MyArea;
+    public SEREArea MyArea;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("agent"))
         {
-            collision.gameObject.GetComponent<LearningSoldier>().AddReward(-2f);
+            LearningSoldier learningSoldier = collision.gameObject.GetComponent<LearningSoldier>();
+            if (learningSoldier)
+                collision.gameObject.GetComponent<LearningSoldier>().AddReward(-2f);
+
         }
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        MyArea = GetComponentInParent<ExtractionArea>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        MyArea = GetComponentInParent<SEREArea>();
     }
 }

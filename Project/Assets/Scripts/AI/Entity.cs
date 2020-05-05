@@ -20,22 +20,17 @@ public class Entity : MonoBehaviour
     [Header("Movement")]
     public Vector3 TravelingDirection;
     [Header("Combat")]
-    public Combat combat = new Combat();
-
+    public L85A2 l85A2 = new L85A2();
     /// <summary>
     /// Contains all data for the entitys statistics such as health
     /// </summary>
     public EntityStats entityStats;
-    public ExtractionArea MyArea;
-
-
-
-
+    public SEREArea MyArea;
     public Entity()
     {
         entityStats = new EntityStats();
         inventory = new Inventory();
-        combat = new Combat();
+        l85A2 = new L85A2 ();
     }
     public virtual void OnDrawGizmos()
     {
@@ -68,7 +63,7 @@ public class Entity : MonoBehaviour
         }
         entityStats = new EntityStats();
         inventory = new Inventory();
-        combat = new Combat();
+        l85A2 = new L85A2 ();
 
 
     }
@@ -77,7 +72,7 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        combat.Update();
+        l85A2.UpdateGap(Time.deltaTime);
         inventory.CalculateWeight();
 
        
@@ -111,12 +106,12 @@ public class Entity : MonoBehaviour
     }
     private void PlayerInput()
     {
-        if (Input.GetKey(KeyCode.Alpha1))
-            if (combat.PrimaryWeapon != null)
-                combat.SwitchCurrentWeapon(1);
-        if (Input.GetKey(KeyCode.Alpha2))
-            if (combat.SecondaryWeapon != null)
-                combat.SwitchCurrentWeapon(2);   
+        //if (Input.GetKey(KeyCode.Alpha1))
+        //    if (combat.PrimaryWeapon != null)
+        //        combat.SwitchCurrentWeapon(1);
+        //if (Input.GetKey(KeyCode.Alpha2))
+        //    if (combat.SecondaryWeapon != null)
+        //        combat.SwitchCurrentWeapon(2);   
         if (Input.GetKey(KeyCode.W))
             transform.position += transform.forward * Time.deltaTime * 5;
         if (Input.GetKey(KeyCode.D))
@@ -130,21 +125,21 @@ public class Entity : MonoBehaviour
     }
     private void WeaponSystems()
     {
-        switch (combat.CurrentWeapon.WeaponFireRate)
+        switch (l85A2.WeaponFireRate)
         {
             case RateOfFire.Automatic:
                 if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
-                    combat.CurrentWeapon.Fire(transform, transform.forward);
+                    l85A2.Fire(transform, transform.forward);
                 break;
             case RateOfFire.Burst:
                 if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
                 {
-                    StartCoroutine(combat.CurrentWeapon.BurstFire(transform, transform.forward));
+                    StartCoroutine(l85A2.BurstFire(transform, transform.forward));
                 }
                 break;
             case RateOfFire.Single:
                 if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-                    combat.CurrentWeapon.Fire(transform, transform.forward);
+                    l85A2.Fire(transform, transform.forward);
                 break;
             case RateOfFire.Saftey:
                 break;
@@ -152,9 +147,9 @@ public class Entity : MonoBehaviour
 
 
         if (Input.GetKey(KeyCode.R))
-            StartCoroutine(combat.CurrentWeapon.Reload(inventory));
+            StartCoroutine(l85A2.Reload(inventory));
         if (Input.GetKeyDown(KeyCode.F))
-            combat.CurrentWeapon.SwitchFireRate();
+            l85A2.SwitchFireRate();
     }
 
 

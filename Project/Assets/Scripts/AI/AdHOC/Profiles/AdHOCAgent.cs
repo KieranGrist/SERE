@@ -70,7 +70,7 @@ public class AdHOCAgent : Entity
 
     public void Reload()
     {
-        StartCoroutine(combat.CurrentWeapon.Reload(inventory));
+        StartCoroutine(l85A2.Reload(inventory));
     }
     public void SensesSystem()
     {

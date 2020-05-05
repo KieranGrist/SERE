@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    public ExtractionArea MyArea;
+    public SEREArea MyArea;
     // Start is called before the first frame update
     void Start()
     {
-        MyArea = GetComponentInParent<ExtractionArea>();
+        MyArea = GetComponentInParent<SEREArea>();
     }
 
     // Update is called once per frame

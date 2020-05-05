@@ -83,12 +83,12 @@ public class Weapon : InventoryItem
             if (CurrentMagazine.NextTracer >= CurrentMagazine.Tracergap)
             {
                 CurrentMagazine.NextTracer = 0;
-                go = ExtractionArea.Clone(Tracer, transform);
+                go = SEREArea.Clone(Tracer, transform);
             }
             else
-            {
-                go = ExtractionArea.Clone(Bullet, transform);
-            }
+
+                go = SEREArea.Clone(Bullet, transform);
+            
             go.GetComponent<Bullet>().Damage = CurrentMagazine.BulletDamage;
             go.transform.position += Rotation * 1.1f;
             var rb = go.GetComponent<Rigidbody>();

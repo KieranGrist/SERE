@@ -86,9 +86,8 @@ class CalculateSearchPattern : Node
                     x = Mathf.Cos(Pitch) * Mathf.Sin(Yaw) //x = cos of pitch * sin of yaw
                 };
 
- 
-               EndPoint += RV * agent.search.SearchDistance;
 
+                EndPoint += RV * Random.Range(1, agent.search.SearchDistance); 
                 Angle += IncreaseAngle;  
                 agent.WayPoints.Add(EndPoint);
             }       

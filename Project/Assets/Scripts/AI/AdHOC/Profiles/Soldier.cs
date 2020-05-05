@@ -18,9 +18,15 @@ public class Soldier : AdHOCAgent
         RootNode.AddChild(combat_BT);
     }
 
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.DrawWireSphere(transform.position, entityStats.sightRange);
+    }
+
     public override void Restart()
     {
-   
+        WayPoints = new List<Vector3>();
         RootNode = new Selector(this, "Soldier Selector Node");
 
         Hunt_BT hunt_BT = new Hunt_BT(this, "Hunt Behaviour Tree");

@@ -77,35 +77,14 @@ class EngageEnemy : Node
 
 
         if (agent.Enemy)
-        {       
+        {
 
-
+            agent.l85A2.CurrentMagazine = new InfiniteMagazine();
+            
             //Handle the AI needing to switch weapons
             //Check if the current weapon has mags left 
-            if (agent.combat.CheckCurrentWeaponHasMags(agent.inventory) == false)
-            {
-                //If it doesnt check if the other weapons have any mags left
-                agent.combat.CheckWeaponHasMags(agent.inventory, 1);
-                agent.combat.CheckWeaponHasMags(agent.inventory, 2);
-                agent.combat.CheckWeaponHasMags(agent.inventory, 3);
 
-                //Check if the weapon has magazines to reload, then checks if the weapon already been switched, if it has skip the other weapons. 
-                bool WeaponSwitched = false;
-                if (agent.combat.PrimaryWeaponHasMags && WeaponSwitched == false)
-                {
-                    agent.combat.SwitchCurrentWeapon(1);
-                    WeaponSwitched = true;
-                }
-                if (agent.combat.SecondaryWeaponHasMags && WeaponSwitched == false)
-                {
-                    agent.combat.SwitchCurrentWeapon(2);             
-                }
 
-            }
-            //Checks if the weapon needs reloading first
-            if (agent.combat.CurrentWeapon.NeedsReloading())
-                agent.Reload();
-          
             //look at the enemy 
             agent.transform.LookAt(agent.Enemy.transform);
 
@@ -116,17 +95,17 @@ class EngageEnemy : Node
        
 
             //The AI will always be on Automatic rate of fire as the brain would have no way of knowing when to use what fire rate and each weapon is different
-            agent.combat.CurrentWeapon.WeaponFireRate = RateOfFire.Automatic;
+            agent.l85A2.WeaponFireRate = RateOfFire.Automatic;
 
             //Fire the weapon
-            Vector3 ShootRotation =agent.transform.rotation.eulerAngles;
+            Vector3 ShootRotation;
 
             Vector3 InFrontOfEnemy = agent.Enemy.transform.position + agent.Enemy.transform.forward * 1;
 
-
+            agent.l85A2.LoadPrefabs();
 
             ShootRotation = (InFrontOfEnemy - agent.transform.position).normalized;
-            agent.combat.CurrentWeapon.Fire(agent.transform, ShootRotation);
+          agent.l85A2.Fire(agent.transform, ShootRotation);
         }
         else
             return NodeStatus.FAILURE;

@@ -10,7 +10,7 @@ public class LearningSoldier : Agent
     // Speed of agent rotation.
     public float turnSpeed = 180;
     //Area
-    public ExtractionArea MyArea;
+    public LearningAIArea MyArea;
     Rigidbody RB;
     L85A2 l85A2 = new L85A2();
     [Header("Entity")]
@@ -22,7 +22,7 @@ public class LearningSoldier : Agent
     public override void Initialize()
     {
         base.Initialize();
-        MyArea = GetComponentInParent<ExtractionArea>();
+        MyArea = GetComponentInParent<LearningAIArea>();
         Enemy = null;
         RB = GetComponent<Rigidbody>();
         //LoadoutGenerator.GenerateRandomLoadout(this);

@@ -6,7 +6,7 @@ public class ExtractionPoint : MonoBehaviour
 {
     public int PlayersInScene;
     public int PlayersInExtractionPoint;
-    public ExtractionArea MyArea;
+    public SEREArea MyArea;
     public float ExtractionRadius;
     private void Update()
     {
@@ -15,7 +15,9 @@ public class ExtractionPoint : MonoBehaviour
             if (item.GetComponent<AIPlayer>())
             {
                 MyArea.RemovePlayer(item.GetComponent<AIPlayer>());
-                MyArea.SoldierAgent.AddReward(-2f);        
+                LearningAIArea learningAIArea = GetComponentInParent<LearningAIArea>();
+                    if (learningAIArea)
+                    learningAIArea.SoldierAgent.AddReward(-2f);        
             }
     
         

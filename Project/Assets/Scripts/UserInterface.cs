@@ -38,9 +38,9 @@ public class UserInterface : MonoBehaviour
 
         if (ControlledEnity)
         {
-            if (ControlledEnity.combat.CurrentWeapon != null)
+            if (ControlledEnity.l85A2 != null)
             {
-                CurrentWeapon.text = ControlledEnity.combat.CurrentWeapon.Name;
+                CurrentWeapon.text = ControlledEnity.l85A2.Name;
 
                 P1.color = Color.white;
                 P2.color = Color.white;
@@ -49,7 +49,7 @@ public class UserInterface : MonoBehaviour
                 P5.color = Color.white;
                 P6.color = Color.white;
 
-                switch (ControlledEnity.combat.CurrentWeapon.WeaponFireRate)
+                switch (ControlledEnity.l85A2.WeaponFireRate)
                 {
                     case RateOfFire.Automatic:
                         P1.color = Color.white;
@@ -92,14 +92,14 @@ public class UserInterface : MonoBehaviour
                     if (item.GetType().BaseType.ToString() == "Magazine")
                     {
                         var Mag = (Magazine)item;
-                        foreach (var magazine in ControlledEnity.combat.CurrentWeapon.CompatableMagazines)
+                        foreach (var magazine in ControlledEnity.l85A2.CompatableMagazines)
                             if (item.Name == magazine.Name)
                                 CompatableMags++;
                     }
                 }
 
 
-                WeaponInfo.text = ControlledEnity.combat.CurrentWeapon.CurrentMagazine.BulletsInMag + (" | ") + CompatableMags;
+                WeaponInfo.text = ControlledEnity.l85A2.CurrentMagazine.BulletsInMag + (" | ") + CompatableMags;
             }
         }
     }

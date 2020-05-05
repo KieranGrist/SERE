@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262c5dae3b22d4d449d5f553dbb0deb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
 --- !u!1 &1852370701445984006
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 1852370701445984005}
   - component: {fileID: 1852370701445984004}
   m_Layer: 0
-  m_Name: ExtractionArena
+  m_Name: Learning AI Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,12 +363,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cumulativeRewardText: {fileID: 1852370701077172317}
-  SoldierAgent: {fileID: 1852370701944474291}
   ExtractionGameObject: {fileID: 2948458111628718650}
+  SpawnArea: 50
   EnemyPrefap: {fileID: 2097172083901248687, guid: 5f57f77dad0f9e047aa79176c94a642d,
     type: 3}
   AmmountToSpawn: 8
-  SpawnArea: 50
+  SoldierAgent: {fileID: 1852370701944474291}
 --- !u!1 &2902476098911578743
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1a924783fd0e947864a74e0dd31bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
 --- !u!1 &2948458111628718631
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayersInScene: 0
   PlayersInExtractionPoint: 0
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
   ExtractionRadius: 0
 --- !u!65 &2948458111628718651
 BoxCollider:
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1a924783fd0e947864a74e0dd31bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
 --- !u!1 &7455030557086782670
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1a924783fd0e947864a74e0dd31bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
 --- !u!1 &7932018588102081609
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1a924783fd0e947864a74e0dd31bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
 --- !u!1 &8016354021325879454
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +865,7 @@ MonoBehaviour:
   MaxStep: 5000
   moveSpeed: 2
   turnSpeed: 180
-  MyArea: {fileID: 0}
+  MyArea: {fileID: 1852370701445984004}
   Affiliation: 0
   TravelingDirection: {x: 0, y: 0, z: 0}
   Enemy: {fileID: 0}

@@ -22,16 +22,26 @@ public class Bullet : MonoBehaviour
             var Hit = collision.gameObject.GetComponent<AIPlayer>();
             if (Hit)
             {
-                Hit.Health -= 20;
-                Hit.MyArea.SoldierAgent.AddReward(1f);
+                Hit.entityStats.Health -= 20;
+                LearningAIArea learningAIArea = Hit.GetComponentInParent<LearningAIArea>();
+                if (learningAIArea)
+                    learningAIArea.SoldierAgent.AddReward(-2f);
                 var rb = Hit.GetComponent<Rigidbody>();       
             }
             var wall = collision.gameObject.GetComponent<Wall>();
-            if (wall)            
-                wall.MyArea.SoldierAgent.AddReward(-2f);            
+            if (wall)
+            {
+                LearningAIArea learningAIArea = wall.GetComponentInParent<LearningAIArea>();
+                if (learningAIArea)
+                    learningAIArea.SoldierAgent.AddReward(-2f);
+            }
             var floor = collision.gameObject.GetComponent<Floor>();
             if (floor)
-                floor.MyArea.SoldierAgent.AddReward(-1.5f);
+            {
+                LearningAIArea learningAIArea = floor.GetComponentInParent<LearningAIArea>();
+                if (learningAIArea)
+                    learningAIArea.SoldierAgent.AddReward(-2f);
+            }
 
         }
         if(!collision.gameObject.GetComponent<Bullet>())
