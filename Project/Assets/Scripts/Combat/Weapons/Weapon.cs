@@ -71,7 +71,7 @@ public class Weapon : InventoryItem
         Bullet = Resources.Load("Bullet", typeof(GameObject)) as GameObject;
         CurrentMagazine.CalculateWeight();
     }
-    public void Fire(Transform transform, Vector3 Rotation)
+     public void Fire(Transform transform, Vector3 Rotation)
     {
         if (CurrentMagazine.BulletsInMag > 0 && gap > FiringRate)
         {
@@ -90,11 +90,9 @@ public class Weapon : InventoryItem
                 go = ExtractionArea.Clone(Bullet, transform);
             }
             go.GetComponent<Bullet>().Damage = CurrentMagazine.BulletDamage;
-            go.transform.position += Rotation * 6.1f;
-            go.transform.position += new Vector3(0, 0, 0);
-            go.AddComponent<Rigidbody>();
+            go.transform.position += Rotation * 1.1f;
             var rb = go.GetComponent<Rigidbody>();
-            rb.AddForce(Rotation * FiringSpeed);
+            rb.velocity = Rotation * FiringSpeed;
             rb.mass = CurrentMagazine.BulletWeight;
             CurrentMagazine.CalculateWeight();
         }

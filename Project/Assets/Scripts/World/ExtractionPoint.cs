@@ -7,14 +7,15 @@ public class ExtractionPoint : MonoBehaviour
     public int PlayersInScene;
     public int PlayersInExtractionPoint;
     public ExtractionArea MyArea;
+    public float ExtractionRadius;
     private void Update()
     {
-
-        foreach (var item in Physics.OverlapBox(transform.position, new Vector3(2, 2, 2)))
-            if (item.GetComponent<Player>())
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        foreach (var item in Physics.OverlapSphere(transform.position, ExtractionRadius))
+            if (item.GetComponent<AIPlayer>())
             {
-                MyArea.PlayerWins++;
-                MyArea.Restart();
+                MyArea.RemovePlayer(item.GetComponent<AIPlayer>());
+                MyArea.SoldierAgent.AddReward(-2f);        
             }
     
         

@@ -1,50 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
-[RequireComponent(typeof(NavMeshAgent))]
-public class AIPlayer : Player
+﻿using UnityEngine;
+public class AIPlayer : MonoBehaviour
 {
+    public ExtractionArea MyArea;
+    public float Health;
+    public float AgentSpeed;
 
-    Vector3 ExtractionPoint;
-    public NavMeshAgent AINavAgent;
     // Start is called before the first frame update
-    public new void Start()
-    {   
-       base.Start();
-        AINavAgent = GetComponent<NavMeshAgent>();
-        Control = false;
+    public void Restart()
+    {
+        Health = 100;
+        MyArea = GetComponentInParent<ExtractionArea>();
 
     }
-    private new void OnDrawGizmos()
+    void Start()
     {
-        base.OnDrawGizmos();
-        Gizmos.DrawLine(transform.position, MyArea.ExtractionGameObject.transform.position);
-        Gizmos.DrawCube(MyArea.ExtractionGameObject.transform.position, new Vector3(1, 1, 1));
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(AINavAgent.destination,50);
+        Restart();
+        Health = 100;
     }
     // Update is called once per frame
-    public new void Update()
+    void Update()
     {
-        ExtractionPoint = MyArea.ExtractionGameObject.transform.position;
-        AINavAgent.destination=ExtractionPoint;
-        switch (Affiliation)
+        transform.LookAt(MyArea.ExtractionGameObject.transform);
+        Vector3 moveVector = AgentSpeed * transform.forward * Time.fixedDeltaTime;
+        transform.position += moveVector;
+        if (Health <= 0)
         {
-            case Side.Civilian:
-                gameObject.layer = 12;
-                break;
-            case Side.Enemy:
-                gameObject.layer = 10;
-                break;
-            case Side.Friendly:
-                gameObject.layer = 11;
-                break;
-        }
-        if (entityStats.Health <= 0)
-        {
-            MyArea.AgentWins++;
-            MyArea.Restart();
+            if (MyArea.SoldierAgent)
+            {
+                MyArea.RemovePlayer(this);
+                MyArea.SoldierAgent.AddReward(10f);
+            }
+     
         }
     }
 

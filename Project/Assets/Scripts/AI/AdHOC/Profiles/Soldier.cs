@@ -17,12 +17,7 @@ public class Soldier : AdHOCAgent
         RootNode.AddChild(hunt_BT);
         RootNode.AddChild(combat_BT);
     }
-    private new void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(AINavAgent.destination, 50);
-    }
+
     public override void Restart()
     {
    
@@ -37,7 +32,7 @@ public class Soldier : AdHOCAgent
         RootNode.AddChild(combat_BT);
 
         base.Restart();
-        LoadoutGenerator.GenerateRandomLoadout(this);
+   //    LoadoutGenerator.GenerateRandomLoadout(this);
     }
     public override void Update()
     {

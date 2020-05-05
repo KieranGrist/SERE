@@ -45,7 +45,7 @@ public class Entity : MonoBehaviour
             Gizmos.color = Color.red;
         if (Affiliation == Side.Civilian)
             Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, 15);
+        Gizmos.DrawWireSphere(transform.position, 2);
     }
     public virtual void DealDamage(float Damage)
     {
@@ -54,8 +54,6 @@ public class Entity : MonoBehaviour
     public virtual void Restart()
     {
         Control = false;
-        if(MyArea)
-        name = MyArea.GenerateName();
         switch (Affiliation)
         {
             case Side.Civilian:
@@ -128,7 +126,7 @@ public class Entity : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
             transform.position -= transform.right * Time.deltaTime * 5;
 
-        transform.eulerAngles += new Vector3(entityStats.Sensertivity * Input.GetAxis("Mouse Y"), -entityStats.Sensertivity * Input.GetAxis("Mouse X"), 0);
+        transform.eulerAngles += new Vector3(1 * Input.GetAxis("Mouse Y"), -1 * Input.GetAxis("Mouse X"), 0);
     }
     private void WeaponSystems()
     {

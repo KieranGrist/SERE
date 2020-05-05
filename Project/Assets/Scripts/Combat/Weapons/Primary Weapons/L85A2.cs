@@ -7,8 +7,10 @@ public class L85A2 : Weapon
   public L85A2()
     {
         Weight = 4.98f;
-        FiringRate = .25F;
-        FiringSpeed = 10000;
+        FiringRate = 1;
+        FiringSpeed = 10;
+        WeaponFireRate = RateOfFire.Automatic;
+        CurrentMagazine = new InfiniteMagazine();
         CompatableMagazines.Add(new NATO30TracerMag());
         CompatableMagazines.Add(new NATO30StandardMag());
         CompatableMagazines.Add(new NATO30NoTracerMag());

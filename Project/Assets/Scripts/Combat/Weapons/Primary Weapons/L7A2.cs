@@ -8,7 +8,7 @@ public class L7A2 : Weapon
     {
         Weight = 10.99f;
         FiringRate = .15f;
-        FiringSpeed = 10000;
+        FiringSpeed = 1000;
         CompatableMagazines.Add(new NATO100BoxMag());
         CompatableMagazines.Add(new NATO200Boxmag());
         CompatableMagazines.Add(new NATO100BoxMagTracer());

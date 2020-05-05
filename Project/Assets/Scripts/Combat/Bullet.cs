@@ -19,18 +19,23 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject != gameObject)
         {
-            var Hit = collision.gameObject.GetComponent<Entity>();
+            var Hit = collision.gameObject.GetComponent<AIPlayer>();
             if (Hit)
             {
-                Hit.DealDamage(Damage);
-                var rb = Hit.GetComponent<Rigidbody>();
-           if ( rb)
-                    rb.velocity = new Vector3();
-                Destroy(gameObject);
+                Hit.Health -= 20;
+                Hit.MyArea.SoldierAgent.AddReward(1f);
+                var rb = Hit.GetComponent<Rigidbody>();       
             }
+            var wall = collision.gameObject.GetComponent<Wall>();
+            if (wall)            
+                wall.MyArea.SoldierAgent.AddReward(-2f);            
+            var floor = collision.gameObject.GetComponent<Floor>();
+            if (floor)
+                floor.MyArea.SoldierAgent.AddReward(-1.5f);
 
- 
         }
+        if(!collision.gameObject.GetComponent<Bullet>())
+        Destroy(gameObject);
     }
     private void Update()
     {

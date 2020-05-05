@@ -68,7 +68,7 @@ class Chase : Node
         agent.CurrentExecutingNode = this;
         agent.brain.Hunting = true;
       
-        if (agent.brain.Enemy)
+        if (agent.Enemy)
         {
       
             agent.brain.Hunting = false;
@@ -76,10 +76,10 @@ class Chase : Node
             return NodeStatus.FAILURE;
         }
 
-        if (agent.brain.Enemy == false && Traveled == false && Travelling == false)
+        if (agent.Enemy == false && Traveled == false && Travelling == false)
         {
      
-            agent.WayPoints.Add(agent.brain.EnemyLastPosition);
+            agent.WayPoints.Add(agent.Enemy.transform.position);
             Travelling = true;
         }
 
@@ -88,7 +88,7 @@ class Chase : Node
             Travelling = false;
             Traveled = false;
           
-            agent.WayPoints.Add(agent.brain.EnemyTravelingDirection * 500);
+            agent.WayPoints.Add(agent.Enemy.transform.forward * 500);
             agent.brain.HasSensedPlayer = false;
             return NodeStatus.SUCCESS;
         }

@@ -41,7 +41,6 @@ class SearchSequence : Sequence
 {
     public SearchSequence(AdHOCAgent agent, string name) : base(agent, name)
     {
-        AddChild(new CalculateSearchLocation(agent, "Calculate Search Location"));
         AddChild(new CalculateSearchPattern(agent, "Calculate Search Pattern"));
         AddChild(new ExecuteSearch(agent, "Executing Search"));
     }
@@ -53,46 +52,6 @@ class SearchSequence : Sequence
     }
 }
 
-[System.Serializable]
-class CalculateSearchLocation : Node
-{
-    public CalculateSearchLocation(AdHOCAgent Bt, string name) : base(Bt, name)
-    {
-        agent = Bt;
-        NodeName = name;
-    }
-
-    public override NodeStatus Execute()
-    {
-        agent.CurrentExecutingNode = this;
-        if (agent.WayPoints.Count == 0)
-            foreach (var item in agent.MyArea.mapGrids.grids)
-            {
-                bool Contains = false;
-                foreach (var sg in agent.MyArea.SearchedGrids)
-                    if (item.ID == sg.ID)
-                    {
-                        Contains = true;
-                        break;
-                    }
-                foreach (var sg in agent.MyArea.SearchedGrids)
-                    if (item.ID == sg.ID)
-                    {
-                        Contains = true;
-                        break;
-                    }
-                if (!Contains)
-                {
-                    agent.search.CurrentSearchGrid = item;
-                    agent.search.SearchLocation = item.Location;      
-                  agent.MyArea.SearchedGrids.Add(item);
-                    return NodeStatus.SUCCESS;
-                }
-            }
-
-        return NodeStatus.SUCCESS;
-    }
-}
 
 [System.Serializable]
 class CalculateSearchPattern : Node
@@ -107,8 +66,8 @@ class CalculateSearchPattern : Node
         if (agent.WayPoints.Count == 0)
         {
             agent.WayPoints.Clear();
+            agent.search.SearchLocation = agent.MyArea.transform.position;
 
-   
             var WaypointsNeeded = 30;
             var Angle = 0;
             var IncreaseAngle = 360 / WaypointsNeeded;

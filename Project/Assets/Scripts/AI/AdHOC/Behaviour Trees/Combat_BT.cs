@@ -76,9 +76,9 @@ class EngageEnemy : Node
 
 
 
-        if (agent.brain.Enemy)
+        if (agent.Enemy)
         {       
-            agent.brain.UpdateEnemyInfo(); //Updates the enemy information 
+
 
             //Handle the AI needing to switch weapons
             //Check if the current weapon has mags left 
@@ -107,12 +107,12 @@ class EngageEnemy : Node
                 agent.Reload();
           
             //look at the enemy 
-            agent.transform.LookAt(agent.brain.Enemy.transform);
+            agent.transform.LookAt(agent.Enemy.transform);
 
             //Transmit on the radio that the agent is seeing the enemy and about to engage
 
             agent.WayPoints.Clear();
-            agent.WayPoints.Add(agent.brain.Enemy.transform.position);
+            agent.WayPoints.Add(agent.Enemy.transform.position);
        
 
             //The AI will always be on Automatic rate of fire as the brain would have no way of knowing when to use what fire rate and each weapon is different
@@ -121,15 +121,18 @@ class EngageEnemy : Node
             //Fire the weapon
             Vector3 ShootRotation =agent.transform.rotation.eulerAngles;
 
-          ShootRotation =  agent.transform.position -  ( agent.brain.Enemy.transform.position + agent.brain.Enemy.transform.forward * 10) ;
+            Vector3 InFrontOfEnemy = agent.Enemy.transform.position + agent.Enemy.transform.forward * 1;
 
+
+
+            ShootRotation = (InFrontOfEnemy - agent.transform.position).normalized;
             agent.combat.CurrentWeapon.Fire(agent.transform, ShootRotation);
         }
         else
             return NodeStatus.FAILURE;
 
         //If the enemy is still alive keep the combat behaviour tree running
-        if (agent.brain.Enemy.entityStats.Health > 0)
+        if (agent.Enemy.entityStats.Health > 0)
             return NodeStatus.RUNNING;
         else
             return NodeStatus.SUCCESS;

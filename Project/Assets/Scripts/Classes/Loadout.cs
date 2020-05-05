@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAgents;
+using Unity.MLAgents;/*
 public static class LoadoutGenerator
 {
 
@@ -10,8 +10,8 @@ public static class LoadoutGenerator
         var LoadoutList = new List<Loadout>
         {
             new Rifleman(),
-            new MachineGunner(),
-            new Marksman()
+            //new MachineGunner(),
+            //new Marksman()
         };
 
         LoadoutList[Random.Range(0, LoadoutList.Count)].GenerateLoadout(agent);
@@ -43,10 +43,10 @@ class Rifleman : Loadout
     public override void GenerateLoadout(Entity agent)
     {
         agent.combat.PrimaryWeapon = new L85A2();
-        agent.combat.SecondaryWeapon = new Glock17();
+    //    agent.combat.SecondaryWeapon = new Glock17();
         agent.combat.CurrentWeapon = agent.combat.PrimaryWeapon;
         agent.inventory.AddItem(agent.combat.CurrentWeapon);
-        agent.inventory.AddItem(agent.combat.SecondaryWeapon);
+     //   agent.inventory.AddItem(agent.combat.SecondaryWeapon);
 
         for (int i = 0; i < 4; i++)
             agent.inventory.AddItem(new NATO30TracerMag());
@@ -64,7 +64,7 @@ class Rifleman : Loadout
     public override void GenerateLoadout(LearningSoldier agent)
     {
         agent.combat.PrimaryWeapon = new L85A2();
-        agent.combat.SecondaryWeapon = new Glock17();
+  //      agent.combat.SecondaryWeapon = new Glock17();
         agent.combat.CurrentWeapon = agent.combat.PrimaryWeapon;
         agent.inventory.AddItem(agent.combat.CurrentWeapon);
         agent.inventory.AddItem(agent.combat.SecondaryWeapon);
@@ -171,3 +171,4 @@ class MachineGunner : Loadout
     }
 }
 
+*/

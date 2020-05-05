@@ -28,6 +28,8 @@ TagManager:
   - symbol_O_Goal
   - symbol_X_Goal
   - Bullet
+  - enemy
+  - ExtractionPoint
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,7 @@ public class AdHOCAgent : Entity
 {
 
     [Header("Brain")]
+    public Entity Enemy = null;
     public Selector RootNode;
     public Node CurrentExecutingNode;
     public AgentBrainSequence brainSequence;
@@ -39,33 +40,6 @@ public class AdHOCAgent : Entity
 
     public AdHOCAgent() : base()
     {
-    }
-    public new virtual void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        Gizmos.color = Color.white;
-        if (WayPoints.Count > 0)
-        {
-            Gizmos.DrawLine(transform.position, WayPoints[0]);
-
-            Gizmos.DrawCube(WayPoints[0], new Vector3(1, 1, 1));
-        }
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, entityStats.SightRange);
-
-        Gizmos.color = Color.green;
-        if (WayPoints.Count > 0)
-            Gizmos.DrawLine(transform.position, WayPoints[0]);
-        for (int i = 0; i < WayPoints.Count; i++)
-        {
-            Gizmos.DrawCube(WayPoints[i], new Vector3(1, 1, 1));
-
-        }
-        for (int i = 0; i < WayPoints.Count - 1; i++)
-        {
-            Gizmos.DrawLine(WayPoints[i], WayPoints[i + 1]);
-        }
-
     }
 
     private void Start()
@@ -102,26 +76,24 @@ public class AdHOCAgent : Entity
     {
         float ClosestDistance = float.MaxValue;
         brain.SeePlayer = false;   
-        brain.Enemy = null;
+        Enemy = null;
         foreach (var item in Physics.OverlapSphere(transform.position, entityStats.SightRange, LayerMask.GetMask("Enemy")))
         {
             if (item.gameObject != gameObject)
                 if (Vector3.Distance(transform.position, item.transform.position) < ClosestDistance)
                 {                    
                     brain.SeePlayer = true;
-                    brain.Enemy = item.GetComponent<Entity>();        
+                    Enemy = item.GetComponent<Entity>();        
                     
                     ClosestDistance = Vector3.Distance(transform.position, item.transform.position);        
 
                 }
         }
 
-        if (brain.Enemy)
-        {
+        if (Enemy)
             brain.SeePlayer = true;
-            brain.EnemyTravelingDirection = brain.Enemy.transform.forward;
-        }
-        brain.UpdateEnemyInfo();
+ 
+
 
     }
 }
