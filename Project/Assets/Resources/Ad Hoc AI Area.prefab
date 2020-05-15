@@ -165,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332133919173622324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1332133918927179402}
@@ -192,7 +192,7 @@ MonoBehaviour:
   SpawnArea: 50
   EnemyPrefap: {fileID: 2097172083901248687, guid: 5f57f77dad0f9e047aa79176c94a642d,
     type: 3}
-  AmmountToSpawn: 4
+  AmmountToSpawn: 8
   SoldierAgent: {fileID: 8016354021152218425}
 --- !u!1 &1332133919878481261
 GameObject:
@@ -777,61 +777,6 @@ MonoBehaviour:
     MaxiumWeight: 50
     Weight: 0
   TravelingDirection: {x: 0, y: 0, z: 0}
-  combat:
-    PrimaryWeapon:
-      Name: Item
-      Weight: 0
-      WeaponFireRate: 0
-      FiringSpeed: 5700
-      FiringRate: 0
-      CompatableMagazines: []
-      CurrentMagazine:
-        Name: Item
-        Weight: 0
-        MaxCapacity: 0
-        BulletsInMag: 0
-        BulletWeight: 0
-        Tracergap: 3000
-        BulletDamage: 0
-        NextTracer: 0
-    PrimaryWeaponHasMags: 0
-    SecondaryWeapon:
-      Name: Item
-      Weight: 0
-      WeaponFireRate: 0
-      FiringSpeed: 5700
-      FiringRate: 0
-      CompatableMagazines: []
-      CurrentMagazine:
-        Name: Item
-        Weight: 0
-        MaxCapacity: 0
-        BulletsInMag: 0
-        BulletWeight: 0
-        Tracergap: 3000
-        BulletDamage: 0
-        NextTracer: 0
-    SecondaryWeaponHasMags: 0
-    CurrentWeapon:
-      Name: Item
-      Weight: 0
-      WeaponFireRate: 0
-      FiringSpeed: 5700
-      FiringRate: 0
-      CompatableMagazines: []
-      CurrentMagazine:
-        Name: Item
-        Weight: 0
-        MaxCapacity: 0
-        BulletsInMag: 0
-        BulletWeight: 0
-        Tracergap: 3000
-        BulletDamage: 0
-        NextTracer: 0
-    Weapon1IsCurrent: 0
-    Weapon2IsCurrent: 0
-    Weapon3IsCurrent: 0
-    CurrentWeaponHasMags: 0
   entityStats:
     Health: 100
     Stamina: 100
